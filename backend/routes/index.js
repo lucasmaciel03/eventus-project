@@ -1,11 +1,14 @@
 import Router from "express";
+import { userRoutes } from "./user.js";
 
 const routes = Router();
 
-// create route hello world
+// Hello 
 routes.get("/", (req, res) => {
-    res.send("Hello World!");
+    res.send("Hello Stranger, welcome EVENTUS!");
 });
+
+routes.use("/user", userRoutes);
 
 
 
