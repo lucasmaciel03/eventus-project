@@ -22,6 +22,15 @@ app.use(cors(corsOptions));
 // output logs
 app.use(morgan("short"));
 
+// middleware
+
+app.use(express.json())
+
+app.use(express.urlencoded({ extended: true }))
+
+// images folder
+app.use("/uploads", express.static("./uploads"));
+
 // parse requests of content-type - application/json
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
