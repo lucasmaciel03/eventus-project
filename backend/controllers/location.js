@@ -1,4 +1,5 @@
 import { LocationModel } from "../models/location.js";
+import Sequelize from "sequelize";
 import axios from "axios";
 
 // POST - Add a new location
@@ -38,5 +39,19 @@ export const getLocations = async (req, res) => {
     }
 }
 
+// GET - Get a location by description, the request is made by the user typing the name of the city, user dont need to type the exact name of the city to get the results 
+export const getLocationByDescription = async (req, res) => {
+    try {
+        const locations = await LocationModel.findAll({
+            where: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('description')), {
+                [Sequelize.Op.like]: `%${req.body.description.toLowerCase()}%`
+            })
+        });
+        res.status(200).send(locations);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send(error);
+    }
+}
 
 
