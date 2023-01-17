@@ -44,7 +44,7 @@ export const getLocationByDescription = async (req, res) => {
     try {
         const locations = await LocationModel.findAll({
             where: Sequelize.where(Sequelize.fn('LOWER', Sequelize.col('description')), {
-                [Sequelize.Op.like]: `%${req.body.description.toLowerCase()}%`
+                [Sequelize.Op.like]: `%${req.body.description.toLowerCase()}%` // The user can type the name of the city in lowercase or uppercase
             })
         });
         res.status(200).send(locations);
