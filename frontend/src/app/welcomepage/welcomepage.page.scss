@@ -1,0 +1,33 @@
+ion-content {
+  --background: url(../../assets/images/ionicwallpaper2.png) no-repeat center
+    center fixed;
+  --background-size: contain;
+}
+
+.title-welcome {
+  width: 100%;
+  height: auto;
+  text-align: center;
+  margin-top: 10rem;
+}
+
+.welcome-title {
+  font-size: 3rem;
+}
+
+.subtitle-welcome {
+  width: 80%;
+  margin: auto;
+  font-size: 1.5rem;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.btns-welcome {
+  margin-top: 20rem;
+}
+
+ion-button {
+  font-size: 1rem;
+  font-weight: bold;
+}
