@@ -1,0 +1,88 @@
+.logo-register {
+  width: 90px;
+  height: 90px;
+  margin: auto;
+  margin-top: 1rem;
+}
+
+.register-login {
+  margin-top: 5rem;
+}
+
+.register-btns-text {
+  font-weight: bold;
+}
+.register-btns {
+  margin-top: 5rem;
+}
+
+
+@media only screen and (max-width: 500px) {
+  .logo-register {
+    width: 90px;
+    height: 90px;
+    margin: auto;
+    margin-top: 1rem;
+  }
+  
+  .register-login {
+    margin-top: 5rem;
+  }
+  
+  .register-btns-text {
+    font-weight: bold;
+  }
+  .register-btns {
+    margin-top: 5rem;
+  }
+  
+}
+
+@media only screen and (max-width: 400px) {
+  .logo-register {
+    width: 90px;
+    height: 90px;
+    margin: auto;
+    margin-top: 1rem;
+  }
+  
+  .register-login {
+    margin-top: 2rem;
+  }
+  
+  .register-btns-text {
+    font-weight: bold;
+  }
+  .register-btns {
+    margin-top: 5rem;
+  }
+  
+}
+
+@media only screen and (max-width: 375px) {
+  .logo-register {
+    width: 90px;
+    height: 90px;
+    margin: auto;
+    margin-top: 1rem;
+  }
+  
+  .register-login {
+    margin-top: 2rem;
+  }
+  
+  .register-btns-text {
+    font-weight: bold;
+  }
+  .register-btns {
+    margin-top: 1rem;
+  }
+  
+}
+
+
+.ion-content::-webkit-scrollbar {
+  display: none !important;
+}
+
+
