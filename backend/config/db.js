@@ -7,13 +7,13 @@ const dbInstance = new Sequelize({
     password: "root",
     database: "db_eventus",
     dialect: "mysql",
-
+    
     pool: {
-        max: 5,
         min: 0,
+        max: 5,
         acquire: 30000,
         idle: 10000
-    } 
+    }  // pool configuration used to pool database connections
 });
 
 export { dbInstance };
