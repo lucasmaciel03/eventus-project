@@ -1,5 +1,6 @@
 import Sequelize from 'sequelize';
 import { dbInstance } from '../config/db.js'
+import { LocationModel } from './location.js';
 
 const UserModel = dbInstance.define(
     'user' /* table name */,
@@ -9,10 +10,56 @@ const UserModel = dbInstance.define(
             primaryKey: true,
             autoIncrement: true
         },
-        image: {
+        username: {
             type: Sequelize.STRING,
-        }
-    }
+            unique: true,
+            allowNull: false
+        },
+        name: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+        surname: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+        email: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+        password: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+        profilePicture: {
+            type: Sequelize.STRING,
+        },
+        locationId: {
+            type: Sequelize.INTEGER,
+            references: {
+                model: LocationModel,
+                key: 'id'
+            }
+        },
+        birthDate: {
+            type: Sequelize.DATE,
+        },
+        joinedDate: {
+            type: Sequelize.DATE,
+            defaultValue: Sequelize.NOW
+        },
+    }, {
+    timestamps: false
+}
 )
 
-export {UserModel};
+UserModel.belongsTo(LocationModel, {
+    foreignKey: 'locationId',
+    as: 'location'
+});
+LocationModel.hasMany(UserModel, {
+    foreignKey: 'locationId',
+    as: 'users'
+});
+
+export { UserModel };
