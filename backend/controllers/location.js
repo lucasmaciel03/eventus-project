@@ -1,6 +1,7 @@
 import { LocationModel } from "../models/location.js";
 import axios from "axios";
 
+// POST - Add a new location
 export const addlocation = async (req, res) => {
     try {
         // Make a request to the API to get the data of the cities
@@ -25,5 +26,17 @@ export const addlocation = async (req, res) => {
         res.status(500).send({ message: 'Erro ao salvar as cidades' });
     }
 }
+
+// GET - Get all locations
+export const getLocations = async (req, res) => {
+    try {
+        const locations = await LocationModel.findAll();
+        res.status(200).json(locations);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Erro ao obter cidades' });
+    }
+}
+
 
 
