@@ -7,7 +7,7 @@ import {
 
 const userRoutes = Router();
 
-userRoutes.post("/createAccount", upload, createAccount)
+userRoutes.post("/createAccount", createAccount)
 
 userRoutes.get("/getAllUsers", getAllUsers)
 
