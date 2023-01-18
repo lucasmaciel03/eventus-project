@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
-
 @Component({
-  selector: 'app-posts',
-  templateUrl: './posts.component.html',
-  styleUrls: ['./posts.component.scss'],
+  selector: 'app-cards',
+  templateUrl: './cards.component.html',
+  styleUrls: ['./cards.component.scss'],
 })
-export class PostsComponent implements OnInit {
+export class CardsComponent implements OnInit {
   favorite: boolean = false;
-
   constructor(public AlertController: AlertController) {}
 
   ngOnInit() {}

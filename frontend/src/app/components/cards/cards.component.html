@@ -1,0 +1,45 @@
+<ion-card>
+  <img
+    alt="Silhouette of mountains"
+    src="https://docs-demo.ionic.io/assets/madison.jpg"
+  />
+  <ion-card-header>
+    <ion-card-title>Paimó Beach Bar</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-row size="12">
+      <ion-col size="1">
+        <ion-icon name="calendar-outline" class="calendarsize"></ion-icon>
+      </ion-col>
+      <ion-col size="11"><ion-text>6 MAR - 10 MAR</ion-text></ion-col>
+    </ion-row>
+    <ion-row size="12">
+      <ion-col size="1"
+        ><ion-icon class="calendarsize" name="location-outline"></ion-icon
+      ></ion-col>
+      <ion-col size="11">Aguçadoura</ion-col>
+    </ion-row>
+    <ion-row size="12">
+      <ion-col size="12"
+        ><ion-text>Música</ion-text> |
+        <ion-text>Entretenimento</ion-text></ion-col
+      >
+    </ion-row>
+    <ion-row size="12">
+      <ion-col size="6">
+        <ion-button color="primary" fill="outline" expand="block"
+          >Ver Mais <ion-icon slot="end" name="arrow-forward-outline"></ion-icon
+        ></ion-button>
+      </ion-col>
+      <ion-col size="6" class="ion-text-end">
+        <ion-button fill="clear" color="dark" (click)="onClick()">
+          <ion-icon
+            class="heartfavoritesize"
+            [name]="favorite ? 'heart' : 'heart-outline'"
+            [ngClass]="{ favorite: favorite }"
+          ></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-card-content>
+</ion-card>
