@@ -1,7 +1,5 @@
 {
-  "name": "frontend",
-  "integrations": {
-    "capacitor": {}
-  },
+  "name": "New Ionic App",
+  "integrations": {},
   "type": "angular"
 }
