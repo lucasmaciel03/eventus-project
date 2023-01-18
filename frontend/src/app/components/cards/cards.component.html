@@ -33,7 +33,11 @@
       </ion-col>
       <ion-col size="6" class="ion-text-end">
         <ion-button fill="clear" color="dark" (click)="presentToast()">
-          <ion-icon class="heartfavoritesize" name="heart-outline"></ion-icon>
+          <ion-icon
+            class="heartfavoritesize"
+            [ngClass]="{ favorite: favorite }"
+            [name]="favorite ? 'heart' : 'heart-outline'"
+          ></ion-icon>
         </ion-button>
       </ion-col>
     </ion-row>

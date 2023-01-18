@@ -7,11 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cards.component.scss'],
 })
 export class CardsComponent implements OnInit {
+  favorite: boolean = false;
   constructor(private toastCtrl: ToastController) {}
 
   ngOnInit() {}
 
   async presentToast() {
+    this.favorite = !this.favorite;
     let toast = await this.toastCtrl.create({
       message: 'Adicionado aos favoritos',
       duration: 1500,
