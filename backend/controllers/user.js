@@ -8,7 +8,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 
-// POST - Create a new user, just need name, surname, username, email, password, verify if username already exists, verify if email already exists and verify if email is valid email, crypt password and save user in database 
+// POST - Create a new user
 export const createAccount = async (req, res) => {
     const { name, surname, username, email, password } = req.body
     const user = await UserModel.findOne({ where: { username: username } }) // Verify if username already exists
@@ -33,7 +33,25 @@ export const createAccount = async (req, res) => {
     }
 }
 
-// GET - Get all users, dont return, password, profilePicture and replace locationId with locationName, if locationId is null, return null
+// POST - Login controller
+export const login = async (req, res) => {
+    const { username, password } = req.body
+    const user = await UserModel.findOne({ where: { username: username } })
+    if (!user) {
+        res.status(400).send('Por favor, registe-se')
+    } else {
+        const validPass = await bcrypt.compare(password, user.password)
+        if (!validPass) {
+            res.status(400).send('Por favor, tente novamente')
+        } else {
+            // create and assign a token
+            const token = jwt.sign({ _id : user.id }, process.env.TOKEN_SECRET)
+            res.status(200).send({ message: 'Bem-vindo', token })
+        }
+    }
+}
+
+// GET - Get all users
 export const getAllUsers = async (req, res) => {
     const users = await UserModel.findAll({ attributes: { exclude: ['password', 'profilePicture'] } })
     const usersWithLocation = await Promise.all(users.map(async (user) => {
@@ -48,7 +66,7 @@ export const getAllUsers = async (req, res) => {
 }
 
 
-// GET - Get user by usernaem from req body and return user, dont return password and profilePicture, if locationId is null, return null if not, return locationName, if req body is empty, return message to fill username field 
+// GET - Get user by username
 export const getUserByUsername = async (req, res) => {
     const { username } = req.body
     if (username) {
