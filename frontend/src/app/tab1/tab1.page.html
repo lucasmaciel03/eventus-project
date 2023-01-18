@@ -2,25 +2,19 @@
   <ion-title>Eventus</ion-title>
 </ion-toolbar>
 <ion-content>
-  <ion-grid>
-    <ion-row size="12">
-      <ion-col size="2">
-        <ion-avatar>
-          <img
-            alt="Silhouette of a person's head"
-            src="https://ionicframework.com/docs/img/demos/avatar.svg"
-          />
-        </ion-avatar>
-      </ion-col>
-      <ion-col size="10" class="ion-margin-top">
-        <ion-text>Criar Evento</ion-text>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <ion-item-divider> </ion-item-divider>
+
+  <app-categories></app-categories>
 
   <ion-item-divider> </ion-item-divider>
 
   <app-posts></app-posts>
   <app-posts></app-posts>
   <app-posts></app-posts>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="dark">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

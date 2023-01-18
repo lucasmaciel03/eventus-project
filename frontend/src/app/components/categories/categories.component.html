@@ -1,0 +1,10 @@
+<ion-content class="categorieContainer">
+  <ion-slides>
+    <ion-slide *ngFor="let category of eventCategories">
+      <ion-button fill="clear" (click)="goToEvents()">
+        <ion-icon [name]="category.icon"></ion-icon>
+        {{ category.name }}
+      </ion-button>
+    </ion-slide>
+  </ion-slides>
+</ion-content>
