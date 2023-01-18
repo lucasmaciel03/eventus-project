@@ -16,6 +16,7 @@ export class CardsComponent implements OnInit {
       message: 'Adicionado aos favoritos',
       duration: 1500,
       position: 'top',
+      color: 'primary',
     });
 
     toast.present();
