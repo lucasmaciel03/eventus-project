@@ -8,6 +8,6 @@ import { NavController, Platform } from '@ionic/angular';
 })
 export class AppComponent {
   constructor(public navCtrl: NavController, private Platform: Platform) {
-    this.navCtrl.navigateRoot('/register');
+    this.navCtrl.navigateRoot('/homepage');
   }
 }
