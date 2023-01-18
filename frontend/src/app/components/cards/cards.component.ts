@@ -14,8 +14,11 @@ export class CardsComponent implements OnInit {
 
   async presentToast() {
     this.favorite = !this.favorite;
+    let message = this.favorite
+      ? 'Adicionado aos favoritos'
+      : 'Removido dos favoritos';
     let toast = await this.toastCtrl.create({
-      message: 'Adicionado aos favoritos',
+      message: message,
       duration: 1500,
       position: 'top',
       color: 'primary',
