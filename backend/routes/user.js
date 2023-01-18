@@ -2,7 +2,8 @@ import Router from "express";
 import {
     createAccount,
     upload,
-    getAllUsers
+    getAllUsers,
+    getUserByUsername
 } from "../controllers/user.js"
 
 const userRoutes = Router();
@@ -10,5 +11,7 @@ const userRoutes = Router();
 userRoutes.post("/createAccount", createAccount)
 
 userRoutes.get("/getAllUsers", getAllUsers)
+
+userRoutes.get("/getUserByUsername", getUserByUsername)
 
 export { userRoutes }
