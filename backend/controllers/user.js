@@ -5,52 +5,24 @@ import multer from 'multer'
 import path from 'path' 
 const { isEmail } = pkg // https://www.npmjs.com/package/validator
 
-// POST - Create a new user
-export const createUser = async (req, res) => {
-    let info = {
-        username: req.body.username,
-        name: req.body.name,
-        surname: req.body.surname,
-        email: req.body.email,
-        password: req.body.password,
-        locationId: req.body.locationId,
-        birthDate: req.body.birthDate,
-        profilePicture: req.file.filename
-    }
-
-    // verify if username already exists, verify if email is valid, verify if locationID exists in the database 
-    const user = await UserModel.findOne({
-        where: {
-            username: info.username || '' // if username is null, set it to empty string to avoid error in the query
-        }
-    })
-
-    const location = await LocationModel.findOne({
-        where: {
-            id: info.locationId || '' // if locationId is null, set it to empty string to avoid error in the query
-        }
-    })
-
+// POST - Create a new user, just need name, surname, username, email, password, verify if username already exists, verify if email already exists and verify if email is valid email, crypt password and save user in database 
+export const createAccount = async (req, res) => {
+    const { name, surname, username, email, password } = req.body
+    const user = await UserModel.findOne({ where: { username: username } }) // Verify if username already exists
+    const userEmail = await UserModel.findOne({ where: { email: email } }) // Verify if email already exists
+    const validEmail = isEmail(email) // Verify if email is valid email 
     if (user) {
-        res.status(400).send({
-            message: "Username already exists"
-        })
-    }
-    else if (!isEmail(info.email)) {
-        res.status(400).send({
-            message: "Email is not valid"
-        })
-    }
-    else if (!location) {
-        res.status(400).send({
-            message: "Location does not exist"
-        })
-    }
-    else {
-        const newUser = await UserModel.create(info)
+        res.status(400).send('Username already exists') 
+    } else if (userEmail) {
+        res.status(400).send('Email already exists')
+    } else if (!validEmail) {
+        res.status(400).send('Email is not valid')
+    } else {
+        const newUser = await UserModel.create({ name, surname, username, email, password })
         res.status(201).send(newUser)
     }
 }
+
 
 // GET - Get all users
 export const getAllUsers = async (req, res) => {
