@@ -1,8 +1,11 @@
 import Sequelize from 'sequelize';
 import { dbInstance } from '../config/db.js'
 import { LocationModel } from './location.js';
+import moment from 'moment';
+
 
 const UserModel = dbInstance.define(
+    
     'user' /* table name */,
     {
         id: {
@@ -45,8 +48,8 @@ const UserModel = dbInstance.define(
             type: Sequelize.DATE,
         },
         joinedDate: {
-            type: Sequelize.DATE,
-            defaultValue: Sequelize.NOW
+            type: Sequelize.STRING,
+            defaultValue: moment.utc().format('DD/MM/YYYY')
         },
     }, {
     timestamps: false
