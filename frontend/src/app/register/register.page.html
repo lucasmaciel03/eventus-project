@@ -1,73 +1,68 @@
 <ion-content>
-  <ion-img
-    class="logo-register"
-    src="../../assets/logo.svg"
-    alt="Eventus"
-  ></ion-img>
+  <ion-img class="logo-register" src="../../assets/logo.svg" alt="Eventus"></ion-img>
+  <form class="registerForm" (ngSubmit)="createAccount()">
+    <ion-row size="10" class="ion-justify-content-center register-login">
+      <ion-col size="5">
+        <ion-item>
+          <ion-label position="floating">Name</ion-label>
+          <ion-input 
+          type="text"
+          placeholder="Name here"
+          [(ngModel)]="nameInput"
+          name = "name"
+          >
+        </ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="5">
+        <ion-item>
+          <ion-label position="floating">Surname</ion-label>
+          <ion-input type="text" placeholder="Surname here" [(ngModel)]="surnameInput" name="surname"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="10">
+        <ion-item>
+          <ion-label position="floating">Username</ion-label>
+          <ion-input type="text" placeholder="Username here" [(ngModel)]="usernameInput" name="username"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="10">
+        <ion-item>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input type="email" placeholder="Email here" [(ngModel)]="emailInput" name="email"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="10">
+        <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <div class="eye-container">
+            <ion-input [type]="type ? 'password' :'text' " placeholder="Password here" [(ngModel)]="passwordInput" name="password"></ion-input>
+            <button (click)="exibirouocultar()" class="eye">
+              <ion-icon class="eye-icon" [name]="type ? 'eye' :'eye-off'"></ion-icon>
+            </button>
+          </div>
+        </ion-item>
+      </ion-col>
+      <ion-col size="10">
+        <ion-item>
+          <ion-label position="floating">Confirm Password</ion-label>
+          <div class="eye-container">
+            <ion-input [type]="type ? 'password' :'text' " placeholder="Confirm Password"></ion-input>
+            <button (click)="exibirouocultar()" class="eye">
+              <ion-icon class="eye-icon" [name]="type ? 'eye' :'eye-off'"></ion-icon>
+            </button>
+          </div>
+        </ion-item>
+      </ion-col>
+    </ion-row>
 
-  <ion-row size="10" class="ion-justify-content-center register-login">
-    <ion-col size="5">
-      <ion-item>
-        <ion-label position="floating">Name</ion-label>
-        <ion-input type="text" placeholder="Name here"></ion-input>
-      </ion-item>
-    </ion-col>
-    <ion-col size="5">
-      <ion-item>
-        <ion-label position="floating">Surname</ion-label>
-        <ion-input type="text" placeholder="Surname here"></ion-input>
-      </ion-item>
-    </ion-col>
-    <ion-col size="10">
-      <ion-item>
-        <ion-label position="floating">Username</ion-label>
-        <ion-input type="text" placeholder="Username here"></ion-input>
-      </ion-item>
-    </ion-col>
-    <ion-col size="10">
-      <ion-item>
-        <ion-label position="floating">Email</ion-label>
-        <ion-input type="email" placeholder="Email here"></ion-input>
-      </ion-item>
-    </ion-col>
-    <ion-col size="10">
-      <ion-item>
-        <ion-label position="floating">Password</ion-label>
-        <div class="eye-container">
-        <ion-input [type]="type ? 'password' :'text' " placeholder="Password here"></ion-input>
-        <button (click)="exibirouocultar()" class="eye">
-          <ion-icon class="eye-icon"[name]="type ? 'eye' :'eye-off'"></ion-icon>
-        </button>
-      </div>
-      </ion-item>
-    </ion-col>
-    <ion-col size="10">
-      <ion-item>
-        <ion-label position="floating">Confirm Password</ion-label>
-        <div class="eye-container">
-        <ion-input [type]="type ? 'password' :'text' " placeholder="Confirm Password"></ion-input>
-        <button (click)="exibirouocultar()" class="eye">
-          <ion-icon class="eye-icon"[name]="type ? 'eye' :'eye-off'"></ion-icon>
-        </button>
-      </div>
-      </ion-item>
-    </ion-col>
-  </ion-row>
-
-  <ion-row size="10" class="ion-justify-content-center register-btns">
-    <ion-col size="5" class="ion-text-center">
-      <ion-button
-        class="register-btns-text"
-        expand="block"
-        fill="clear"
-        color="dark"
-        >Login</ion-button
-      >
-    </ion-col>
-    <ion-col size="5">
-      <ion-button expand="block" color="dark" class="register-btns-text"
-        >Sign up</ion-button
-      >
-    </ion-col>
-  </ion-row>
+    <ion-row size="10" class="ion-justify-content-center register-btns">
+      <ion-col size="5" class="ion-text-center">
+        <ion-button class="register-btns-text" expand="block" fill="clear" color="dark">Login</ion-button>
+      </ion-col>
+      <ion-col size="5">
+        <ion-button expand="block" color="dark" class="register-btns-text" type="submit">Sign up</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
 </ion-content>
