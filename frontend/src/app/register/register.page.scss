@@ -4,7 +4,19 @@
   margin: auto;
   margin-top: 1rem;
 }
+.eye-container{
+  display: flex;
+  width: 100%;
+}
+.eye{
+ background-color: #fff;
+ color: #000;
+}
+.eye-icon{
+width: 20px;
+height: 20px;
 
+}
 .register-login {
   margin-top: 5rem;
 }
