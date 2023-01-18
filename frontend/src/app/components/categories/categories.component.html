@@ -1,7 +1,7 @@
 <ion-content class="categorieContainer">
-  <ion-slides>
-    <ion-slide *ngFor="let category of eventCategories">
-      <ion-button class="slider-btn" fill="clear" (click)="goToEvents()">
+  <ion-slides [options]="slideOpts">
+    <ion-slide *ngFor="let category of eventCategories" >
+      <ion-button class="space"class="slider-btn" fill="clear" (click)="goToEvents()">
         <ion-icon [name]="category.icon"></ion-icon>
         {{ category.name }}
       </ion-button>

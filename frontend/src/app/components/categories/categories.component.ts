@@ -9,16 +9,23 @@ export class CategoriesComponent implements OnInit {
   eventCategories = [
     { name: 'Todos', icon: 'apps' },
     { name: 'Música', icon: 'musical-notes' },
+   
     { name: 'Arte', icon: 'brush' },
     { name: 'Cinema', icon: 'film' },
-    { name: 'Gastronómicos', icon: 'restaurant' },
+    { name: 'Comida', icon: 'restaurant' },
     { name: 'Religiosos', icon: 'church' },
     { name: 'Dança', icon: 'people' },
+    { name: 'Ciências ', icon: 'flask' },
+    { name: 'Tecnologias ', icon: 'computer' },
     { name: 'Culturais', icon: 'globe' },
     { name: 'Literários', icon: 'book' },
-    { name: 'Ciências e Tecnologia', icon: 'flask' },
+   
     { name: 'Desporto', icon: 'football' },
   ];
+  slideOpts = {
+    slidesPerView: 3.5,
+    loop:true,
+  };
 
   goToEvents() {
     console.log(`Você clicou na categoria de eventos`);
