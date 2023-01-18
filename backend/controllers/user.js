@@ -2,8 +2,9 @@ import { UserModel } from '../models/user.js'
 import { LocationModel } from '../models/location.js'
 import pkg from 'validator'
 import multer from 'multer'
-import path from 'path' 
+import path from 'path'
 const { isEmail } = pkg // https://www.npmjs.com/package/validator
+import bcrypt from 'bcrypt';
 
 // POST - Create a new user, just need name, surname, username, email, password, verify if username already exists, verify if email already exists and verify if email is valid email, crypt password and save user in database 
 export const createAccount = async (req, res) => {
@@ -12,17 +13,19 @@ export const createAccount = async (req, res) => {
     const userEmail = await UserModel.findOne({ where: { email: email } }) // Verify if email already exists
     const validEmail = isEmail(email) // Verify if email is valid email 
     if (user) {
-        res.status(400).send('Username already exists') 
+        res.status(400).send('Este username já está a ser utilizado')
     } else if (userEmail) {
-        res.status(400).send('Email already exists')
+        res.status(400).send('Este email já está a ser utilizado')
     } else if (!validEmail) {
-        res.status(400).send('Email is not valid')
+        res.status(400).send('Por favor, introduza um email válido')
     } else {
-        const newUser = await UserModel.create({ name, surname, username, email, password })
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(password, salt)
+        // const joinedDate = moment().format('DD/MM/YYYY');
+        const newUser = await UserModel.create({ name, surname, username, email, password: hashedPassword });
         res.status(201).send(newUser)
     }
 }
-
 
 // GET - Get all users
 export const getAllUsers = async (req, res) => {
