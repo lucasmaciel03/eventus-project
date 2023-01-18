@@ -23,8 +23,11 @@ export class CategoriesComponent implements OnInit {
     { name: 'Desporto', icon: 'football' },
   ];
   slideOpts = {
-    slidesPerView: 3.5,
-    loop:true,
+      slidesPerView: 3.5,
+      centeredSlides: true,
+      loop: true,
+      spaceBetween: 10,
+      // autoplay:true,
   };
 
   goToEvents() {
