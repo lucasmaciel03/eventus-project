@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoriesComponent implements OnInit {
   eventCategories = [
+    { name: 'Todos', icon: 'done-all' },
     { name: 'Música', icon: 'musical-notes' },
     { name: 'Arte', icon: 'brush' },
     { name: 'Cinema', icon: 'film' },
