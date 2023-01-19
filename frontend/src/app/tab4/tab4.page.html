@@ -1,9 +1,52 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Tab4</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button default-href="#"></ion-back-button>
+      </ion-buttons>
+      <ion-title color="dark">André</ion-title>
+      <ion-buttons slot="primary">
+        <ion-button>
+          <ion-icon
+            slot="icon-only"
+            ios="ellipsis-horizontal"
+            md="ellipsis-vertical"
+          ></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
 
+  <ion-card>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12">
+          <ion-avatar>
+            <img
+              alt="userphoto"
+              src="https://ionicframework.com/docs/img/demos/avatar.svg"
+            />
+          </ion-avatar>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12" class="ion-text-center ion-margin-top">
+          <ion-title>André Maia</ion-title>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12" class="ion-text-center">
+          <ion-text><h5>Póvoa de Varzim</h5></ion-text>
+          <ion-text><h5>andreaf@gmail.com</h5></ion-text>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="10" class="ion-text-center">
+          <ion-button expand="block" color="dark"> Show More </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
 </ion-content>
