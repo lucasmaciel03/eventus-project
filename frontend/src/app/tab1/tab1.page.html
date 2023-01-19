@@ -2,11 +2,7 @@
   <ion-title>Eventus</ion-title>
 </ion-toolbar>
 <ion-content>
-
-
   <app-categories></app-categories>
-
-
 
   <app-cards></app-cards>
   <app-cards></app-cards>
@@ -15,8 +11,67 @@
   <app-cards></app-cards>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button color="dark">
+    <ion-fab-button color="dark" id="open-modal">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+  <ion-modal #modal trigger="open-modal">
+    <ng-template>
+      <ion-content>
+        <ion-toolbar>
+          <ion-title>Criar Evento</ion-title>
+          <ion-buttons slot="end">
+            <ion-button color="light" (click)="modal.dismiss()"
+              >Close</ion-button
+            >
+          </ion-buttons>
+        </ion-toolbar>
+        <ion-list>
+          <ion-item>
+            <ion-label>Nome do Evento:</ion-label>
+            <ion-input placeholder="Escreva aqui..."></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Descrição:</ion-label>
+            <ion-input placeholder="Escreva aqui..."></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Localização:</ion-label>
+            <ion-select placeholder="Localização">
+              <ion-select-option value="apples">Porto</ion-select-option>
+              <ion-select-option value="oranges"
+                >Póvoa de Varzim</ion-select-option
+              >
+              <ion-select-option value="bananas">Aguçadoura</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>Data Inicio:</ion-label>
+            <ion-datetime-button datetime="datetime"></ion-datetime-button>
+            <ion-modal [keepContentsMounted]="true">
+              <ng-template>
+                <ion-datetime id="datetime"></ion-datetime>
+              </ng-template>
+            </ion-modal>
+          </ion-item>
+          <ion-item>
+            <ion-label>Data Fim:</ion-label>
+            <ion-datetime-button datetime="datetime"></ion-datetime-button>
+            <ion-modal [keepContentsMounted]="true">
+              <ng-template>
+                <ion-datetime id="datetime"></ion-datetime>
+              </ng-template>
+            </ion-modal>
+          </ion-item>
+          <ion-item>
+            <ion-label>Imagem:</ion-label>
+            <ion-input type="file"></ion-input>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+      <ion-button expand="block" class="ion-margin-top"
+        ><b>Criar</b></ion-button
+      >
+    </ng-template>
+  </ion-modal>
 </ion-content>
