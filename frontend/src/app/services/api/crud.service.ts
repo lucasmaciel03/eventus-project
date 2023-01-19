@@ -12,6 +12,7 @@ export interface RootObject {}
 })
 export class CrudService {
   url : string = environment.api_url;
+  
 
   constructor(private http: HttpClient) { }
 
