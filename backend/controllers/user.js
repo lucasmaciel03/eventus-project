@@ -43,6 +43,9 @@ export const createAccount = async (req, res) => {
 // POST - Login controller
 export const login = async (req, res) => {
     const { username, password } = req.body
+    if (!username || !password ){
+        return res.status(400).send({message: 'Por favor, preencha todos os campos'});
+    }
     const user = await UserModel.findOne({ where: { username: username } })
     if (!user) {
         res.status(400).send('Por favor, registe-se')
