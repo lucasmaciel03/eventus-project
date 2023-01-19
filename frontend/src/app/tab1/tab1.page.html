@@ -29,11 +29,25 @@
         <ion-list>
           <ion-item>
             <ion-label>Nome do Evento:</ion-label>
-            <ion-input placeholder="Escreva aqui..."></ion-input>
+            <ion-input
+              class="ion-text-end"
+              placeholder="Escreva aqui..."
+            ></ion-input>
           </ion-item>
           <ion-item>
             <ion-label>Descrição:</ion-label>
-            <ion-input placeholder="Escreva aqui..."></ion-input>
+            <ion-input
+              class="ion-text-end"
+              placeholder="Escreva aqui..."
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Categoria:</ion-label>
+            <ion-select placeholder="Categoria">
+              <ion-select-option value="apples">Gastronómico</ion-select-option>
+              <ion-select-option value="oranges">Religioso</ion-select-option>
+              <ion-select-option value="bananas">Caridade</ion-select-option>
+            </ion-select>
           </ion-item>
           <ion-item>
             <ion-label>Localização:</ion-label>
@@ -56,16 +70,17 @@
           </ion-item>
           <ion-item>
             <ion-label>Data Fim:</ion-label>
-            <ion-datetime-button datetime="datetime"></ion-datetime-button>
-            <ion-modal [keepContentsMounted]="true">
-              <ng-template>
-                <ion-datetime id="datetime"></ion-datetime>
-              </ng-template>
-            </ion-modal>
+            <ion-input class="ion-text-end" type="date"></ion-input>
           </ion-item>
           <ion-item>
             <ion-label>Imagem:</ion-label>
-            <ion-input type="file"></ion-input>
+            <ion-button
+              type="button"
+              class="btn-image ion-text-end"
+              fill="clear"
+            >
+              <ion-input class="ion-text-end" type="file"></ion-input>
+            </ion-button>
           </ion-item>
         </ion-list>
       </ion-content>
