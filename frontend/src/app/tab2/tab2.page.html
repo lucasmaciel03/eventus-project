@@ -1,17 +1,52 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 2
+      Filtrar Evento
     </ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <h3>Category</h3>
+ <div class="category">
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let category of eventCategory">
+          <ion-item>
+            <ion-checkbox [ngClass]="{ 'checked': category.selected, 'unchecked': !category.selected }"(ionChange)="checkboxClicked(category)"></ion-checkbox>
+            <ion-label>{{ category.name }}</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+<h3>Date</h3>
+<ion-list>
+  <ion-item>
+    <ion-select placeholder="Today" value="today" [multiple]="true">
+      <ion-select-option value="apples">Apples</ion-select-option>
+      <ion-select-option value="oranges">Oranges</ion-select-option>
+      <ion-select-option value="bananas">Bananas</ion-select-option>
+    </ion-select>
+  </ion-item>
+</ion-list>
+<h3>Localization</h3>
+<ion-list>
+  <ion-item>
+    <ion-select placeholder="Localization" [multiple]="true">
+      <ion-select-option value="apples">Apples</ion-select-option>
+      <ion-select-option value="oranges">Oranges</ion-select-option>
+      <ion-select-option value="bananas">Bananas</ion-select-option>
+    </ion-select>
+  </ion-item>
+</ion-list>
+
+
+<ion-button href="#" color="dark">Procurar</ion-button>
+
+
 </ion-content>
