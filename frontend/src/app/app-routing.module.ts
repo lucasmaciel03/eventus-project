@@ -24,6 +24,10 @@ const routes: Routes = [
     loadChildren: () =>
       import('./register/register.module').then((m) => m.RegisterPageModule),
   },
+  {
+    path: 'eventpage',
+    loadChildren: () => import('./eventpage/eventpage.module').then( m => m.EventpagePageModule)
+  },
 ];
 @NgModule({
   imports: [
