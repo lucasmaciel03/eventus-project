@@ -1,5 +1,16 @@
 <ion-toolbar color="dark">
-  <ion-title>Eventus</ion-title>
+  <ion-buttons>
+    <ion-button href="#">
+      <ion-img
+        slot="start"
+        class="logoeventus"
+        src="../../assets/LogoEventus.svg"
+      ></ion-img>
+    </ion-button>
+  </ion-buttons>
+  <ion-button slot="end" fill="clear" color="light"
+    ><ion-icon class="usericon" name="person-circle-outline"></ion-icon>
+  </ion-button>
 </ion-toolbar>
 <ion-content>
   <app-categories></app-categories>
