@@ -37,7 +37,7 @@
           <ion-label position="floating">Password</ion-label>
           <div class="eye-container">
             <ion-input [type]="type ? 'password' :'text' " placeholder="Password here" [(ngModel)]="passwordInput" name="password"></ion-input>
-            <button (click)="exibirouocultar()" class="eye">
+            <button (click)="exibirouocultar()" class="eye" type="button">
               <ion-icon class="eye-icon" [name]="type ? 'eye' :'eye-off'"></ion-icon>
             </button>
           </div>
@@ -47,8 +47,8 @@
         <ion-item>
           <ion-label position="floating">Confirm Password</ion-label>
           <div class="eye-container">
-            <ion-input [type]="type ? 'password' :'text' " placeholder="Confirm Password"></ion-input>
-            <button (click)="exibirouocultar()" class="eye">
+            <ion-input [type]="type ? 'password' :'text' " placeholder="Confirm Password" [(ngModel)]="password_confirmationInput" name="password_confirmationInput"></ion-input>
+            <button (click)="exibirouocultar()" class="eye" type="button">
               <ion-icon class="eye-icon" [name]="type ? 'eye' :'eye-off'"></ion-icon>
             </button>
           </div>

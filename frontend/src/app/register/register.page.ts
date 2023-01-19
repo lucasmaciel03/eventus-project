@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NavParams } from '@ionic/angular';
 import { CrudService } from '../services/api/crud.service';
+import { ToastController } from '@ionic/angular';
+import { HttpErrorResponse } from '@angular/common/http';
+import { NavController } from '@ionic/angular';
+
+
 
 @Component({
   selector: 'app-register',
@@ -18,10 +23,11 @@ export class RegisterPage implements OnInit {
 
 // Variável que controla o tipo do input tipo boolean
   type:boolean=true;
-  
 
   constructor(
     private crudService: CrudService,
+    private toastController: ToastController,
+    private navCtrl: NavController
   ) { }
 
   ngOnInit() {
@@ -30,8 +36,18 @@ export class RegisterPage implements OnInit {
   exibirouocultar(){
     this.type=!this.type
   }
-
-  createAccount(){
+  async createAccount() {
+    // Check if password and password_confirmation are the same
+    if(this.passwordInput != this.password_confirmationInput) {
+      const toast = await this.toastController.create({
+        message: "As senhas não são iguais!",
+        duration: 2000,
+        color: "danger"
+      });
+      toast.present();
+      return;
+    }
+    // Create account
     const createAccount = {
       username : this.usernameInput,
       name : this.nameInput,
@@ -39,14 +55,35 @@ export class RegisterPage implements OnInit {
       email : this.emailInput,
       password : this.passwordInput,
     }
-    this.crudService.createAccount('createAccount', createAccount).subscribe((res) => {
-      console.log(res);
-      if (res == 200) {
-        console.log("Conta criada com sucesso!");
-      } else {
-        console.log("Erro ao criar conta!");
+    this.crudService.createAccount('createAccount', createAccount).subscribe(
+      async (res) => {
+          const toast = await this.toastController.create({
+            message: "Conta criada com sucesso, Bem vindo!",
+            duration: 2000,
+            color: "success"
+            
+          });
+          toast.present();
+          setTimeout(() => { // Delay to show the toast
+            this.navCtrl.navigateRoot('/tabs/tab1');
+          }
+          , 2000);
+      },
+      async (err: HttpErrorResponse) => {
+        let message = "Erro ao criar conta!";
+        if(err.error && err.error.message) {
+          message = err.error.message;
+        }
+        const toast = await this.toastController.create({
+          message: message,
+          duration: 2000,
+          color: "danger"
+        });
+        toast.present();
       }
-    });
+    );
   }
+
+
 
 }
