@@ -8,28 +8,35 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 
+
 // POST - Create a new user
 export const createAccount = async (req, res) => {
-    const { name, surname, username, email, password } = req.body
-    const user = await UserModel.findOne({ where: { username: username } }) // Verify if username already exists
-    const userEmail = await UserModel.findOne({ where: { email: email } }) // Verify if email already exists
-    const validEmail = isEmail(email) // Verify if email is valid email 
+    const { name, surname, username, email, password } = req.body;
+    if (!name || !surname || !username || !email || !password) { // Prevent crash if user doesn't fill all fields
+        return res.status(400).send({ message: 'Por favor, preencha todos os campos' });
+    }
+    if (!username) {
+        return res.status(400).send({ message: 'Por favor, preencha o campo username' });
+    }
+    const user = await UserModel.findOne({ where: { username: username } }); // Verify if username already exists
+    const userEmail = await UserModel.findOne({ where: { email: email } }); // Verify if email already exists
+    const validEmail = isEmail(email); // Verify if email is valid email 
     if (user) {
-        res.status(400).send('Este username já está a ser utilizado')
+        return res.status(400).send({ message: 'Este username já está a ser utilizado' });
     } else if (userEmail) {
-        res.status(400).send('Este email já está a ser utilizado')
+        return res.status(400).send({ message: 'Este email já está a ser utilizado' });
     } else if (!validEmail) {
-        res.status(400).send('Por favor, introduza um email válido')
+        return res.status(400).send({ message: 'Por favor, introduza um email válido' });
     } else {
-        const salt = await bcrypt.genSalt(10)
-        const hashedPassword = await bcrypt.hash(password, salt)
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
         // const joinedDate = moment().format('DD/MM/YYYY');
         const newUser = await UserModel.create({ name, surname, username, email, password: hashedPassword });
 
         // create and assign a token
-        const token = jwt.sign({ _id : newUser.id }, process.env.TOKEN_SECRET)
+        const token = jwt.sign({ _id: newUser.id }, process.env.TOKEN_SECRET);
 
-        res.status(201).send({ newUser, token });
+        return res.status(201).send({ newUser, token });
     }
 }
 
@@ -45,7 +52,7 @@ export const login = async (req, res) => {
             res.status(400).send('Por favor, tente novamente')
         } else {
             // create and assign a token
-            const token = jwt.sign({ _id : user.id }, process.env.TOKEN_SECRET)
+            const token = jwt.sign({ _id: user.id }, process.env.TOKEN_SECRET)
             res.status(200).send({ message: 'Bem-vindo', token })
         }
     }
