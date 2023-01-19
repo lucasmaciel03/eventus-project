@@ -1,58 +1,5 @@
-<ion-toolbar color="dark">
-  <ion-buttons>
-    <ion-button href="#">
-      <ion-img
-        slot="start"
-        class="logoeventus"
-        src="../../assets/LogoEventus.svg"
-      ></ion-img>
-    </ion-button>
-  </ion-buttons>
-  <ion-button slot="end" fill="clear" color="light" id="popover-button"
-    ><ion-icon class="usericon" name="person-circle-outline"></ion-icon>
-  </ion-button>
-  <ion-popover trigger="popover-button" [dismissOnSelect]="true">
-    <ng-template>
-      <ion-content>
-        <ion-list>
-          <ion-item [button]="true" [detail]="false">Logout</ion-item>
-          <ion-item [button]="true" id="nested-trigger">Língua</ion-item>
+<app-toolbar></app-toolbar>
 
-          <ion-popover
-            trigger="nested-trigger"
-            [dismissOnSelect]="true"
-            side="end"
-          >
-            <ng-template>
-              <ion-content>
-                <ion-list>
-                  <ion-item [button]="true" [detail]="false"
-                    ><ion-img
-                      src="../../assets/portugal-flag-round-circle-icon.svg"
-                      class="languagesflag"
-                    ></ion-img
-                    >Portuguese</ion-item
-                  >
-                </ion-list>
-              </ion-content>
-              <ion-content>
-                <ion-list>
-                  <ion-item [button]="true" [detail]="false"
-                    ><ion-img
-                      src="../../assets/uk-flag-round-circle-icon.svg"
-                      class="languagesflag"
-                    ></ion-img
-                    >English</ion-item
-                  >
-                </ion-list>
-              </ion-content>
-            </ng-template>
-          </ion-popover>
-        </ion-list>
-      </ion-content>
-    </ng-template>
-  </ion-popover>
-</ion-toolbar>
 <ion-content>
   <app-categories></app-categories>
 

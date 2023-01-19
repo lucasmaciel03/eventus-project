@@ -1,3 +1,4 @@
+import { ToolbarComponent } from './../components/toolbar/toolbar.component';
 import { CardsComponent } from './../components/cards/cards.component';
 import { CategoriesComponent } from './../components/categories/categories.component';
 import { IonicModule } from '@ionic/angular';
@@ -16,6 +17,11 @@ import { Tab1PageRoutingModule } from './tab1-routing.module';
     ExploreContainerComponentModule,
     Tab1PageRoutingModule,
   ],
-  declarations: [Tab1Page, CategoriesComponent, CardsComponent],
+  declarations: [
+    Tab1Page,
+    CategoriesComponent,
+    CardsComponent,
+    ToolbarComponent,
+  ],
 })
 export class Tab1PageModule {}
