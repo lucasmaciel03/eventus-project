@@ -1,1 +1,121 @@
+<ion-toolbar color="dark">
+  <ion-buttons>
+    <ion-button href="#">
+      <ion-img
+        slot="start"
+        class="logoeventus"
+        src="../../assets/LogoEventus.svg"
+      ></ion-img>
+    </ion-button>
+  </ion-buttons>
+  <ion-button slot="end" fill="clear" color="light" id="popover-button"
+    ><ion-icon class="usericon" name="person-circle-outline"></ion-icon>
+  </ion-button>
+  <ion-popover trigger="popover-button" [dismissOnSelect]="true">
+    <ng-template>
+      <ion-content>
+        <ion-list>
+          <ion-item class="logoutcolor" [button]="true" [detail]="false"
+            ><ion-icon name="exit-outline"></ion-icon>Logout</ion-item
+          >
+          <ion-item [button]="true" id="nested-trigger"
+            ><ion-icon name="globe-outline"></ion-icon>Língua</ion-item
+          >
 
+          <ion-popover
+            trigger="nested-trigger"
+            [dismissOnSelect]="true"
+            side="end"
+          >
+            <ng-template>
+              <ion-content>
+                <ion-list>
+                  <ion-item [button]="true" [detail]="false"
+                    ><ion-img
+                      src="../../assets/portugal-flag-round-circle-icon.svg"
+                      class="languagesflag"
+                    ></ion-img
+                    >Portuguese</ion-item
+                  >
+                </ion-list>
+              </ion-content>
+              <ion-content>
+                <ion-list>
+                  <ion-item [button]="true" [detail]="false"
+                    ><ion-img
+                      src="../../assets/uk-flag-round-circle-icon.svg"
+                      class="languagesflag"
+                    ></ion-img
+                    >English</ion-item
+                  >
+                </ion-list>
+              </ion-content>
+            </ng-template>
+          </ion-popover>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-popover>
+</ion-toolbar>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" class="ion-text-start">
+        <ion-button fill="clear" color="dark"
+          ><ion-icon class="backicon" name="chevron-back-outline"></ion-icon
+        ></ion-button>
+      </ion-col>
+      <ion-col size="6" class="ion-text-end">
+        <ion-button fill="clear" color="dark" (click)="presentToast()">
+          <ion-icon
+            class="heartfavoritesize"
+            [ngClass]="{ favorite: favorite }"
+            [name]="favorite ? 'heart' : 'heart-outline'"
+          ></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card-title> Paimó Beach Bar </ion-card-title>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <img
+          class="imagevent"
+          src="https://docs-demo.ionic.io/assets/madison.jpg"
+        />
+      </ion-col>
+    </ion-row>
+    <ion-row size="12" class="ion-margin-start">
+      <ion-col size="1">
+        <ion-icon name="calendar-outline" class="calendarsize"></ion-icon>
+      </ion-col>
+      <ion-col size="11"><ion-text>6 MAR - 10 MAR</ion-text></ion-col>
+    </ion-row>
+    <ion-row size="12" class="ion-margin-start">
+      <ion-col size="1"
+        ><ion-icon class="calendarsize" name="location-outline"></ion-icon
+      ></ion-col>
+      <ion-col size="11">Aguçadoura</ion-col>
+    </ion-row>
+    <ion-row size="12" class="ion-margin-start">
+      <ion-col size="12"
+        ><ion-text>Música</ion-text> |
+        <ion-text>Entretenimento</ion-text></ion-col
+      >
+    </ion-row>
+    <ion-row class="ion-margin-start">
+      <ion-col size="12"><b>Descrição do evento:</b></ion-col>
+    </ion-row>
+    <ion-row class="ion-margin-start">
+      <ion-col size="12"
+        >Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
+        velit tenetur aspernatur sequi fuga, veniam quos earum hic possimus ea
+        provident corrupti vitae illo et maiores debitis suscipit distinctio
+        laborum?</ion-col
+      >
+    </ion-row>
+  </ion-grid>
+</ion-content>
