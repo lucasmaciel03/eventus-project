@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { ToastController, NavController } from '@ionic/angular';
 @Component({
   selector: 'app-eventpage',
   templateUrl: './eventpage.page.html',
@@ -7,7 +8,11 @@ import { ToastController } from '@ionic/angular';
 })
 export class EventpagePage implements OnInit {
   favorite: boolean = false;
-  constructor(private toastCtrl: ToastController) {}
+  constructor(
+    private toastCtrl: ToastController,
+    private navController: NavController,
+    private router: Router
+  ) {}
 
   ngOnInit() {}
   async presentToast() {
@@ -23,5 +28,12 @@ export class EventpagePage implements OnInit {
     });
 
     toast.present();
+  }
+
+  async goBack() {
+    this.navController.setDirection('back');
+    await this.router.navigate(['/tabs/tab1'], {
+      replaceUrl: true,
+    });
   }
 }

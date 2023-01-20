@@ -1,4 +1,5 @@
-import { ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { ToastController, NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CardsComponent implements OnInit {
   favorite: boolean = false;
-  constructor(private toastCtrl: ToastController) {}
+  constructor(
+    private toastCtrl: ToastController,
+    private navController: NavController,
+    private router: Router
+  ) {}
 
   ngOnInit() {}
 
@@ -25,5 +30,12 @@ export class CardsComponent implements OnInit {
     });
 
     toast.present();
+  }
+
+  async goForward() {
+    this.navController.setDirection('forward');
+    await this.router.navigate(['/eventpage'], {
+      replaceUrl: true,
+    });
   }
 }
