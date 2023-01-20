@@ -17,6 +17,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'eventpage',
+    loadChildren: () =>
+      import('./eventpage/eventpage.module').then(
+        (m) => m.EventpagePageModule
+      ),
+  },
+  {
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule),
     canLoad: [AutoLoginGuard]
@@ -42,7 +49,8 @@ const routes: Routes = [
   {
     path: 'tab3',
     redirectTo: 'tabs/tab3',
-  }
+  },
+
 ];
 @NgModule({
   imports: [
