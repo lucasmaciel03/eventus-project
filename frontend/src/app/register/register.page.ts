@@ -3,7 +3,7 @@ import { NavParams } from '@ionic/angular';
 import { CrudService } from '../services/api/crud.service';
 import { ToastController } from '@ionic/angular';
 import { HttpErrorResponse } from '@angular/common/http';
-import { NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 
 
@@ -27,7 +27,7 @@ export class RegisterPage implements OnInit {
   constructor(
     private crudService: CrudService,
     private toastController: ToastController,
-    private navCtrl: NavController
+    private router : Router,
   ) { }
 
   ngOnInit() {
@@ -65,7 +65,7 @@ export class RegisterPage implements OnInit {
           });
           toast.present();
           setTimeout(() => { // Delay to show the toast
-            this.navCtrl.navigateRoot('/tabs/tab1');
+            this.router.navigateByUrl('/login', { replaceUrl: true });
           }
           , 2000);
       },

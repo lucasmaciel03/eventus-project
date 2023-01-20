@@ -18,7 +18,8 @@ export class LoginPage implements OnInit {
     private authService : AuthenticationService,
     private toastController: ToastController,
     private loadingCtrl : LoadingController,
-    private navCtrl: NavController
+    private router : Router,
+
   ) { }
     usernameInput : any;
     passwordInput : any;
@@ -28,9 +29,9 @@ export class LoginPage implements OnInit {
   checkToken = async () => {
     const hasToken = await Preferences.get({ key: 'token' });
     if (hasToken.value === null) {
-      this.navCtrl.navigateRoot('/login');
+      this.router.navigateByUrl('/login', { replaceUrl: true });
     } else {
-      this.navCtrl.navigateRoot('tabs/tab1');
+      this.router.navigateByUrl('tabs/tab1', { replaceUrl: true });
     }
   };
 
@@ -48,7 +49,7 @@ export class LoginPage implements OnInit {
           color: "success"
         });
         toast.present();
-        await this.navCtrl.navigateRoot('tabs/tab1');
+        await this.router.navigateByUrl('tabs/tab1', { replaceUrl: true });
       },
       async (err: HttpErrorResponse) => {
         let message = "Erro ao iniciar sessão!";

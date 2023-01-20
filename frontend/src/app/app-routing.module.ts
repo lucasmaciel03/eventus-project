@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
+import { AutoLoginGuard } from './guards/auto-login.guard';
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    redirectTo: '/login',
+    pathMatch: 'full'
   },
   {
     path: 'welcomepage',
@@ -12,11 +15,30 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule),
+    canLoad: [AutoLoginGuard]
   },
   {
     path: 'register',
-    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule),
+    canLoad: [AutoLoginGuard]
+  },
+  {
+    path: 'tabs',
+    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
+    canLoad: [AuthGuard]
+  },
+  {
+    path: 'tab1',
+    redirectTo: 'tabs',
+  },
+  {
+    path: 'tab2',
+    redirectTo: 'tabs/tab2',
+  },
+  {
+    path: 'tab3',
+    redirectTo: 'tabs/tab3',
   }
 ];
 @NgModule({

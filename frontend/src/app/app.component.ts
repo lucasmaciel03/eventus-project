@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, Platform } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +7,13 @@ import { NavController, Platform } from '@ionic/angular';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(public navCtrl: NavController, private Platform: Platform) {
-    this.navCtrl.navigateRoot('/login');
+  constructor(
+    private platform: Platform,
+  ) {}
+  async ngOnInit() {
+    await this.initializeApp();
+  }
+  async initializeApp() {
+    await this.platform.ready();
   }
 }

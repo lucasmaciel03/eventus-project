@@ -42,13 +42,10 @@ export class AuthenticationService {
       .pipe(
         map((data: any) => data),
         switchMap(async (data) => {
-          // await Preferences.set({
-          //   key: this.session.user_id,
-          //   value: data.userId,
-          // });
-
+          this.token = data.token;  // Save token in service 
+          
           return from(
-            Preferences.set({ key: this.session.TOKEN, value: data })
+            Preferences.set({ key: this.session.TOKEN, value: data.token })
           );
         }),
         tap((_) => {
