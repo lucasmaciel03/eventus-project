@@ -28,6 +28,10 @@ const routes: Routes = [
     path: 'eventpage',
     loadChildren: () => import('./eventpage/eventpage.module').then( m => m.EventpagePageModule)
   },
+  {
+    path: 'error404',
+    loadChildren: () => import('./error404/error404.module').then( m => m.Error404PageModule)
+  },
 ];
 @NgModule({
   imports: [
