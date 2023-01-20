@@ -1,41 +1,33 @@
 <ion-content class="content">
 
-  
-  <ion-img
-    class="logo-login"
-    src="../../assets/logo.svg"
-    alt="Eventus"
-  ></ion-img>
 
-  <ion-row size="10" class="ion-justify-content-center form-login">
-    <ion-col size="10">
-      <ion-item>
-        <ion-label position="floating">Username or Email</ion-label>
-        <ion-input placeholder="Your Username here"></ion-input>
-      </ion-item>
-    </ion-col>
-    <ion-col size="10">
-      <ion-item>
-        <ion-label position="floating">Password</ion-label>
-        <ion-input placeholder="Your Password here"></ion-input>
-      </ion-item>
-    </ion-col>
-  </ion-row>
+  <ion-img class="logo-login" src="../../assets/logo.svg" alt="Eventus"></ion-img>
 
-  <ion-row size="10" class="ion-justify-content-center login-btns">
-    <ion-col size="5" class="ion-text-center">
-      <ion-button
-        class="login-btns-text"
-        expand="block"
-        fill="clear"
-        color="dark"
-        >Sign Up</ion-button
-      >
-    </ion-col>
-    <ion-col size="5">
-      <ion-button expand="block" color="dark" class="login-btns-text"
-        ><ion-icon name="arrow-forward-outline"></ion-icon
-      ></ion-button>
-    </ion-col>
-  </ion-row>
+  <form (ngSubmit)="login()">
+    <ion-row size="10" class="ion-justify-content-center form-login">
+      <ion-col size="10">
+        <ion-item>
+          <ion-label position="floating">Username</ion-label>
+          <ion-input placeholder="Your Username here" type="text" [(ngModel)]="usernameInput" name="username"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="10">
+        <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input placeholder="Your Password here" type="password" [(ngModel)]="passwordInput" name="password"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row size="10" class="ion-justify-content-center login-btns">
+      <ion-col size="5" class="ion-text-center">
+        <ion-button class="login-btns-text" expand="block" fill="clear" color="dark">Sign Up</ion-button>
+      </ion-col>
+      <ion-col size="5">
+        <ion-button expand="block" color="dark" class="login-btns-text" type="submit" >
+          <ion-icon name="arrow-forward-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
 </ion-content>
