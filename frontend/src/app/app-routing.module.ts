@@ -11,7 +11,10 @@ const routes: Routes = [
   },
   {
     path: 'welcomepage',
-    loadChildren: () => import('./welcomepage/welcomepage.module').then( m => m.WelcomepagePageModule)
+    loadChildren: () =>
+      import('./welcomepage/welcomepage.module').then(
+        (m) => m.WelcomepagePageModule
+      ),
   },
   {
     path: 'login',
@@ -43,8 +46,8 @@ const routes: Routes = [
 ];
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

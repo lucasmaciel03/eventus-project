@@ -1,17 +1,91 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-toolbar></app-toolbar>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <app-categories></app-categories>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <app-cards></app-cards>
+  <app-cards></app-cards>
+  <app-cards></app-cards>
+  <app-cards></app-cards>
+  <app-cards></app-cards>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button color="dark" id="open-modal">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-modal #modal trigger="open-modal">
+    <ng-template>
+      <ion-content>
+        <ion-toolbar>
+          <ion-title>Criar Evento</ion-title>
+          <ion-buttons slot="end">
+            <ion-button color="light" (click)="modal.dismiss()"
+              >Close</ion-button
+            >
+          </ion-buttons>
+        </ion-toolbar>
+        <ion-list>
+          <ion-item>
+            <ion-label>Nome do Evento:</ion-label>
+            <ion-input
+              class="ion-text-end"
+              placeholder="Escreva aqui..."
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Descrição:</ion-label>
+            <ion-input
+              class="ion-text-end"
+              placeholder="Escreva aqui..."
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Categoria:</ion-label>
+            <ion-select placeholder="Categoria">
+              <ion-select-option value="apples">Gastronómico</ion-select-option>
+              <ion-select-option value="oranges">Religioso</ion-select-option>
+              <ion-select-option value="bananas">Caridade</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>Localização:</ion-label>
+            <ion-select placeholder="Localização">
+              <ion-select-option value="apples">Porto</ion-select-option>
+              <ion-select-option value="oranges"
+                >Póvoa de Varzim</ion-select-option
+              >
+              <ion-select-option value="bananas">Aguçadoura</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label>Data Inicio:</ion-label>
+            <ion-datetime-button datetime="datetime"></ion-datetime-button>
+            <ion-modal [keepContentsMounted]="true">
+              <ng-template>
+                <ion-datetime id="datetime"></ion-datetime>
+              </ng-template>
+            </ion-modal>
+          </ion-item>
+          <ion-item>
+            <ion-label>Data Fim:</ion-label>
+            <ion-input class="ion-text-end" type="date"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Imagem:</ion-label>
+            <ion-button
+              type="button"
+              class="btn-image ion-text-end"
+              fill="clear"
+            >
+              <ion-input class="ion-text-end" type="file"></ion-input>
+            </ion-button>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+      <ion-button expand="block" class="ion-margin-top"
+        ><b>Criar</b></ion-button
+      >
+    </ng-template>
+  </ion-modal>
 </ion-content>

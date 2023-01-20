@@ -1,0 +1,132 @@
+<app-toolbar></app-toolbar>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6" class="ion-text-start">
+        <ion-button fill="clear" color="dark" (click)="goBack()"
+          ><ion-icon class="backicon" name="chevron-back-outline"></ion-icon
+        ></ion-button>
+      </ion-col>
+      <ion-col size="6" class="ion-text-end">
+        <ion-button fill="clear" color="dark" (click)="presentToast()">
+          <ion-icon
+            class="heartfavoritesize"
+            [ngClass]="{ favorite: favorite }"
+            [name]="favorite ? 'heart' : 'heart-outline'"
+          ></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card-title> Paimó Beach Bar </ion-card-title>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <img
+          class="imagevent"
+          src="https://docs-demo.ionic.io/assets/madison.jpg"
+        />
+      </ion-col>
+    </ion-row>
+    <ion-row size="12" class="ion-margin-start">
+      <ion-col size="1">
+        <ion-icon name="calendar-outline" class="calendarsize"></ion-icon>
+      </ion-col>
+      <ion-col size="11"><ion-text>6 MAR - 10 MAR</ion-text></ion-col>
+    </ion-row>
+    <ion-row size="12" class="ion-margin-start">
+      <ion-col size="1"
+        ><ion-icon class="calendarsize" name="location-outline"></ion-icon
+      ></ion-col>
+      <ion-col size="11">Aguçadoura</ion-col>
+    </ion-row>
+    <ion-row size="12" class="ion-margin-start">
+      <ion-col size="12"
+        ><ion-text>Música</ion-text> |
+        <ion-text>Entretenimento</ion-text></ion-col
+      >
+    </ion-row>
+    <ion-row class="ion-margin-start">
+      <ion-col size="12"
+        ><ion-text
+          ><h5><b>Descrição do evento:</b></h5></ion-text
+        ></ion-col
+      >
+    </ion-row>
+    <ion-row class="ion-margin-start">
+      <ion-col size="12"
+        >Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias
+        velit tenetur aspernatur sequi fuga, veniam quos earum hic possimus ea
+        provident corrupti vitae illo et maiores debitis suscipit distinctio
+        laborum?</ion-col
+      >
+    </ion-row>
+    <ion-item-divider class="ion-margin-top"></ion-item-divider>
+    <ion-row class="ion-margin-top">
+      <ion-col size="2">
+        <ion-avatar>
+          <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+        </ion-avatar>
+      </ion-col>
+      <ion-col size="10" class="ion-align-items-start">
+        <ion-item>
+          <ion-input placeholder="Deixe o seu comentário"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-margin-top">
+      <ion-col><b>3 Comments</b></ion-col>
+    </ion-row>
+    <ion-item-divider></ion-item-divider>
+    <ion-row class="ion-margin-top">
+      <ion-col size="2">
+        <ion-avatar>
+          <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+        </ion-avatar>
+      </ion-col>
+      <ion-col size="10" class="ion-align-items-start">
+        <h5><b>André Maia</b></h5>
+        <ion-text
+          >Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
+          fugiat officia excepturi enim ab quod! Inventore distinctio impedit,
+          aut ipsum iure, assumenda, ab deleniti voluptatum quo laboriosam
+          magnam nisi veritatis.</ion-text
+        >
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-margin-top">
+      <ion-col size="2">
+        <ion-avatar>
+          <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+        </ion-avatar>
+      </ion-col>
+      <ion-col size="10" class="ion-align-items-start">
+        <h5><b>Lucas Maciel</b></h5>
+        <ion-text
+          >Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
+          fugiat officia excepturi enim ab quod! Inventore distinctio impedit,
+          aut ipsum iure, assumenda, ab deleniti voluptatum quo laboriosam
+          magnam nisi veritatis.</ion-text
+        >
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-margin-top">
+      <ion-col size="2">
+        <ion-avatar>
+          <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+        </ion-avatar>
+      </ion-col>
+      <ion-col size="10" class="ion-align-items-start">
+        <h5><b>Rodrigo Mesquita</b></h5>
+        <ion-text
+          >Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae
+          fugiat officia excepturi enim ab quod! Inventore distinctio impedit,
+          aut ipsum iure, assumenda, ab deleniti voluptatum quo laboriosam
+          magnam nisi veritatis.</ion-text
+        >
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
