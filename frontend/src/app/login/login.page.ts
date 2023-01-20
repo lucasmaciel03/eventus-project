@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { LoadingController, NavController, ToastController } from '@ionic/angular';
 import{ AuthenticationService} from'src/app/services/auth/authentication.service';
 import { Preferences } from '@capacitor/preferences'; 
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -49,9 +50,13 @@ export class LoginPage implements OnInit {
         toast.present();
         await this.navCtrl.navigateRoot('tabs/tab1');
       },
-      async (err) => {
+      async (err: HttpErrorResponse) => {
+        let message = "Erro ao iniciar sessão!";
+        if(err.error && err.error.message) {
+          message = err.error.message;
+        }
         const toast = await this.toastController.create({
-          message: "Erro ao realizar login!",
+          message: message,
           duration: 2000,
           color: "danger"
         });
