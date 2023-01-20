@@ -48,11 +48,11 @@ export const login = async (req, res) => {
     }
     const user = await UserModel.findOne({ where: { username: username } })
     if (!user) {
-        res.status(400).send('Por favor, registe-se')
+        res.status(400).send({message: 'Este username não existe'})
     } else {
         const validPass = await bcrypt.compare(password, user.password)
         if (!validPass) {
-            res.status(400).send('Por favor, tente novamente')
+            res.status(400).send({message: 'Password incorreta, tente novamente'})
         } else {
             // create and assign a token
             const token = jwt.sign({ _id: user.id }, process.env.TOKEN_SECRET)
