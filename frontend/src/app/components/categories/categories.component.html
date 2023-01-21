@@ -4,7 +4,11 @@
       <ion-slides [options]="opts">
         <ion-slide *ngFor="let category of eventCategories">
           <ion-avatar (click)="onButtonClick()">
-            <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+            <img
+              [src]="
+                'https://img.icons8.com/ios-filled/50/null/restaurant--v1.png'
+              "
+            />
           </ion-avatar>
           <ion-text class="category-name">{{ category.name }}</ion-text>
         </ion-slide>
