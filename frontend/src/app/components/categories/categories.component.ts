@@ -30,4 +30,8 @@ export class CategoriesComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  onButtonClick() {
+    console.log('funciona');
+  }
 }

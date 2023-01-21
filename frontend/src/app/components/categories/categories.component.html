@@ -3,7 +3,7 @@
     <ion-col>
       <ion-slides [options]="opts">
         <ion-slide *ngFor="let category of eventCategories">
-          <ion-avatar>
+          <ion-avatar (click)="onButtonClick()">
             <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
           </ion-avatar>
           <ion-text class="category-name">{{ category.name }}</ion-text>
