@@ -1,12 +1,14 @@
-<ion-content class="categorieContainer">
-  <ion-slides [options]="slideOpts">
-    <ion-slide *ngFor="let category of eventCategories" >
-      <ion-button class="space"class="slider-btn" fill="clear" (click)="goToEvents()">
-        <ion-icon [name]="category.icon"></ion-icon>
-        {{ category.name }}
-      </ion-button>
-    </ion-slide>
-
-  </ion-slides>
-</ion-content>
-
+<ion-grid>
+  <ion-row class="ion-text-center category">
+    <ion-col>
+      <ion-slides [options]="opts">
+        <ion-slide *ngFor="let category of eventCategories">
+          <ion-avatar>
+            <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+          </ion-avatar>
+          <ion-text class="category-name">{{ category.name }}</ion-text>
+        </ion-slide>
+      </ion-slides>
+    </ion-col>
+  </ion-row>
+</ion-grid>

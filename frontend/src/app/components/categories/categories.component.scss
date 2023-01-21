@@ -1,26 +1,23 @@
-.categorieContainer {
-  max-height: 60px !important;
-}
-
 ion-slides {
-width: 100%;
-
-
-}
-ion-slide{
-margin-left: 20px;
-}
-
-
-
-.slider-btn{
-  border : 1px lightgrey solid;
-  border-radius: 12px;
-  justify-content: space-between;
-  color: #000;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 3px solid var(--ion-color-light);
 }
 
+ion-row.category {
+  ion-avatar {
+    height: 50px;
+    width: 50px;
+  }
+}
 
+.category-name {
+  position: absolute;
+  margin-top: 80px;
+}
 
+ion-avatar {
+  --border-radius: 10px;
+}

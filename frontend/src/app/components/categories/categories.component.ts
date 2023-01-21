@@ -9,7 +9,6 @@ export class CategoriesComponent implements OnInit {
   eventCategories = [
     { name: 'Todos', icon: 'apps' },
     { name: 'Música', icon: 'musical-notes' },
-   
     { name: 'Arte', icon: 'brush' },
     { name: 'Cinema', icon: 'film' },
     { name: 'Comida', icon: 'restaurant' },
@@ -19,20 +18,15 @@ export class CategoriesComponent implements OnInit {
     { name: 'Tecnologias ', icon: 'computer' },
     { name: 'Culturais', icon: 'globe' },
     { name: 'Literários', icon: 'book' },
-   
     { name: 'Desporto', icon: 'football' },
   ];
-  slideOpts = {
-      slidesPerView: 3.5,
-      centeredSlides: true,
-      loop: true,
-      spaceBetween: 10,
-      // autoplay:true,
+
+  opts = {
+    slidesPerView: 4.5,
+    spaceBetween: 10,
+    slidesOffsetBefore: 0,
   };
 
-  goToEvents() {
-    console.log(`Você clicou na categoria de eventos`);
-  }
   constructor() {}
 
   ngOnInit() {}
