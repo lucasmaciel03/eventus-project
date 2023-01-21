@@ -7,18 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoriesComponent implements OnInit {
   eventCategories = [
-    { name: 'Todos', icon: 'apps' },
-    { name: 'Música', icon: 'musical-notes' },
-    { name: 'Arte', icon: 'brush' },
-    { name: 'Cinema', icon: 'film' },
-    { name: 'Comida', icon: 'restaurant' },
-    { name: 'Religiosos', icon: 'church' },
-    { name: 'Dança', icon: 'people' },
-    { name: 'Ciências ', icon: 'flask' },
-    { name: 'Tecnologias ', icon: 'computer' },
-    { name: 'Culturais', icon: 'globe' },
-    { name: 'Literários', icon: 'book' },
-    { name: 'Desporto', icon: 'football' },
+    { name: 'All', icon: 'apps' },
+    { name: 'Music', icon: 'musical-notes' },
+    { name: 'Art', icon: 'brush' },
+    { name: 'Theater', icon: 'film' },
+    { name: 'Food', icon: 'restaurant' },
+    { name: 'Religious', icon: 'church' },
+    { name: 'Dance', icon: 'people' },
+    { name: 'Science ', icon: 'flask' },
+    { name: 'Technologies ', icon: 'computer' },
+    { name: 'Culture', icon: 'globe' },
+    { name: 'Literay', icon: 'book' },
+    { name: 'Sport', icon: 'football' },
   ];
 
   opts = {

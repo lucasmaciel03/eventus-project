@@ -21,8 +21,8 @@
     </ion-row>
     <ion-row size="12">
       <ion-col size="12"
-        ><ion-text>Música</ion-text> |
-        <ion-text>Entretenimento</ion-text></ion-col
+        ><ion-chip [outline]="true">Music</ion-chip>
+        <ion-chip [outline]="true">Art</ion-chip></ion-col
       >
     </ion-row>
     <ion-row size="12">
@@ -32,7 +32,7 @@
           fill="outline"
           expand="block"
           (click)="goForward()"
-          >Ver Mais <ion-icon slot="end" name="arrow-forward-outline"></ion-icon
+          >More Info<ion-icon slot="end" name="arrow-forward-outline"></ion-icon
         ></ion-button>
       </ion-col>
       <ion-col size="6" class="ion-text-end">
