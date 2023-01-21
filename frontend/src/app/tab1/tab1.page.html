@@ -18,7 +18,7 @@
     <ng-template>
       <ion-content>
         <ion-toolbar>
-          <ion-title>Criar Evento</ion-title>
+          <ion-title>Create Event</ion-title>
           <ion-buttons slot="end">
             <ion-button color="light" (click)="modal.dismiss()"
               >Close</ion-button
@@ -27,21 +27,21 @@
         </ion-toolbar>
         <ion-list>
           <ion-item>
-            <ion-label>Nome do Evento:</ion-label>
+            <ion-label>Name:</ion-label>
             <ion-input
               class="ion-text-end"
               placeholder="Escreva aqui..."
             ></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label>Descrição:</ion-label>
+            <ion-label>Description:</ion-label>
             <ion-input
               class="ion-text-end"
               placeholder="Escreva aqui..."
             ></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label>Categoria:</ion-label>
+            <ion-label>Category:</ion-label>
             <ion-select placeholder="Categoria">
               <ion-select-option value="apples">Gastronómico</ion-select-option>
               <ion-select-option value="oranges">Religioso</ion-select-option>
@@ -49,7 +49,7 @@
             </ion-select>
           </ion-item>
           <ion-item>
-            <ion-label>Localização:</ion-label>
+            <ion-label>Localization:</ion-label>
             <ion-select placeholder="Localização">
               <ion-select-option value="apples">Porto</ion-select-option>
               <ion-select-option value="oranges"
@@ -59,7 +59,7 @@
             </ion-select>
           </ion-item>
           <ion-item>
-            <ion-label>Data Inicio:</ion-label>
+            <ion-label>Start at:</ion-label>
             <ion-datetime-button datetime="datetime"></ion-datetime-button>
             <ion-modal [keepContentsMounted]="true">
               <ng-template>
@@ -68,11 +68,11 @@
             </ion-modal>
           </ion-item>
           <ion-item>
-            <ion-label>Data Fim:</ion-label>
+            <ion-label>End at:</ion-label>
             <ion-input class="ion-text-end" type="date"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label>Imagem:</ion-label>
+            <ion-label>Image:</ion-label>
             <ion-button
               type="button"
               class="btn-image ion-text-end"
@@ -84,7 +84,7 @@
         </ion-list>
       </ion-content>
       <ion-button expand="block" class="ion-margin-top"
-        ><b>Criar</b></ion-button
+        ><b>Create</b></ion-button
       >
     </ng-template>
   </ion-modal>
