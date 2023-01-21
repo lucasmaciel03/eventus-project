@@ -15,7 +15,7 @@ export class CategoriesComponent implements OnInit {
     { name: 'Religious', icon: 'church' },
     { name: 'Dance', icon: 'people' },
     { name: 'Science ', icon: 'flask' },
-    { name: 'Technologies ', icon: 'computer' },
+    { name: 'Tech ', icon: 'computer' },
     { name: 'Culture', icon: 'globe' },
     { name: 'Literay', icon: 'book' },
     { name: 'Sport', icon: 'football' },
