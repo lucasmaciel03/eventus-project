@@ -96,6 +96,21 @@ export const getUserByUsername = async (req, res) => {
     }
 }
 
+// GET - Get user by id only exclude password, dont exclude profilePicture
+export const getUserById = async (req, res) => {
+    const { id } = req.params
+    const user = await UserModel.findOne({ where: { id: id }, attributes: { exclude: ['password'] } })
+    if (user) {
+        if (user.locationId) {
+            const location = await LocationModel.findOne({ where: { id: user.locationId } })
+            res.status(200).send({ ...user.dataValues, locationName: location.name })
+        } else {
+            res.status(200).send({ ...user.dataValues, locationName: null })
+        }
+    } else {
+        res.status(404).send('User not found')
+    }
+}
 
 //  Image Upload
 
