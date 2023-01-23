@@ -7,15 +7,14 @@
   <ion-content class="ion-padding">
     <ion-item-group>
       <ion-item>
-        <ion-label><a>Change Password</a></ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label><a>Change Email</a></ion-label>
+        <ion-button id="open-modal" fill="clear"
+          >Change Password / Email</ion-button
+        >
       </ion-item>
     </ion-item-group>
     <ion-item-group class="ion-margin-top">
       <ion-item>
-        <ion-label><a href="#">Sign Out</a></ion-label>
+        <ion-button style="color: red" fill="clear">Sign out</ion-button>
       </ion-item>
     </ion-item-group>
   </ion-content>
@@ -67,5 +66,28 @@
         </ion-row>
       </ion-grid>
     </ion-card>
+    <ion-modal #modal trigger="open-modal">
+      <ng-template>
+        <ion-content class="ion-text-center">
+          <ion-text class="ion-text-center ion-padding"
+            ><h4><b>Change your password and email:</b></h4></ion-text
+          >
+          <ion-input
+            type="password"
+            placeholder="Change Password"
+            class="custom ion-text-center"
+          ></ion-input
+          ><br />
+          <ion-input
+            type="email"
+            placeholder="Change Email"
+            class="custom ion-text-center"
+          ></ion-input>
+          <ion-button style="width: 90%; margin-top: 20px"
+            >Continuar</ion-button
+          >
+        </ion-content>
+      </ng-template>
+    </ion-modal>
   </ion-content>
 </div>

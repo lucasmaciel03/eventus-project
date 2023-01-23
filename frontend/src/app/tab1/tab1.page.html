@@ -15,81 +15,92 @@
     </ion-fab-button>
   </ion-fab>
   <ion-modal [isOpen]="isModalOpen">
-    <ng-template>
-      <ion-header>
-        <ion-toolbar>
-          <ion-title>Create Event</ion-title>
-          <ion-buttons slot="end">
-            <ion-button (click)="setOpen(false)">Close</ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content class="ion-padding">
-        <ion-list>
-          <ion-item>
-            <ion-label position="stacked">Name:</ion-label>
-            <ion-input placeholder="Name here ..."></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="stacked">Description:</ion-label>
-            <ion-input placeholder="Description here ..."></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="stacked">Category:</ion-label>
-            <ion-select placeholder="Choose Category">
-              <ion-select-option value="apples">Gastronómico</ion-select-option>
-              <ion-select-option value="oranges">Religioso</ion-select-option>
-              <ion-select-option value="bananas">Caridade</ion-select-option>
-            </ion-select>
-          </ion-item>
-          <ion-item>
-            <ion-label position="stacked">Location:</ion-label>
-            <ion-select placeholder="Choose Location">
-              <ion-select-option value="apples">Porto</ion-select-option>
-              <ion-select-option value="oranges"
-                >Póvoa de Varzim</ion-select-option
+    <form>
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Create Event</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="setOpen(false)">Close</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <ion-list>
+            <ion-item>
+              <ion-label class="mylabel" position="stacked">Name:</ion-label>
+              <ion-input placeholder="Name here ..."></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label class="mylabel" position="stacked"
+                >Description:</ion-label
               >
-              <ion-select-option value="bananas">Aguçadoura</ion-select-option>
-            </ion-select>
-          </ion-item>
-          <ion-item>
-            <ion-label position="stacked">Start at:</ion-label>
-            <ion-datetime-button datetime="datetime"></ion-datetime-button>
-            <ion-modal [keepContentsMounted]="true">
-              <ng-template>
-                <ion-datetime
-                  locale="en-EN"
-                  color="dark"
-                  id="datetime"
-                ></ion-datetime>
-              </ng-template>
-            </ion-modal>
-          </ion-item>
-          <ion-item>
-            <ion-label position="stacked">End at:</ion-label>
-            <ion-datetime-button datetime="datetime"></ion-datetime-button>
-            <ion-modal [keepContentsMounted]="true">
-              <ng-template>
-                <ion-datetime
-                  locale="en-EN"
-                  color="dark"
-                  id="datetime"
-                ></ion-datetime>
-              </ng-template>
-            </ion-modal>
-          </ion-item>
-          <ion-item>
-            <ion-label position="stacked">Image:</ion-label>
-            <ion-button
-              type="button"
-              class="btn-image ion-text-end"
-              fill="clear"
-            >
+              <ion-input placeholder="Description here ..."></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label class="mylabel" position="stacked"
+                >Category:</ion-label
+              >
+              <ion-select placeholder="Choose Category">
+                <ion-select-option value="apples"
+                  >Gastronómico</ion-select-option
+                >
+                <ion-select-option value="oranges">Religioso</ion-select-option>
+                <ion-select-option value="bananas">Caridade</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label class="mylabel" position="stacked"
+                >Location:</ion-label
+              >
+              <ion-select placeholder="Choose Location">
+                <ion-select-option value="apples">Porto</ion-select-option>
+                <ion-select-option value="oranges"
+                  >Póvoa de Varzim</ion-select-option
+                >
+                <ion-select-option value="bananas"
+                  >Aguçadoura</ion-select-option
+                >
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label class="mylabel" position="stacked"
+                >Start at:</ion-label
+              >
+              <ion-datetime-button datetime="datetime"></ion-datetime-button>
+              <ion-modal [keepContentsMounted]="true">
+                <ng-template>
+                  <ion-datetime
+                    locale="en-EN"
+                    color="dark"
+                    id="datetime"
+                  ></ion-datetime>
+                </ng-template>
+              </ion-modal>
+            </ion-item>
+            <ion-item>
+              <ion-label class="mylabel" position="stacked">End at:</ion-label>
+              <ion-datetime-button datetime="datetime"></ion-datetime-button>
+              <ion-modal [keepContentsMounted]="true">
+                <ng-template>
+                  <ion-datetime
+                    locale="en-EN"
+                    color="dark"
+                    id="datetime"
+                  ></ion-datetime>
+                </ng-template>
+              </ion-modal>
+            </ion-item>
+            <ion-item>
+              <ion-label class="mylabel" position="stacked">Image:</ion-label>
               <ion-input type="file"></ion-input>
-            </ion-button>
-          </ion-item>
-        </ion-list>
-      </ion-content>
-    </ng-template>
+            </ion-item>
+          </ion-list>
+          <ion-button style="margin-top: 50px" expand="block" strong="bold"
+            >Create</ion-button
+          >
+        </ion-content>
+      </ng-template>
+    </form>
   </ion-modal>
 </ion-content>
