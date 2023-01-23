@@ -28,11 +28,6 @@ ion-modal::part(backdrop) {
   opacity: 1;
 }
 
-ion-modal ion-toolbar {
-  --background: rgb(14 116 144);
-  --color: white;
-}
-
 ion-button {
   font-size: 1em;
 }
