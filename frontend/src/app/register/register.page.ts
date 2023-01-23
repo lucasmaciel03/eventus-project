@@ -58,7 +58,7 @@ export class RegisterPage implements OnInit {
     this.crudService.createAccount('createAccount', createAccount).subscribe(
       async (res) => {
           const toast = await this.toastController.create({
-            message: "Conta criada com sucesso, Bem vindo!",
+            message: "Conta criada com sucesso, faça o Login!",
             duration: 2000,
             color: "success"
             
