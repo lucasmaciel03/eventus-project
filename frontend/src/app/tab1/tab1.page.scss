@@ -7,27 +7,7 @@ ion-icon {
   font-size: 1.5em;
 }
 
-ion-modal {
-  --width: 92%;
-  --height: 70%;
-  --border-radius: 8px;
-  --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
-    0 4px 6px -4px rgb(0 0 0 / 0.1);
+ion-datetime {
+  background: var(--ion-color-light);
+  color: var(--ion-color-dark);
 }
-
-ion-modal::part(backdrop) {
-  background: rgba(209, 213, 219);
-  opacity: 1;
-}
-
-ion-modal ion-toolbar {
-  --background: var(--ion-color-dark);
-  --color: white;
-}
-
-.btn-image {
-  width: 38%;
-  margin-left: 40%;
-}
-
-
