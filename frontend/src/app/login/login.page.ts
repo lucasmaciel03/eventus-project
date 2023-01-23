@@ -29,7 +29,7 @@ export class LoginPage implements OnInit {
   checkToken = async () => {
     const hasToken = await Preferences.get({ key: 'token' });
     if (hasToken.value === null) {
-      this.router.navigateByUrl('/login', { replaceUrl: true });
+      this.router.navigateByUrl('/welcomepage', { replaceUrl: true });
     } else {
       this.router.navigateByUrl('tabs/tab1', { replaceUrl: true });
     }
