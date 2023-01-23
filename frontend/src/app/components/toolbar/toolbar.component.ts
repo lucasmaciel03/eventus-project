@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Preferences } from '@capacitor/preferences';
 
 @Component({
   selector: 'app-toolbar',
@@ -11,4 +12,13 @@ export class ToolbarComponent implements OnInit {
 
   ngOnInit() {}
 
+  logout = async () => {
+    const token = await Preferences.get({ key: 'token' });
+
+    // console.log(token.value !== null);
+    if (token) {
+      Preferences.remove({ key: 'token' });
+      window.location.reload();
+    }
+  };
 }
