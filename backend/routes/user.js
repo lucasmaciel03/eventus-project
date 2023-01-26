@@ -5,7 +5,8 @@ import {
     getAllUsers,
     getUserByUsername,
     login,
-    getUserById
+    getUserById,
+    updateLocation
 } from "../controllers/user.js"
 
 const userRoutes = Router();
@@ -19,5 +20,7 @@ userRoutes.get("/getUserByUsername", getUserByUsername)
 userRoutes.post("/login", login)
 
 userRoutes.get("/getUserById/:id", getUserById)
+
+userRoutes.put("/updateLocation/:id", updateLocation)
 
 export { userRoutes }
