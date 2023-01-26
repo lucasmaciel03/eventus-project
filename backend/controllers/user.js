@@ -67,7 +67,7 @@ export const getAllUsers = async (req, res) => {
     const usersWithLocation = await Promise.all(users.map(async (user) => {
         if (user.locationId) {
             const location = await LocationModel.findOne({ where: { id: user.locationId } })
-            return { ...user.dataValues, locationName: location.name }
+            return { ...user.dataValues, locationName: location.description }
         } else {
             return { ...user.dataValues, locationName: null }
         }
@@ -84,7 +84,7 @@ export const getUserByUsername = async (req, res) => {
         if (user) {
             if (user.locationId) {
                 const location = await LocationModel.findOne({ where: { id: user.locationId } })
-                res.status(200).send({ ...user.dataValues, locationName: location.name })
+                res.status(200).send({ ...user.dataValues, locationName: location.description })
             } else {
                 res.status(200).send({ ...user.dataValues, locationName: null })
             }
@@ -96,14 +96,14 @@ export const getUserByUsername = async (req, res) => {
     }
 }
 
-// GET - Get user by id only exclude password, dont exclude profilePicture
+// GET - Get user by id only dont exlude any attribute, and add location name to user object if locationId exists
 export const getUserById = async (req, res) => {
-    const { id } = req.params
-    const user = await UserModel.findOne({ where: { id: id }, attributes: { exclude: ['password'] } })
-    if (user) {
+    const { id } = req.params 
+    const user = await UserModel.findOne({ where: { id: id } })
+    if (user) { 
         if (user.locationId) {
             const location = await LocationModel.findOne({ where: { id: user.locationId } })
-            res.status(200).send({ ...user.dataValues, locationName: location.name })
+            res.status(200).send({ ...user.dataValues, locationName: location.description })
         } else {
             res.status(200).send({ ...user.dataValues, locationName: null })
         }
@@ -111,6 +111,29 @@ export const getUserById = async (req, res) => {
         res.status(404).send('User not found')
     }
 }
+
+// PUT - Update location of user by id, user write location name and we find locationId by location name and update it in user verify if location exists
+export const updateLocation = async (req, res) => {
+    try {
+        const { id } = req.params
+        const { locationName } = req.body
+        const userExist = await UserModel.findOne({ where: { id: id } })
+        if (userExist) {
+            const location = await LocationModel.findOne({ where: { description: locationName } })
+            if (location) {
+                await UserModel.update({ locationId: location.id }, { where: { id: id } })
+                res.status(200).send({ message: 'Localização atualizada com sucesso' })
+            } else {
+                res.status(404).send({ message: 'Localização não encontrada' })
+            }
+        } else {
+            res.status(404).send({ message: 'User not found' })
+        }
+    } catch (error) {
+        res.status(500).send({ message: 'Error updating location', error: error.message });
+    }
+}
+
 
 //  Image Upload
 
