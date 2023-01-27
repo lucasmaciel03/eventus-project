@@ -25,7 +25,6 @@
       <ion-buttons slot="start">
         <ion-back-button default-href="#" (click)="goBack()"></ion-back-button>
       </ion-buttons>
-      <ion-title color="dark">{{ name }}</ion-title>
       <ion-buttons slot="end">
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
@@ -37,10 +36,8 @@
         <ion-row class="ion-margin-top">
           <ion-col size="12">
             <ion-avatar>
-              <img
-                alt="userphoto"
-                src="https://ionicframework.com/docs/img/demos/avatar.svg"
-              />
+              <!-- GET image from database --> 
+              <img src={{profilePicture}} alt="user" />
             </ion-avatar>
           </ion-col>
         </ion-row>

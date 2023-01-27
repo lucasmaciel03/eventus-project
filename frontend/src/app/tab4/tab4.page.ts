@@ -69,7 +69,7 @@ export class Tab4Page implements OnInit {
         this.surname = data.surname;
         this.email = data.email;
         this.password = data.password;
-        this.profilePicture = data.profilePicture;
+        this.profilePicture = `http://localhost:4243/uploads/${data.profilePicture}`;
         this.locationName = data.locationName;
         this.birthDate = data.birthDate;
         this.joinedDate = data.joinedDate;
