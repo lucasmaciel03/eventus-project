@@ -134,6 +134,24 @@ export const updateLocation = async (req, res) => {
     }
 }
 
+// PUT- Update profile picture of user by id, image is uploaded to uploads folder and path is saved in database, if user already has a profile picture, delete the old one, and save the new one in database and in uploads folder 
+export const updateProfilePicture = async (req, res) => {
+    try {
+        const { id } = req.params
+        const userExist = await UserModel.findOne({ where: { id: id } })
+        if (userExist) {
+            if (userExist.profilePicture) {
+                fs.unlinkSync(`uploads/${userExist.profilePicture}`)
+            }
+            await UserModel.update({ profilePicture: req.file.filename }, { where: { id: id } })
+            res.status(200).send({ message: 'Foto de perfil atualizada com sucesso' })
+        } else {
+            res.status(404).send({ message: 'User not found' })
+        }
+    } catch (error) {
+        res.status(500).send({ message: 'Error updating profile picture', error: error.message });
+    }
+}
 
 //  Image Upload
 
