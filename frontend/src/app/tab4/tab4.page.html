@@ -133,58 +133,71 @@
           </ion-toolbar>
         </ion-header>
         <ion-content>
-          <ion-grid class="ion-margin-top">
-            <ion-row>
-              <ion-col size="12">
-                <ion-item>
-                  <ion-label>Name</ion-label>
-                  <ion-input color="primary" placeholder="{{name}}"></ion-input>
-                </ion-item>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <ion-item>
-                  <ion-label>Surname</ion-label>
-                  <ion-input
-                    color="primary"
-                    placeholder="{{surname}}"
-                  ></ion-input>
-                </ion-item>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <ion-item>
-                  <ion-label>Email</ion-label>
-                  <ion-input
-                    color="primary"
-                    placeholder="{{email}}"
-                  ></ion-input>
-                </ion-item>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <ion-item>
-                  <ion-label>Location</ion-label>
-                  <ion-input color="primary" placeholder=""></ion-input>
-                </ion-item>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <ion-item>
-                  <ion-label>Birth Date</ion-label>
-                  <ion-input
-                    color="primary"
-                    type="date"
-                    placeholder=""
-                  ></ion-input>
-                </ion-item>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
+          <form>
+            <ion-grid class="ion-margin-top">
+              <ion-row>
+                <ion-col size="12">
+                  <ion-item>
+                    <ion-label>Name</ion-label>
+                    <ion-input
+                      color="primary"
+                      placeholder="{{name}}"
+                    ></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-label>Surname</ion-label>
+                    <ion-input
+                      color="primary"
+                      placeholder="{{surname}}"
+                    ></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-label>Email</ion-label>
+                    <ion-input
+                      color="primary"
+                      placeholder="{{email}}"
+                    ></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-label class="mylabel">Location:</ion-label>
+                    <ion-select placeholder="{{locationName}}">
+                      <ion-select-option value="Porto">Porto</ion-select-option>
+                      <ion-select-option value="Póvoa de Varzim"
+                        >Póvoa de Varzim</ion-select-option
+                      >
+                      <ion-select-option value="Aguçadoura"
+                        >Aguçadoura</ion-select-option
+                      >
+                    </ion-select>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-label>Birth Date</ion-label>
+                    <ion-input
+                      color="primary"
+                      type="date"
+                      placeholder=""
+                    ></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </form>
         </ion-content>
       </ng-template>
     </ion-modal>
