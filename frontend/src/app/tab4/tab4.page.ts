@@ -22,13 +22,21 @@ export class Tab4Page implements OnInit {
   birthDate: any;
   joinedDate: any;
 
-  constructor(private navController: NavController, private router: Router, private crudService: CrudService) {}
+  presentingElement: any = null;
+
+  constructor(
+    private navController: NavController,
+    private router: Router,
+    private crudService: CrudService
+  ) {}
 
   ngOnInit() {
     this.getToken();
     this.checkToken();
+
+    this.presentingElement = document.querySelector('.ion-page');
   }
-  
+
   ionViewWillEnter() {
     this.username = this.user.username;
     this.name = this.user.name;
@@ -48,9 +56,9 @@ export class Tab4Page implements OnInit {
     if (token.value !== null) {
       const user = jwt_decode(token.value);
       this.user = user;
-      this.getUser() 
+      this.getUser();
     }
-  }
+  };
 
   checkToken = async () => {
     const hasToken = await Preferences.get({ key: 'token' });
@@ -62,21 +70,18 @@ export class Tab4Page implements OnInit {
   };
 
   getUser = async () => {
-    this.crudService.getUser("getUserById", this.user._id)
-    .subscribe((data) => {
-        this.username = data.username;
-        this.name = data.name;
-        this.surname = data.surname;
-        this.email = data.email;
-        this.password = data.password;
-        this.profilePicture = `http://localhost:4243/uploads/${data.profilePicture}`;
-        this.locationName = data.locationName;
-        this.birthDate = data.birthDate;
-        this.joinedDate = data.joinedDate;
+    this.crudService.getUser('getUserById', this.user._id).subscribe((data) => {
+      this.username = data.username;
+      this.name = data.name;
+      this.surname = data.surname;
+      this.email = data.email;
+      this.password = data.password;
+      this.profilePicture = `http://localhost:4243/uploads/${data.profilePicture}`;
+      this.locationName = data.locationName;
+      this.birthDate = data.birthDate;
+      this.joinedDate = data.joinedDate;
     });
-}
-
-  
+  };
 
   async goBack() {
     this.navController.setDirection('back');
