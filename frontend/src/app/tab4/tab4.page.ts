@@ -1,5 +1,7 @@
+import { TranslateService } from '@ngx-translate/core';
+import { LocalizationService } from './../services/localization/localization.service';
 import { Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { NavController, ToastController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { CrudService } from '../services/api/crud.service';
 import { Preferences } from '@capacitor/preferences';
@@ -27,7 +29,10 @@ export class Tab4Page implements OnInit {
   constructor(
     private navController: NavController,
     private router: Router,
-    private crudService: CrudService
+    private crudService: CrudService,
+    private translateService: TranslateService,
+    private toastController: ToastController,
+    private LocalizationService: LocalizationService
   ) {}
 
   ngOnInit() {
@@ -81,23 +86,37 @@ export class Tab4Page implements OnInit {
       this.birthDate = data.birthDate;
       this.joinedDate = data.joinedDate;
     });
-}
+  };
 
   async updatePicture() {
     const formData = new FormData();
     formData.append('profilePicture', this.pictureInput);
-    this.crudService.updatePicture("updateProfilePicture", this.user._id, formData)
-    .subscribe((data) => {
-      alert("Foto de perfil atualizada com sucesso!");
-      this.getUser();
-    });
+    this.crudService
+      .updatePicture('updateProfilePicture', this.user._id, formData)
+      .subscribe((data) => {
+        alert('Foto de perfil atualizada com sucesso!');
+        this.getUser();
+      });
   }
-
 
   async goBack() {
     this.navController.setDirection('back');
     await this.router.navigate(['/tabs/tab1'], {
       replaceUrl: true,
     });
+  }
+
+  async changeLanguage(language: string) {
+    await Preferences.set({ key: 'user-lang', value: language });
+    await this.LocalizationService.setLanguage(language);
+    await this.showToast();
+  }
+
+  async showToast() {
+    const toast = await this.toastController.create({
+      message: this.translateService.instant('language as been changed'),
+      duration: 4000,
+    });
+    await toast.present();
   }
 }

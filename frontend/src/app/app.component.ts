@@ -12,9 +12,11 @@ export class AppComponent {
     private platform: Platform,
     private localizationService: LocalizationService
   ) {}
+
   async ngOnInit() {
     await this.initializeApp();
   }
+
   async initializeApp() {
     await this.platform.ready();
     await this.localizationService.setInitialAppLanguage();
