@@ -37,12 +37,12 @@
           <ion-col size="12">
             <div class="upload">
               <img
-                src="https://ionicframework.com/docs/img/demos/avatar.svg"
-                width="100"
-                height="100"
+                src={{profilePicture}}
+                height="100px"
+                width="100px"
               />
               <div class="round">
-                <input type="file" />
+                <input type="file" [(ngModel)]="profilePicture" name="profilePicture" (ngModelChange)="updatePicture()" />
                 <ion-icon
                   style="
                     color: #fff;
@@ -51,7 +51,8 @@
                     margin-top: 3px;
                   "
                   name="camera-outline"
-                ></ion-icon>
+                >
+              </ion-icon>
               </div>
             </div>
           </ion-col>

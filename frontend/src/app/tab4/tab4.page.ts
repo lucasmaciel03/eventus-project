@@ -21,6 +21,7 @@ export class Tab4Page implements OnInit {
   locationName: any;
   birthDate: any;
   joinedDate: any;
+  pictureInput: any;
 
   constructor(private navController: NavController, private router: Router, private crudService: CrudService) {}
 
@@ -76,7 +77,16 @@ export class Tab4Page implements OnInit {
     });
 }
 
-  
+  async updatePicture() {
+    const formData = new FormData();
+    formData.append('profilePicture', this.pictureInput);
+    this.crudService.updatePicture("updateProfilePicture", this.user._id, formData)
+    .subscribe((data) => {
+      alert("Foto de perfil atualizada com sucesso!");
+      this.getUser();
+    });
+  }
+
 
   async goBack() {
     this.navController.setDirection('back');
