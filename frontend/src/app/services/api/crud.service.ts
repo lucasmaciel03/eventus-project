@@ -35,5 +35,7 @@ export class CrudService {
     return this.http.get<User>(`${this.url}/api/user/${controller}/${id}`);
   }
 
-
+  updatePicture(controller: string, id: number, model: any) {
+    return this.http.put(`${this.url}/api/user/${controller}/${id}`, model)
+  }
 }
