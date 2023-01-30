@@ -1,0 +1,18 @@
+{
+  "english": "Inglês",
+  "portuguese": "Português",
+  "back": "Voltar",
+  "close": "Fechar",
+  "hello": "Olá",
+  "createEvent": "Criar evento",
+  "description": "Descrição",
+  "name": "Nome:",
+  "category": "Categoria:",
+  "location": "Localização:",
+  "startAt": "Começa às:",
+  "endAt": "Acaba às:",
+  "image": "Imagem:",
+  "create": "Criar",
+  "logout": "Sair",
+  "language": "Língua"
+}

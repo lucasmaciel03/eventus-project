@@ -1,0 +1,18 @@
+{
+  "english": "English",
+  "portuguese": "Portuguese",
+  "back": "Back",
+  "close": "Close",
+  "hello": "Hi",
+  "createEvent": "Create Event",
+  "description": "Description:",
+  "name": "Name:",
+  "category": "Category:",
+  "location": "Location:",
+  "startAt": "Start at:",
+  "endAt": "End at:",
+  "image": "Image:",
+  "create": "Create",
+  "logout": "Logout",
+  "language":"Language"
+}

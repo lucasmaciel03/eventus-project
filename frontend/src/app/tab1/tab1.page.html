@@ -19,27 +19,31 @@
       <ng-template>
         <ion-header>
           <ion-toolbar>
-            <ion-title>Create Event</ion-title>
+            <ion-title>{{"createEvent"|translate}}</ion-title>
             <ion-buttons slot="end">
-              <ion-button (click)="setOpen(false)">Close</ion-button>
+              <ion-button (click)="setOpen(false)"
+                >{{"close"|translate}}</ion-button
+              >
             </ion-buttons>
           </ion-toolbar>
         </ion-header>
         <ion-content class="ion-padding">
           <ion-list>
             <ion-item>
-              <ion-label class="mylabel" position="stacked">Name:</ion-label>
+              <ion-label class="mylabel" position="stacked"
+                >{{"name"|translate}}</ion-label
+              >
               <ion-input placeholder="Name here ..."></ion-input>
             </ion-item>
             <ion-item>
               <ion-label class="mylabel" position="stacked"
-                >Description:</ion-label
+                >{{"Description"|translate}}</ion-label
               >
               <ion-input placeholder="Description here ..."></ion-input>
             </ion-item>
             <ion-item>
               <ion-label class="mylabel" position="stacked"
-                >Category:</ion-label
+                >{{"category"|translate}}</ion-label
               >
               <ion-select placeholder="Choose Category">
                 <ion-select-option value="apples"
@@ -51,7 +55,7 @@
             </ion-item>
             <ion-item>
               <ion-label class="mylabel" position="stacked"
-                >Location:</ion-label
+                >{{"location"|translate}}</ion-label
               >
               <ion-select placeholder="Choose Location">
                 <ion-select-option value="apples">Porto</ion-select-option>
@@ -65,7 +69,7 @@
             </ion-item>
             <ion-item>
               <ion-label class="mylabel" position="stacked"
-                >Start at:</ion-label
+                >{{"startAt"|translate}}</ion-label
               >
               <ion-datetime-button datetime="datetime"></ion-datetime-button>
               <ion-modal [keepContentsMounted]="true">
@@ -79,7 +83,9 @@
               </ion-modal>
             </ion-item>
             <ion-item>
-              <ion-label class="mylabel" position="stacked">End at:</ion-label>
+              <ion-label class="mylabel" position="stacked"
+                >{{"endAt"|translate}}</ion-label
+              >
               <ion-datetime-button datetime="datetime"></ion-datetime-button>
               <ion-modal [keepContentsMounted]="true">
                 <ng-template>
@@ -92,12 +98,14 @@
               </ion-modal>
             </ion-item>
             <ion-item>
-              <ion-label class="mylabel" position="stacked">Image:</ion-label>
+              <ion-label class="mylabel" position="stacked"
+                >{{"image"|translate}}</ion-label
+              >
               <ion-input type="file"></ion-input>
             </ion-item>
           </ion-list>
           <ion-button style="margin-top: 50px" expand="block" strong="bold"
-            >Create</ion-button
+            >{{"create"|translate}}</ion-button
           >
         </ion-content>
       </ng-template>
