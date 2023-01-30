@@ -23,8 +23,7 @@ export class Tab4Page implements OnInit {
   joinedDate: any;
   pictureInput: any;
 
-  presentingElement: any = null;
-
+  presentingElement: HTMLElement | undefined = undefined;
   constructor(
     private navController: NavController,
     private router: Router,
@@ -35,7 +34,7 @@ export class Tab4Page implements OnInit {
     this.getToken();
     this.checkToken();
 
-    this.presentingElement = document.querySelector('.ion-page');
+    this.presentingElement = document.getElementById('main-content')!;
   }
 
   ionViewWillEnter() {
