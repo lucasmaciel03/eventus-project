@@ -59,13 +59,14 @@
         <ion-row class="ion-margin-top">
           <ion-col size="12">
             <div class="upload">
-              <img
-                src={{profilePicture}}
-                height="100px"
-                width="100px"
-              />
+              <img src="{{profilePicture}}" height="100px" width="100px" />
               <div class="round">
-                <input type="file" [(ngModel)]="profilePicture" name="profilePicture" (ngModelChange)="updatePicture()" />
+                <input
+                  type="file"
+                  [(ngModel)]="profilePicture"
+                  name="profilePicture"
+                  (ngModelChange)="updatePicture()"
+                />
                 <ion-icon
                   style="
                     color: #fff;
@@ -75,7 +76,7 @@
                   "
                   name="camera-outline"
                 >
-              </ion-icon>
+                </ion-icon>
               </div>
             </div>
           </ion-col>
@@ -114,55 +115,76 @@
       </ion-grid>
     </ion-card>
 
-    <ion-modal #modal2 trigger="open-modal2" [presentingElement]="presentingElement">
+    <ion-modal
+      #modal2
+      trigger="open-modal2"
+      [presentingElement]="presentingElement"
+    >
       <ng-template>
         <ion-header>
           <ion-toolbar>
-            <ion-title>Modal</ion-title>
-            <ion-buttons slot="end">
+            <ion-title>Change Information</ion-title>
+            <ion-buttons slot="start">
               <ion-button (click)="modal2.dismiss()">Close</ion-button>
+            </ion-buttons>
+            <ion-buttons slot="end">
+              <ion-button>Save</ion-button>
             </ion-buttons>
           </ion-toolbar>
         </ion-header>
         <ion-content>
-          <ion-list>
-            <ion-item>
-              <ion-avatar slot="start">
-                <ion-img src="https://i.pravatar.cc/300?u=b"></ion-img>
-              </ion-avatar>
-              <ion-label>
-                <h2>Connor Smith</h2>
-                <p>Sales Rep</p>
-              </ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-avatar slot="start">
-                <ion-img src="https://i.pravatar.cc/300?u=a"></ion-img>
-              </ion-avatar>
-              <ion-label>
-                <h2>Daniel Smith</h2>
-                <p>Product Designer</p>
-              </ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-avatar slot="start">
-                <ion-img src="https://i.pravatar.cc/300?u=d"></ion-img>
-              </ion-avatar>
-              <ion-label>
-                <h2>Greg Smith</h2>
-                <p>Director of Operations</p>
-              </ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-avatar slot="start">
-                <ion-img src="https://i.pravatar.cc/300?u=e"></ion-img>
-              </ion-avatar>
-              <ion-label>
-                <h2>Zoey Smith</h2>
-                <p>CEO</p>
-              </ion-label>
-            </ion-item>
-          </ion-list>
+          <ion-grid class="ion-margin-top">
+            <ion-row>
+              <ion-col size="12">
+                <ion-item>
+                  <ion-label>Name</ion-label>
+                  <ion-input color="primary" placeholder="{{name}}"></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label>Surname</ion-label>
+                  <ion-input
+                    color="primary"
+                    placeholder="{{surname}}"
+                  ></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label>Email</ion-label>
+                  <ion-input
+                    color="primary"
+                    placeholder="{{email}}"
+                  ></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label>Location</ion-label>
+                  <ion-input color="primary" placeholder=""></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label>Birth Date</ion-label>
+                  <ion-input
+                    color="primary"
+                    type="date"
+                    placeholder=""
+                  ></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </ion-content>
       </ng-template>
     </ion-modal>
