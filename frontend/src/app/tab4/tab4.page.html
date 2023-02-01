@@ -1,20 +1,22 @@
 <ion-menu contentId="main-content" side="end">
   <ion-header>
     <ion-toolbar>
-      <ion-title color="dark">Settings</ion-title>
+      <ion-title color="dark">{{"settings" | translate}}</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">
     <ion-item-group>
       <ion-item>
         <ion-button id="open-modal" fill="clear"
-          >Change Password / Email</ion-button
+          >{{"changepassemail" | translate}}</ion-button
         >
       </ion-item>
     </ion-item-group>
     <ion-item-group class="ion-margin-top">
       <ion-item>
-        <ion-button style="color: red" fill="clear">Sign out</ion-button>
+        <ion-button style="color: red" fill="clear"
+          >{{"logout" | translate}}</ion-button
+        >
       </ion-item>
     </ion-item-group>
   </ion-content>
@@ -108,7 +110,7 @@
               color="dark"
               class="ion-margin-bottom"
             >
-              Edit Profile
+              {{"editprofile" | translate}}
             </ion-button>
           </ion-col>
         </ion-row>

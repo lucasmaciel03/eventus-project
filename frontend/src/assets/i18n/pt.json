@@ -17,5 +17,13 @@
   "moreinfo": "Mais Informação",
   "notfound": "Pagina Não Encontrada!",
   "404text": "A página que procura não se encontra disponivél ou não existe. Por favor volte à página principal.",
-  "gohome": "Voltar"
+  "gohome": "Voltar",
+  "home": "Início",
+  "search": "Procurar",
+  "profile": "Perfil",
+  "eventfilter": "Filtrar Evento",
+  "date": "Data:",
+  "settings": "Definições",
+  "changepassemail": "Alterar Password/Email",
+  "editprofile": "Editar Perfil"
 }
