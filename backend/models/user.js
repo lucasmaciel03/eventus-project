@@ -36,6 +36,7 @@ const UserModel = dbInstance.define(
         },
         profilePicture: {
             type: Sequelize.STRING,
+            defaultValue: "default.png"
         },
         locationId: {
             type: Sequelize.INTEGER,

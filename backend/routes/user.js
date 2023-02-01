@@ -7,7 +7,8 @@ import {
     login,
     getUserById,
     updateLocation,
-    updateProfilePicture
+    updateProfilePicture,
+    updateProfilePictureToDefault
 } from "../controllers/user.js"
 
 const userRoutes = Router();
@@ -25,5 +26,7 @@ userRoutes.get("/getUserById/:id", getUserById)
 userRoutes.put("/updateLocation/:id", updateLocation)
 
 userRoutes.put("/updateProfilePicture/:id", upload, updateProfilePicture)
+
+userRoutes.put("/updateProfilePictureToDefault/:id", updateProfilePictureToDefault)
 
 export { userRoutes }
