@@ -24,6 +24,11 @@ export class Tab4Page implements OnInit {
   birthDate: any;
   joinedDate: any;
   pictureInput: any;
+  currentPassword: string = '';
+  newPassword: string = '';
+  confirmPassword: string = '';
+  currentEmail: string = '';
+  newEmail: string = '';
 
   presentingElement: HTMLElement | undefined = undefined;
   constructor(
@@ -118,5 +123,9 @@ export class Tab4Page implements OnInit {
       duration: 4000,
     });
     await toast.present();
+  }
+
+  async updatePasswordAndEmail() {
+    console.log('change password');
   }
 }

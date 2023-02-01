@@ -21,26 +21,54 @@
     </ion-item-group>
   </ion-content>
 </ion-menu>
-<ion-modal class="modalchangeinfo" #modal trigger="open-modal">
+<ion-modal #modal trigger="open-modal">
   <ng-template>
-    <ion-content class="ion-text-center">
-      <ion-text class="ion-text-center ion-padding"
-        ><h4><b>Change your password and email:</b></h4></ion-text
-      >
-      <ion-input
-        type="password"
-        placeholder="Change Password"
-        class="custom ion-text-center"
-      ></ion-input
-      ><br />
-      <ion-input
-        type="email"
-        placeholder="Change Email"
-        class="custom ion-text-center"
-      ></ion-input>
-      <ion-button style="width: 90%; margin-top: 20px" class="ion-margin-bottom"
-        >Continue</ion-button
-      >
+    <ion-content>
+      <ion-list>
+        <ion-item>
+          <ion-label position="stacked">Senha Atual</ion-label>
+          <ion-input type="password" [(ngModel)]="currentPassword"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Nova Senha</ion-label>
+          <ion-input type="password" [(ngModel)]="newPassword"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Confirmar Senha</ion-label>
+          <ion-input type="password" [(ngModel)]="confirmPassword"></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="newPassword !== confirmPassword">
+          <ion-label class="ion-text-danger">
+            As senhas não coincidem
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Email Atual</ion-label>
+          <ion-input type="email" [(ngModel)]="currentEmail"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Novo Email</ion-label>
+          <ion-input type="email" [(ngModel)]="newEmail"></ion-input>
+        </ion-item>
+      </ion-list>
+
+      <ion-row>
+        <ion-col>
+          <ion-button
+            color="primary"
+            expand="full"
+            (click)="updatePasswordAndEmail()"
+            [disabled]="newPassword !== confirmPassword"
+          >
+            Atualizar
+          </ion-button>
+        </ion-col>
+      </ion-row>
     </ion-content>
   </ng-template>
 </ion-modal>
