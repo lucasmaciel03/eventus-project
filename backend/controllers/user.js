@@ -140,11 +140,28 @@ export const updateProfilePicture = async (req, res) => {
         const { id } = req.params
         const userExist = await UserModel.findOne({ where: { id: id } })
         if (userExist) {
-            if (userExist.profilePicture) {
-                fs.unlinkSync(`uploads/${userExist.profilePicture}`)
-            }
             await UserModel.update({ profilePicture: req.file.filename }, { where: { id: id } })
             res.status(200).send({ message: 'Foto de perfil atualizada com sucesso' })
+        } else {
+            res.status(404).send({ message: 'User not found' })
+        }
+    } catch (error) {
+        res.status(500).send({ message: 'Error updating profile picture', error: error.message });
+    }
+}
+
+// PUT - Update profile picture to default.png if user has a profile picture name different from default.png
+export const updateProfilePictureToDefault = async (req, res) => {
+    try {
+        const { id } = req.params
+        const userExist = await UserModel.findOne({ where: { id: id } })
+        if (userExist) {
+            if (userExist.profilePicture !== 'default.png') {
+                await UserModel.update({ profilePicture: 'default.png' }, { where: { id: id } })
+                res.status(200).send({ message: 'Foto de perfil atualizada com sucesso' })
+            } else {
+                res.status(200).send({ message: 'Foto de perfil já é a padrão' })
+            }
         } else {
             res.status(404).send({ message: 'User not found' })
         }
