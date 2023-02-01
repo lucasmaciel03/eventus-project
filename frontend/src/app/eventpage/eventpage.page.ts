@@ -1,6 +1,9 @@
+import { LocalizationService } from './../services/localization/localization.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastController, NavController } from '@ionic/angular';
+import { Preferences } from '@capacitor/preferences';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-eventpage',
   templateUrl: './eventpage.page.html',
@@ -11,7 +14,10 @@ export class EventpagePage implements OnInit {
   constructor(
     private toastCtrl: ToastController,
     private navController: NavController,
-    private router: Router
+    private router: Router,
+    private toastController: ToastController,
+    private translateService: TranslateService,
+    private LocalizationService: LocalizationService
   ) {}
 
   ngOnInit() {}
@@ -35,5 +41,20 @@ export class EventpagePage implements OnInit {
     await this.router.navigate(['/tabs/tab1'], {
       replaceUrl: true,
     });
+  }
+
+  async changeLanguage(language: string) {
+    await Preferences.set({ key: 'user-lang', value: language });
+    await this.LocalizationService.setLanguage(language);
+    await this.showToast();
+    console.log(language);
+  }
+
+  async showToast() {
+    const toast = await this.toastController.create({
+      message: this.translateService.instant('language as been changed'),
+      duration: 4000,
+    });
+    await toast.present();
   }
 }

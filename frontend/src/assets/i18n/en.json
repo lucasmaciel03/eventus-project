@@ -13,5 +13,9 @@
   "image": "Image:",
   "create": "Create",
   "logout": "Logout",
-  "language": "Language"
+  "language": "Language",
+  "moreinfo": "More Info",
+  "notfound": "Page Not Found!",
+  "404text": "The requested resource could not be found on the server. Please go back to the home page.",
+  "gohome": "Go Home"
 }

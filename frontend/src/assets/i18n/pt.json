@@ -13,5 +13,9 @@
   "image": "Imagem:",
   "create": "Criar",
   "logout": "Sair",
-  "language": "Língua"
+  "language": "Língua",
+  "moreinfo": "Mais Informação",
+  "notfound": "Pagina Não Encontrada!",
+  "404text": "A página que procura não se encontra disponivél ou não existe. Por favor volte à página principal.",
+  "gohome": "Voltar"
 }
