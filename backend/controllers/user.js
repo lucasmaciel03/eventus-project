@@ -6,6 +6,7 @@ import path from 'path'
 const { isEmail } = pkg // https://www.npmjs.com/package/validator
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import fs from 'fs'
 
 
 
@@ -43,16 +44,16 @@ export const createAccount = async (req, res) => {
 // POST - Login controller
 export const login = async (req, res) => {
     const { username, password } = req.body
-    if (!username || !password ){
-        return res.status(400).send({message: 'Por favor, preencha todos os campos'});
+    if (!username || !password) {
+        return res.status(400).send({ message: 'Por favor, preencha todos os campos' });
     }
     const user = await UserModel.findOne({ where: { username: username } })
     if (!user) {
-        res.status(400).send({message: 'Este username não existe'})
+        res.status(400).send({ message: 'Este username não existe' })
     } else {
         const validPass = await bcrypt.compare(password, user.password)
         if (!validPass) {
-            res.status(400).send({message: 'Password incorreta, tente novamente'})
+            res.status(400).send({ message: 'Password incorreta, tente novamente' })
         } else {
             // create and assign a token
             const token = jwt.sign({ _id: user.id }, process.env.TOKEN_SECRET)
@@ -98,9 +99,9 @@ export const getUserByUsername = async (req, res) => {
 
 // GET - Get user by id only dont exlude any attribute, and add location name to user object if locationId exists
 export const getUserById = async (req, res) => {
-    const { id } = req.params 
+    const { id } = req.params
     const user = await UserModel.findOne({ where: { id: id } })
-    if (user) { 
+    if (user) {
         if (user.locationId) {
             const location = await LocationModel.findOne({ where: { id: user.locationId } })
             res.status(200).send({ ...user.dataValues, locationName: location.description })
@@ -139,7 +140,11 @@ export const updateProfilePicture = async (req, res) => {
     try {
         const { id } = req.params
         const userExist = await UserModel.findOne({ where: { id: id } })
+        console.log('------------------' + req.file)
         if (userExist) {
+            if (userExist.profilePicture !== 'default.png') {
+                fs.unlinkSync(`uploads/${userExist.profilePicture}`)
+            }
             await UserModel.update({ profilePicture: req.file.filename }, { where: { id: id } })
             res.status(200).send({ message: 'Foto de perfil atualizada com sucesso' })
         } else {
@@ -157,6 +162,7 @@ export const updateProfilePictureToDefault = async (req, res) => {
         const userExist = await UserModel.findOne({ where: { id: id } })
         if (userExist) {
             if (userExist.profilePicture !== 'default.png') {
+                fs.unlinkSync(`uploads/${userExist.profilePicture}`)
                 await UserModel.update({ profilePicture: 'default.png' }, { where: { id: id } })
                 res.status(200).send({ message: 'Foto de perfil atualizada com sucesso' })
             } else {
@@ -170,9 +176,107 @@ export const updateProfilePictureToDefault = async (req, res) => {
     }
 }
 
+// DELETE - Delete user by id, if user has a profile picture name different from default.png, delete the profile picture from uploads folder
+export const deleteUser = async (req, res) => {
+    try {
+        const { id } = req.params
+        const userExist = await UserModel.findOne({ where: { id: id } })
+        if (userExist) {
+            if (userExist.profilePicture !== 'default.png') {
+                fs.unlinkSync(`uploads/${userExist.profilePicture}`)
+            }
+            await UserModel.destroy({ where: { id: id } })
+            res.status(200).send({ message: 'User deleted successfully' })
+        } else {
+            res.status(404).send({ message: 'User not found' })
+        }
+    } catch (error) {
+        res.status(500).send({ message: 'Error deleting user', error: error.message });
+    }
+}
+
+// PUT - Update name of user by id
+export const updateName = async (req, res) => {
+    try {
+        const { id } = req.params
+        const { name } = req.body
+        const userExist = await UserModel.findOne({ where: { id: id } })
+        if (userExist) {
+            if (name === '') {
+                res.status(200).send({ ...userExist.dataValues, locationName: userExist.locationId ? await LocationModel.findOne({ where: { id: userExist.locationId } }) : null })
+            } else {
+                await UserModel.update({ name: name }, { where: { id: id } })
+                const user = await UserModel.findOne({ where: { id: id } })
+                const location = await LocationModel.findOne({ where: { id: user.locationId } })
+                res.status(200).send({ ...user.dataValues, locationName: location ? location.description : null })
+            }
+        } else {
+            res.status(404).send({ message: 'User not found' })
+        }
+    } catch (error) {
+        res.status(500).send({ message: 'Error updating name', error: error.message });
+    }
+}
+
+// PUT - Update surname of user by id
+export const updateSurname = async (req, res) => {
+    try {
+        const { id } = req.params
+        const { surname } = req.body
+        const userExist = await UserModel.findOne({ where: { id: id } })
+        if (userExist) {
+            if (surname === '') {
+                res.status(200).send({ ...userExist.dataValues, locationName: userExist.locationId ? await LocationModel.findOne({ where: { id: userExist.locationId } }) : null })
+            } else {
+                await UserModel.update({ surname: surname }, { where: { id: id } })
+                const user = await UserModel.findOne({ where: { id: id } })
+                const location = await LocationModel.findOne({ where: { id: user.locationId } })
+                res.status(200).send({ ...user.dataValues, locationName: location ? location.description : null })
+            }
+        } else {
+            res.status(404).send({ message: 'User not found' })
+        }
+    } catch (error) {
+        res.status(500).send({ message: 'Error updating surname', error: error.message });
+    }
+}
+
+// PUT- Update email of user by id, verify if email already exists, if not, verify if email is valid, if email is valid, update email and return user with updated email and location name if user has a location id
+export const updateEmail = async (req, res) => {
+    try {
+        const { id } = req.params
+        const { email } = req.body
+        const userExist = await UserModel.findOne({ where: { id: id } })
+        if (userExist) {
+            if (email === '') {
+                res.status(200).send({ ...userExist.dataValues, locationName: userExist.locationId ? await LocationModel.findOne({ where: { id: userExist.locationId } }) : null })
+            } else {
+                const emailExist = await UserModel.findOne({ where: { email: email } })
+                if (emailExist) {
+                    res.status(200).send({ message: 'Email já existe' })
+                } else {
+                    if (isEmail(email)) {
+                        const updatedUser = await UserModel.update({ email: email }, { where: { id: id } })
+                        const user = await UserModel.findOne({ where: { id: id } })
+                        res.status(200).send({ ...user.dataValues, locationName: user.locationId ? await LocationModel.findOne({ where: { id: user.locationId } }) : null })
+                    } else {
+                        res.status(200).send({ message: 'Email inválido' })
+                    }
+                }
+            }
+        } else {
+            res.status(404).send({ message: 'Usuário não encontrado' })
+        }
+    } catch (error) {
+        res.status(500).send({ message: 'Erro ao atualizar email' })
+    }
+}
+
+
+
 //  Image Upload
 
-// 2. Set up storage engine for multer
+// Set up storage engine for multer
 export const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, 'uploads/')
@@ -183,7 +287,7 @@ export const storage = multer.diskStorage({
 })
 
 
-// 3. Set up multer to upload the image
+// Set up multer to upload the image
 export const upload = multer({
     storage: storage,
     limits: { fileSize: '1000000' },
@@ -191,6 +295,7 @@ export const upload = multer({
         const fileTypes = /jpeg|jpg|png|gif/
         const mimeType = fileTypes.test(file.mimetype)
         const extname = fileTypes.test(path.extname(file.originalname))
+        console.log('---------------------------' + file.originalname)
 
         if (mimeType && extname) {
             return cb(null, true)

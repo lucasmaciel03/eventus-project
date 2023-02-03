@@ -8,7 +8,11 @@ import {
     getUserById,
     updateLocation,
     updateProfilePicture,
-    updateProfilePictureToDefault
+    updateProfilePictureToDefault,
+    deleteUser,
+    updateName,
+    updateSurname,
+    updateEmail
 } from "../controllers/user.js"
 
 const userRoutes = Router();
@@ -28,5 +32,13 @@ userRoutes.put("/updateLocation/:id", updateLocation)
 userRoutes.put("/updateProfilePicture/:id", upload, updateProfilePicture)
 
 userRoutes.put("/updateProfilePictureToDefault/:id", updateProfilePictureToDefault)
+
+userRoutes.delete("/deleteUser/:id", deleteUser)
+
+userRoutes.put("/updateName/:id", updateName)
+
+userRoutes.put("/updateSurname/:id", updateSurname)
+
+userRoutes.put("/updateEmail/:id", updateEmail)
 
 export { userRoutes }
