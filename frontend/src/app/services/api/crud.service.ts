@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -15,6 +15,8 @@ export interface User {
   birthDate: Date;
   joinedDate: Date;
 }
+
+
 
 export interface RootObject {}
 
@@ -35,7 +37,10 @@ export class CrudService {
     return this.http.get<User>(`${this.url}/api/user/${controller}/${id}`);
   }
 
-  updatePicture(controller: string, id: number, model: any) {
+  updatePicture(controller: string, id: number, model: FormData) {
+    //const formData = new FormData();
+    //formData.append('file', file);
+    //formData.append('data', JSON.stringify(model));
     return this.http.put(`${this.url}/api/user/${controller}/${id}`, model)
   }
 }

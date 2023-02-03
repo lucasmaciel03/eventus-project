@@ -7,16 +7,12 @@
   <ion-content class="ion-padding">
     <ion-item-group>
       <ion-item>
-        <ion-button id="open-modal" fill="clear"
-          >{{"changepassemail" | translate}}</ion-button
-        >
+        <ion-button id="open-modal" fill="clear">{{"changepassemail" | translate}}</ion-button>
       </ion-item>
     </ion-item-group>
     <ion-item-group class="ion-margin-top">
       <ion-item>
-        <ion-button style="color: red" fill="clear"
-          >{{"logout" | translate}}</ion-button
-        >
+        <ion-button style="color: red" fill="clear">{{"logout" | translate}}</ion-button>
       </ion-item>
     </ion-item-group>
   </ion-content>
@@ -59,12 +55,8 @@
 
       <ion-row>
         <ion-col>
-          <ion-button
-            color="primary"
-            expand="full"
-            (click)="updatePasswordAndEmail()"
-            [disabled]="newPassword !== confirmPassword"
-          >
+          <ion-button color="primary" expand="full" (click)="updatePasswordAndEmail()"
+            [disabled]="newPassword !== confirmPassword">
             Atualizar
           </ion-button>
         </ion-col>
@@ -89,23 +81,14 @@
         <ion-row class="ion-margin-top">
           <ion-col size="12">
             <div class="upload">
-              <img src="{{profilePicture}}" height="100px" width="100px" />
-              <div class="round">
-                <input
-                  type="file"
-                  [(ngModel)]="profilePicture"
-                  name="profilePicture"
-                  (ngModelChange)="updatePicture()"
-                />
-                <ion-icon
-                  style="
+              <img src={{profilePicture}} />
+              <div class="round" (click)="updatePicture2()">
+                <ion-icon style="
                     color: #fff;
                     width: 24px;
                     height: 24px;
                     margin-top: 3px;
-                  "
-                  name="camera-outline"
-                >
+                  " name="camera-outline">
                 </ion-icon>
               </div>
             </div>
@@ -126,18 +109,17 @@
 
         <ion-row>
           <ion-col size="12" class="ion-text-center">
-            <ion-text><h5>{{locationName}}</h5></ion-text>
-            <ion-text><h5>{{email}}</h5></ion-text>
+            <ion-text>
+              <h5>{{locationName}}</h5>
+            </ion-text>
+            <ion-text>
+              <h5>{{email}}</h5>
+            </ion-text>
           </ion-col>
         </ion-row>
         <ion-row class="ion-justify-content-center">
           <ion-col size="10" class="ion-text-center">
-            <ion-button
-              id="open-modal2"
-              expand="block"
-              color="dark"
-              class="ion-margin-bottom"
-            >
+            <ion-button id="open-modal2" expand="block" color="dark" class="ion-margin-bottom">
               {{"editprofile" | translate}}
             </ion-button>
           </ion-col>
@@ -145,11 +127,7 @@
       </ion-grid>
     </ion-card>
 
-    <ion-modal
-      #modal2
-      trigger="open-modal2"
-      [presentingElement]="presentingElement"
-    >
+    <ion-modal #modal2 trigger="open-modal2" [presentingElement]="presentingElement">
       <ng-template>
         <ion-header>
           <ion-toolbar>
@@ -169,10 +147,7 @@
                 <ion-col size="12">
                   <ion-item>
                     <ion-label>Name</ion-label>
-                    <ion-input
-                      color="primary"
-                      placeholder="{{name}}"
-                    ></ion-input>
+                    <ion-input color="primary" placeholder="{{name}}"></ion-input>
                   </ion-item>
                 </ion-col>
               </ion-row>
@@ -180,10 +155,7 @@
                 <ion-col>
                   <ion-item>
                     <ion-label>Surname</ion-label>
-                    <ion-input
-                      color="primary"
-                      placeholder="{{surname}}"
-                    ></ion-input>
+                    <ion-input color="primary" placeholder="{{surname}}"></ion-input>
                   </ion-item>
                 </ion-col>
               </ion-row>
@@ -191,10 +163,7 @@
                 <ion-col>
                   <ion-item>
                     <ion-label>Email</ion-label>
-                    <ion-input
-                      color="primary"
-                      placeholder="{{email}}"
-                    ></ion-input>
+                    <ion-input color="primary" placeholder="{{email}}"></ion-input>
                   </ion-item>
                 </ion-col>
               </ion-row>
@@ -204,12 +173,8 @@
                     <ion-label class="mylabel">Location:</ion-label>
                     <ion-select placeholder="{{locationName}}">
                       <ion-select-option value="Porto">Porto</ion-select-option>
-                      <ion-select-option value="Póvoa de Varzim"
-                        >Póvoa de Varzim</ion-select-option
-                      >
-                      <ion-select-option value="Aguçadoura"
-                        >Aguçadoura</ion-select-option
-                      >
+                      <ion-select-option value="Póvoa de Varzim">Póvoa de Varzim</ion-select-option>
+                      <ion-select-option value="Aguçadoura">Aguçadoura</ion-select-option>
                     </ion-select>
                   </ion-item>
                 </ion-col>
@@ -218,11 +183,7 @@
                 <ion-col>
                   <ion-item>
                     <ion-label>Birth Date</ion-label>
-                    <ion-input
-                      color="primary"
-                      type="date"
-                      placeholder=""
-                    ></ion-input>
+                    <ion-input color="primary" type="date" placeholder=""></ion-input>
                   </ion-item>
                 </ion-col>
               </ion-row>

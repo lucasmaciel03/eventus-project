@@ -39,6 +39,11 @@ ion-input.custom {
 .upload img {
   border-radius: 50%;
   border: 6px solid var(--ion-color-light);
+  background-size: contains;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  
 }
 
 .upload .round {

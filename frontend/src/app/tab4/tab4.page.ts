@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { CrudService } from '../services/api/crud.service';
 import { Preferences } from '@capacitor/preferences';
 import jwt_decode from 'jwt-decode';
+import { Camera, CameraResultType } from '@capacitor/camera';
 
 @Component({
   selector: 'app-tab4',
@@ -29,6 +30,7 @@ export class Tab4Page implements OnInit {
   confirmPassword: string = '';
   currentEmail: string = '';
   newEmail: string = '';
+  
 
   presentingElement: HTMLElement | undefined = undefined;
   constructor(
@@ -59,6 +61,8 @@ export class Tab4Page implements OnInit {
     this.joinedDate = this.user.joinedDate;
     this.getUser();
   }
+
+
 
   getToken = async () => {
     const token = await Preferences.get({ key: 'token' });
@@ -93,16 +97,64 @@ export class Tab4Page implements OnInit {
     });
   };
 
+  async createFoto(image: any) {
+
+    const file = this.dataURLtoFile(image.dataUrl, `profilePicture.${image.format}`);
+    console.log('---------------------------'+file)
+
+    let formData = new FormData();
+    formData.append('profilePicture', file);
+
+    this.crudService
+    .updatePicture('updateProfilePicture', this.user._id, formData)
+    .subscribe((data) => {
+      console.log(data)
+      alert('Foto de perfil atualizada com sucesso!');
+      this.getUser();
+    });
+  }
+
+  async updatePicture2(){
+    const image = await Camera.getPhoto({
+      quality: 100,
+      allowEditing: true,
+      resultType: CameraResultType.DataUrl,
+      presentationStyle: 'fullscreen'
+    });
+
+     await this.createFoto(image);
+  }
+
   async updatePicture() {
     const formData = new FormData();
-    formData.append('profilePicture', this.pictureInput);
-    this.crudService
-      .updatePicture('updateProfilePicture', this.user._id, formData)
-      .subscribe((data) => {
-        alert('Foto de perfil atualizada com sucesso!');
-        this.getUser();
-      });
+    const file = this.pictureInput ;
+    if (file) {
+      formData.append('profilePicture', file);
+      console.log('------------------' + file)
+      this.crudService
+        .updatePicture('updateProfilePicture', this.user._id, formData)
+        .subscribe((data) => {
+          console.log(data)
+          alert('Foto de perfil atualizada com sucesso!');
+          this.getUser();
+        });
+    } else {
+      console.error("No file selected.");
+    }
   }
+
+  dataURLtoFile(dataurl : any, filename : any) {
+    let arr = dataurl.split(','),
+      mime = arr[0].match(/:(.*?);/)[1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, { type: mime });
+  }
+
 
   async goBack() {
     this.navController.setDirection('back');
