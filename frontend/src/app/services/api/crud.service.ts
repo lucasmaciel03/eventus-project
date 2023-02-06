@@ -12,9 +12,15 @@ export interface User {
   password: string;
   profilePicture: string;
   locationName: string;
-  birthDate: Date;
+  birthDate: string;
   joinedDate: Date;
 }
+
+export interface Location {
+  id: number;
+  description: string;
+}
+
 
 
 
@@ -42,5 +48,13 @@ export class CrudService {
     //formData.append('file', file);
     //formData.append('data', JSON.stringify(model));
     return this.http.put(`${this.url}/api/user/${controller}/${id}`, model)
+  }
+
+  updateUser(controller: string, id: number, model: any) {
+    return this.http.put(`${this.url}/api/user/${controller}/${id}`, model, { responseType: 'text' })
+  }
+
+  getLocations(controller: string) : Observable <Location[]> {
+    return this.http.get<Location[]>(`${this.url}/api/location/${controller}`);
   }
 }

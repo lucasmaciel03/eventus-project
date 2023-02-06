@@ -127,70 +127,70 @@
       </ion-grid>
     </ion-card>
 
-    <ion-modal #modal2 trigger="open-modal2" [presentingElement]="presentingElement">
-      <ng-template>
-        <ion-header>
-          <ion-toolbar>
-            <ion-title>Change Information</ion-title>
-            <ion-buttons slot="start">
-              <ion-button (click)="modal2.dismiss()">Close</ion-button>
-            </ion-buttons>
-            <ion-buttons slot="end">
-              <ion-button>Save</ion-button>
-            </ion-buttons>
-          </ion-toolbar>
-        </ion-header>
-        <ion-content>
-          <form>
-            <ion-grid class="ion-margin-top">
-              <ion-row>
-                <ion-col size="12">
-                  <ion-item>
-                    <ion-label>Name</ion-label>
-                    <ion-input color="primary" placeholder="{{name}}"></ion-input>
-                  </ion-item>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <ion-item>
-                    <ion-label>Surname</ion-label>
-                    <ion-input color="primary" placeholder="{{surname}}"></ion-input>
-                  </ion-item>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <ion-item>
-                    <ion-label>Email</ion-label>
-                    <ion-input color="primary" placeholder="{{email}}"></ion-input>
-                  </ion-item>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <ion-item>
-                    <ion-label class="mylabel">Location:</ion-label>
-                    <ion-select placeholder="{{locationName}}">
-                      <ion-select-option value="Porto">Porto</ion-select-option>
-                      <ion-select-option value="Póvoa de Varzim">Póvoa de Varzim</ion-select-option>
-                      <ion-select-option value="Aguçadoura">Aguçadoura</ion-select-option>
-                    </ion-select>
-                  </ion-item>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <ion-item>
-                    <ion-label>Birth Date</ion-label>
-                    <ion-input color="primary" type="date" placeholder=""></ion-input>
-                  </ion-item>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </form>
-        </ion-content>
-      </ng-template>
-    </ion-modal>
+      <ion-modal #modal2 trigger="open-modal2" [presentingElement]="presentingElement">
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+              <ion-title>Change Information</ion-title>
+              <ion-buttons slot="start">
+                <ion-button (click)="modal2.dismiss()">Close</ion-button>
+              </ion-buttons>
+              <ion-buttons slot="end">
+                <ion-button (click)="updateUser()">Save</ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content>
+            <form (ngSubmit)="updateUser()" #form="ngForm">
+              <ion-grid class="ion-margin-top">
+                <ion-row>
+                  <ion-col size="12">
+                    <ion-item>
+                      <ion-label>Name</ion-label>
+                      <ion-input color="primary" placeholder="{{name}}" [(ngModel)]="nameInput" name="name"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <ion-item>
+                      <ion-label>Surname</ion-label>
+                      <ion-input color="primary" placeholder="{{surname}}" [(ngModel)]="surnameInput" name="surname"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <ion-item>
+                      <ion-label>Email</ion-label>
+                      <ion-input color="primary" placeholder="{{email}}" [(ngModel)]="newEmail" name="email"></ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <ion-item>
+                      <ion-label class="mylabel">Location:</ion-label>
+                      <ion-select placeholder="{{locationName}}" [(ngModel)]="locationInput" name="locationName">
+                        <ion-select-option *ngFor="let location of locations" [value]="location.description">
+                          {{location.description}}
+                        </ion-select-option>
+                      </ion-select>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <ion-item>
+                      <ion-label >Birth Date </ion-label>
+                      <ion-input color="primary" type="date" [(ngModel)]="birthDateInput" name="birthDate"> </ion-input>
+                    </ion-item>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </form>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
   </ion-content>
 </div>
