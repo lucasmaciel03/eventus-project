@@ -12,7 +12,8 @@ import {
     deleteUser,
     updateName,
     updateSurname,
-    updateEmail
+    updateEmail,
+    updateUser
 } from "../controllers/user.js"
 
 const userRoutes = Router();
@@ -40,5 +41,7 @@ userRoutes.put("/updateName/:id", updateName)
 userRoutes.put("/updateSurname/:id", updateSurname)
 
 userRoutes.put("/updateEmail/:id", updateEmail)
+
+userRoutes.put("/updateUser/:id", updateUser)
 
 export { userRoutes }

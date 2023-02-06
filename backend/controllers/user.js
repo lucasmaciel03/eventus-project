@@ -272,6 +272,75 @@ export const updateEmail = async (req, res) => {
     }
 }
 
+export const updateUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { email, surname, name, locationName, birthDate } = req.body;
+
+        const userExist = await UserModel.findOne({ where: { id: id } });
+        if (!userExist) {
+            return res.status(404).send({ message: 'User not found' });
+        }
+
+        let updatedUser = {};
+        let location;
+        if (email && email !== ' ' && email !== undefined && email !== null) {
+            const emailExist = await UserModel.findOne({ where: { email: email } });
+            if (emailExist) {
+                return res.status(200).send({ message: 'Email já existe' });
+            } else if (!isEmail(email)) {
+                return res.status(200).send({ message: 'Email inválido' });
+            } else {
+                updatedUser.email = email;
+            }
+        }
+        if (surname && surname.trim().length !== 0 && surname !== undefined && surname !== null) {
+            updatedUser.surname = surname.trim();
+        } else if (surname && surname.trim().length === 0) {
+            return res.status(400).send({ message: 'Surname cannot be empty or contain only whitespaces' });
+        }
+        if (name && name.trim().length !== 0 && name !== undefined && name !== null) {
+            updatedUser.name = name.trim();
+        } else if (name && name.trim().length === 0) {
+            return res.status(400).send({ message: 'Name cannot be empty or contain only whitespaces' });
+        }
+        if (locationName && locationName !== '') {
+            location = await LocationModel.findOne({ where: { description: locationName } });
+            if (!location) {
+                return res.status(404).send({ message: 'Location not found' });
+            } else {
+                updatedUser.locationId = location.id;
+            }
+        }
+        if (birthDate && birthDate !== '') {
+            // Split the date on "-" to get individual parts
+            const dateParts = birthDate.split('T')[0].split('-');
+
+            // Reorder the parts to the desired format "DD-MM-YYYY"
+            const date = `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`;
+
+            // Assign the formatted date to the updatedUser object
+            updatedUser.birthDate = date;
+        }
+
+        if (Object.keys(updatedUser).length > 0) {
+            await UserModel.update(updatedUser, { where: { id: id } });
+        }
+        const updatedUserInstance = await UserModel.findOne({ where: { id: id } });
+        location = updatedUserInstance.locationId
+            ? await LocationModel.findOne({ where: { id: updatedUserInstance.locationId } })
+            : null;
+
+        return res
+            .status(200)
+            .send({ ...updatedUserInstance.dataValues, locationName: location ? location.description : null });
+    } catch (error) {
+        return res.status(500).send({ message: 'Error updating user', error: error.message });
+    }
+};
+
+
+
 
 
 //  Image Upload
