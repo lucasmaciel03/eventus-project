@@ -4,6 +4,7 @@ ion-slides {
   align-items: center;
   justify-content: center;
   border-bottom: 3px solid var(--ion-color-light);
+  margin-top: -30px;
 }
 
 ion-row.category {
@@ -19,5 +20,5 @@ ion-row.category {
 }
 
 ion-avatar {
-  --border-radius: 10px;
+  border-radius: 50%;
 }

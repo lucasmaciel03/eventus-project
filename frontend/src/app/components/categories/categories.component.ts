@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CrudService } from 'src/app/services/api/crud.service';
 
 @Component({
   selector: 'app-categories',
@@ -6,20 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./categories.component.scss'],
 })
 export class CategoriesComponent implements OnInit {
-  eventCategories = [
-    { name: 'All', icon: 'apps' },
-    { name: 'Music', icon: 'musical-notes' },
-    { name: 'Art', icon: 'brush' },
-    { name: 'Theater', icon: 'film' },
-    { name: 'Food', icon: 'restaurant' },
-    { name: 'Religious', icon: 'church' },
-    { name: 'Dance', icon: 'people' },
-    { name: 'Science ', icon: 'flask' },
-    { name: 'Tech ', icon: 'computer' },
-    { name: 'Culture', icon: 'globe' },
-    { name: 'Literay', icon: 'book' },
-    { name: 'Sport', icon: 'football' },
-  ];
+  categories: any[] = [];
+
 
   opts = {
     slidesPerView: 4.5,
@@ -27,11 +16,23 @@ export class CategoriesComponent implements OnInit {
     slidesOffsetBefore: 0,
   };
 
-  constructor() {}
+  constructor(
+    private crudService: CrudService,
+  ) {}
 
-  ngOnInit() {}
-
-  onButtonClick() {
-    console.log('funciona');
+  ngOnInit() {
+    this.getCategories();
   }
+
+
+
+  getCategories() {
+    this.crudService.getCategories('getCategories').subscribe((data) => {
+      this.categories = data;
+      this.categories.forEach(category => {
+        category.image = `http://localhost:4243/uploads/categories/${category.image}`;
+      });
+    });
+  }
+
 }

@@ -21,8 +21,11 @@ export interface Location {
   description: string;
 }
 
-
-
+export interface Category {
+  id: number;
+  image: string;
+  description: string;
+}
 
 export interface RootObject {}
 
@@ -56,5 +59,9 @@ export class CrudService {
 
   getLocations(controller: string) : Observable <Location[]> {
     return this.http.get<Location[]>(`${this.url}/api/location/${controller}`);
+  }
+
+  getCategories(controller: string) : Observable <Category[]> {
+    return this.http.get<Category[]>(`${this.url}/api/category/${controller}`);
   }
 }

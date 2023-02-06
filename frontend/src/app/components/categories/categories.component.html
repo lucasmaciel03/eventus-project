@@ -2,15 +2,13 @@
   <ion-row class="ion-text-center category">
     <ion-col>
       <ion-slides [options]="opts">
-        <ion-slide *ngFor="let category of eventCategories">
-          <ion-avatar (click)="onButtonClick()">
+        <ion-slide *ngFor="let category of categories" class="category" > 
+          <ion-avatar class="round">
             <img
-              [src]="
-                'https://img.icons8.com/ios-filled/50/null/restaurant--v1.png'
-              "
+              src= {{category.image}}
             />
           </ion-avatar>
-          <ion-text class="category-name">{{ category.name }}</ion-text>
+          <ion-text class="category-name">{{ category.description }}</ion-text>
         </ion-slide>
       </ion-slides>
     </ion-col>
