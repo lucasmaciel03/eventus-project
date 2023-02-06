@@ -71,6 +71,17 @@ export class Tab4Page implements OnInit {
   }
 
 
+  logout = async () => {
+    const token = await Preferences.get({ key: 'token' });
+
+    // console.log(token.value !== null);
+    if (token) {
+      Preferences.remove({ key: 'token' });
+      window.location.reload();
+    }
+  };
+
+
   getToken = async () => {
     const token = await Preferences.get({ key: 'token' });
 
@@ -114,7 +125,6 @@ export class Tab4Page implements OnInit {
   async createFoto(image: any) {
 
     const file = this.dataURLtoFile(image.dataUrl, `profilePicture.${image.format}`);
-    console.log('---------------------------'+file)
 
     let formData = new FormData();
     formData.append('profilePicture', file);
