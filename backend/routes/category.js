@@ -1,7 +1,9 @@
 import Router from "express"
 import {
     addCategory,
-    getCategories
+    getCategories,
+    updateImage,
+    upload
 } from "../controllers/category.js"
 
 const categoryRoutes = Router()
@@ -9,6 +11,8 @@ const categoryRoutes = Router()
 categoryRoutes.post("/addCategory", addCategory)
 
 categoryRoutes.get("/getCategories", getCategories)
+
+categoryRoutes.put("/updateImage/:id", upload, updateImage)
 
 
 export { categoryRoutes }

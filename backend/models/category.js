@@ -11,6 +11,7 @@ const CategoryModel = dbInstance.define(
         },
         image: {
             type: Sequelize.STRING,
+            defaultValue: 'default.png'
             
         },
         description: {
