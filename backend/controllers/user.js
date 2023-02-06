@@ -143,7 +143,7 @@ export const updateProfilePicture = async (req, res) => {
         console.log('------------------' + req.file)
         if (userExist) {
             if (userExist.profilePicture !== 'default.png') {
-                fs.unlinkSync(`uploads/${userExist.profilePicture}`)
+                fs.unlinkSync(`uploads/users/${userExist.profilePicture}`)
             }
             await UserModel.update({ profilePicture: req.file.filename }, { where: { id: id } })
             res.status(200).send({ message: 'Foto de perfil atualizada com sucesso' })
@@ -348,7 +348,7 @@ export const updateUser = async (req, res) => {
 // Set up storage engine for multer
 export const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/')
+        cb(null, 'uploads/users')
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + path.extname(file.originalname))

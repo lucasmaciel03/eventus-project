@@ -9,6 +9,10 @@ const CategoryModel = dbInstance.define(
             primaryKey: true,
             autoIncrement: true
         },
+        image: {
+            type: Sequelize.STRING,
+            
+        },
         description: {
             type: Sequelize.STRING,
         }
