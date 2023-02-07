@@ -11,7 +11,6 @@ import fs from 'fs'
 export const createEvent = async (req, res) => {
     try {
         const { title, description, locationName, adress, startDate, endDate, categoryName } = req.body
-        // const { image } = req.file 
         const userId = req.params.id
         const location = await LocationModel.findOne({ where: { description: locationName } })
         const category = await CategoryModel.findOne({ where: { description: categoryName } })
@@ -41,7 +40,7 @@ export const createEvent = async (req, res) => {
             adress,
             startDate,
             endDate,
-            // image,
+            image: req.file.filename,
             categoryId: category.id
         })
 

@@ -3,12 +3,13 @@ import {
     createEvent,
     getEventsByUserId,
     getEventsByCategoryId,
-    getAllEvents
+    getAllEvents,
+    upload
 } from "../controllers/event.js"
 
 const eventRoutes = Router()
 
-eventRoutes.post("/addEvent/:id", createEvent)
+eventRoutes.post("/addEvent/:id",upload ,createEvent)
 
 eventRoutes.get("/getEventsByUserId/:id", getEventsByUserId)
 
