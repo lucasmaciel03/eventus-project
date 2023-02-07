@@ -8,6 +8,7 @@ import { Preferences } from '@capacitor/preferences';
 import jwt_decode from 'jwt-decode';
 import { Camera, CameraResultType } from '@capacitor/camera';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ActionSheetController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab4',
@@ -44,7 +45,8 @@ export class Tab4Page implements OnInit {
     private crudService: CrudService,
     private translateService: TranslateService,
     private toastController: ToastController,
-    private LocalizationService: LocalizationService
+    private LocalizationService: LocalizationService,
+    private actionSheetCtrl: ActionSheetController
   ) {}
 
   ngOnInit() {
@@ -315,4 +317,26 @@ export class Tab4Page implements OnInit {
         }
       );
   }
+
+  canDelete = async () => {
+    const actionSheet = await this.actionSheetCtrl.create({
+      header: 'Are you sure?',
+      buttons: [
+        {
+          text: 'Yes',
+          role: 'confirm',
+        },
+        {
+          text: 'No',
+          role: 'cancel',
+        },
+      ],
+    });
+
+    actionSheet.present();
+
+    const { role } = await actionSheet.onWillDismiss();
+
+    return role === 'confirm';
+  };
 }
