@@ -36,7 +36,6 @@ export class Tab4Page implements OnInit {
   locationInput: any;
   birthDateInput: any;
   locations: any[] = [];
-  
 
   presentingElement: HTMLElement | undefined = undefined;
   constructor(
@@ -52,7 +51,7 @@ export class Tab4Page implements OnInit {
     this.getToken();
     this.checkToken();
     this.getLocations();
-    
+
     this.presentingElement = document.getElementById('main-content')!;
   }
 
@@ -70,7 +69,6 @@ export class Tab4Page implements OnInit {
     this.getUser();
   }
 
-
   logout = async () => {
     const token = await Preferences.get({ key: 'token' });
 
@@ -80,7 +78,6 @@ export class Tab4Page implements OnInit {
       window.location.reload();
     }
   };
-
 
   getToken = async () => {
     const token = await Preferences.get({ key: 'token' });
@@ -121,66 +118,66 @@ export class Tab4Page implements OnInit {
     });
   };
 
-
   async createFoto(image: any) {
-
-    const file = this.dataURLtoFile(image.dataUrl, `profilePicture.${image.format}`);
+    const file = this.dataURLtoFile(
+      image.dataUrl,
+      `profilePicture.${image.format}`
+    );
 
     let formData = new FormData();
     formData.append('profilePicture', file);
 
     this.crudService
-    .updatePicture('updateProfilePicture', this.user._id, formData)
-    .subscribe( async (data) => {
-      const toast = await this.toastController.create({
-        message: 'Foto de perfil atualizada com sucesso!',
-        duration: 2000,
-        color: "success"
-    });
-    toast.present();
-      this.getUser();
-    });
+      .updatePicture('updateProfilePicture', this.user._id, formData)
+      .subscribe(async (data) => {
+        const toast = await this.toastController.create({
+          message: 'Foto de perfil atualizada com sucesso!',
+          duration: 2000,
+          color: 'success',
+        });
+        toast.present();
+        this.getUser();
+      });
   }
 
-  async updatePicture2(){
+  async updatePicture2() {
     const image = await Camera.getPhoto({
       quality: 100,
       allowEditing: true,
       resultType: CameraResultType.DataUrl,
-      presentationStyle: 'fullscreen'
+      presentationStyle: 'fullscreen',
     });
 
-     await this.createFoto(image);
+    await this.createFoto(image);
   }
 
   async updatePicture() {
     const formData = new FormData();
-    const file = this.pictureInput ;
+    const file = this.pictureInput;
     if (file) {
       formData.append('profilePicture', file);
       this.crudService
         .updatePicture('updateProfilePicture', this.user._id, formData)
-        .subscribe( async (data) => {
+        .subscribe(async (data) => {
           const toast = await this.toastController.create({
             message: 'Foto de perfil atualizada com sucesso!',
             duration: 2000,
-            color: "success"
-        });
-        toast.present();
+            color: 'success',
+          });
+          toast.present();
           this.getUser();
         });
     } else {
       const toast = await this.toastController.create({
         message: 'Selecione uma foto!',
         duration: 2000,
-        color: "danger"
-    });
-    toast.present();
+        color: 'danger',
+      });
+      toast.present();
     }
   }
-  
 
-  dataURLtoFile(dataurl : any, filename : any) {
+  dataURLtoFile(dataurl: any, filename: any) {
     let arr = dataurl.split(','),
       mime = arr[0].match(/:(.*?);/)[1],
       bstr = atob(arr[1]),
@@ -191,7 +188,6 @@ export class Tab4Page implements OnInit {
     }
     return new File([u8arr], filename, { type: mime });
   }
-
 
   async goBack() {
     this.navController.setDirection('back');
@@ -241,79 +237,82 @@ export class Tab4Page implements OnInit {
       changedBirthDate = true;
     }
 
-
     const newUpdate = {
-      name : this.nameInput,
-      surname : this.surnameInput,
-      email : this.newEmail,
+      name: this.nameInput,
+      surname: this.surnameInput,
+      email: this.newEmail,
       locationName: this.locationInput,
-      birthDate: this.birthDateInput
-    }
+      birthDate: this.birthDateInput,
+    };
     this.crudService
       .updateUser('updateUser', this.user._id, newUpdate)
       .subscribe(
         async (res) => {
           this.getUser();
           // If all equal false send message nothing changed
-          if (!changedName && !changedSurname && !changedEmail && !changedLocation && !changedBirthDate) {
+          if (
+            !changedName &&
+            !changedSurname &&
+            !changedEmail &&
+            !changedLocation &&
+            !changedBirthDate
+          ) {
             const toast = await this.toastController.create({
               message: 'Nada foi alterado',
               duration: 2000,
-              color: "medium"
-          });
-          toast.present();
+              color: 'medium',
+            });
+            toast.present();
           }
           if (changedName) {
             const toast = await this.toastController.create({
               message: 'O nome foi alterado',
               duration: 2000,
-              color: "success"
-          });
-          toast.present();
+              color: 'success',
+            });
+            toast.present();
           }
           if (changedSurname) {
             const toast = await this.toastController.create({
               message: 'O sobrenome foi alterado',
               duration: 2000,
-              color: "success"
-          });
-          toast.present();
+              color: 'success',
+            });
+            toast.present();
           }
           if (changedEmail) {
             const toast = await this.toastController.create({
               message: 'O email foi alterado',
               duration: 2000,
-              color: "success"
-          });
-          toast.present();
+              color: 'success',
+            });
+            toast.present();
           }
           if (changedLocation) {
             const toast = await this.toastController.create({
               message: 'A localização foi alterada',
               duration: 2000,
-              color: "success"
-          });
-          toast.present();
+              color: 'success',
+            });
+            toast.present();
           }
           if (changedBirthDate) {
             const toast = await this.toastController.create({
               message: 'A data de nascimento foi alterada',
               duration: 2000,
-              color: "success"
-          });
-          toast.present();
+              color: 'success',
+            });
+            toast.present();
           }
         },
         async (err) => {
           const toast = await this.toastController.create({
             message: 'Ocorreu um erro ao atualizar os dados',
             duration: 2000,
-            color: "danger"
-        });
-        toast.present();
+            color: 'danger',
+          });
+          toast.present();
         }
       );
   }
 }
-
-
