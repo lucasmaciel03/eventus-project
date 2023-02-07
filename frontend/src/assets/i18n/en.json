@@ -24,6 +24,8 @@
   "eventfilter": "Event Filter",
   "date": "Date:",
   "settings": "Settings",
-  "changepassemail": "Change Password/Email",
+  "changeusername": "Change Username",
+  "changepassword": "Change Password",
+  "deleteaccount": "Delete Account",
   "editprofile": "Edit Profile"
 }

@@ -7,63 +7,30 @@
   <ion-content class="ion-padding">
     <ion-item-group>
       <ion-item>
-        <ion-button id="open-modal" fill="clear">{{"changepassemail" | translate}}</ion-button>
+        <ion-button id="open-modal3" fill="clear"
+          >{{"changeusername" | translate}}</ion-button
+        >
+      </ion-item>
+      <ion-item>
+        <ion-button id="open-modal" fill="clear"
+          >{{"changepassword" | translate}}</ion-button
+        >
+      </ion-item>
+      <ion-item>
+        <ion-button id="open-modal" fill="clear" color="warning"
+          >{{"deleteaccount" | translate}}</ion-button
+        >
       </ion-item>
     </ion-item-group>
     <ion-item-group class="ion-margin-top">
       <ion-item>
-        <ion-button style="color: red" fill="clear" (click)="logout()">{{"logout" | translate}}</ion-button>
+        <ion-button style="color: red" fill="clear" (click)="logout()"
+          >{{"logout" | translate}}</ion-button
+        >
       </ion-item>
     </ion-item-group>
   </ion-content>
 </ion-menu>
-<ion-modal #modal trigger="open-modal">
-  <ng-template>
-    <ion-content>
-      <ion-list>
-        <ion-item>
-          <ion-label position="stacked">Senha Atual</ion-label>
-          <ion-input type="password" [(ngModel)]="currentPassword"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label position="stacked">Nova Senha</ion-label>
-          <ion-input type="password" [(ngModel)]="newPassword"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label position="stacked">Confirmar Senha</ion-label>
-          <ion-input type="password" [(ngModel)]="confirmPassword"></ion-input>
-        </ion-item>
-
-        <ion-item *ngIf="newPassword !== confirmPassword">
-          <ion-label class="ion-text-danger">
-            As senhas não coincidem
-          </ion-label>
-        </ion-item>
-
-        <ion-item>
-          <ion-label position="stacked">Email Atual</ion-label>
-          <ion-input type="email" [(ngModel)]="currentEmail"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label position="stacked">Novo Email</ion-label>
-          <ion-input type="email" [(ngModel)]="newEmail"></ion-input>
-        </ion-item>
-      </ion-list>
-
-      <ion-row>
-        <ion-col>
-          <ion-button color="primary" expand="full" (click)="updatePasswordAndEmail()"
-            [disabled]="newPassword !== confirmPassword">
-            Atualizar
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-content>
-  </ng-template>
-</ion-modal>
 <div class="ion-page" id="main-content">
   <ion-header>
     <ion-toolbar>
@@ -81,14 +48,17 @@
         <ion-row class="ion-margin-top">
           <ion-col size="12">
             <div class="upload">
-              <img src={{profilePicture}} />
+              <img src="{{profilePicture}}" />
               <div class="round" (click)="updatePicture2()">
-                <ion-icon style="
+                <ion-icon
+                  style="
                     color: #fff;
                     width: 24px;
                     height: 24px;
                     margin-top: 3px;
-                  " name="camera-outline">
+                  "
+                  name="camera-outline"
+                >
                 </ion-icon>
               </div>
             </div>
@@ -119,7 +89,12 @@
         </ion-row>
         <ion-row class="ion-justify-content-center">
           <ion-col size="10" class="ion-text-center">
-            <ion-button id="open-modal2" expand="block" color="dark" class="ion-margin-bottom">
+            <ion-button
+              id="open-modal2"
+              expand="block"
+              color="dark"
+              class="ion-margin-bottom"
+            >
               {{"editprofile" | translate}}
             </ion-button>
           </ion-col>
@@ -127,70 +102,141 @@
       </ion-grid>
     </ion-card>
 
-      <ion-modal #modal2 trigger="open-modal2" [presentingElement]="presentingElement">
-        <ng-template>
-          <ion-header>
-            <ion-toolbar>
-              <ion-title>Change Information</ion-title>
-              <ion-buttons slot="start">
-                <ion-button (click)="modal2.dismiss()">Close</ion-button>
-              </ion-buttons>
-              <ion-buttons slot="end">
-                <ion-button (click)="updateUser()">Save</ion-button>
-              </ion-buttons>
-            </ion-toolbar>
-          </ion-header>
-          <ion-content>
-            <form (ngSubmit)="updateUser()" #form="ngForm">
-              <ion-grid class="ion-margin-top">
-                <ion-row>
-                  <ion-col size="12">
-                    <ion-item>
-                      <ion-label>Name</ion-label>
-                      <ion-input color="primary" placeholder="{{name}}" [(ngModel)]="nameInput" name="name"></ion-input>
-                    </ion-item>
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                  <ion-col>
-                    <ion-item>
-                      <ion-label>Surname</ion-label>
-                      <ion-input color="primary" placeholder="{{surname}}" [(ngModel)]="surnameInput" name="surname"></ion-input>
-                    </ion-item>
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                  <ion-col>
-                    <ion-item>
-                      <ion-label>Email</ion-label>
-                      <ion-input color="primary" placeholder="{{email}}" [(ngModel)]="newEmail" name="email"></ion-input>
-                    </ion-item>
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                  <ion-col>
-                    <ion-item>
-                      <ion-label class="mylabel">Location:</ion-label>
-                      <ion-select placeholder="{{locationName}}" [(ngModel)]="locationInput" name="locationName">
-                        <ion-select-option *ngFor="let location of locations" [value]="location.description">
-                          {{location.description}}
-                        </ion-select-option>
-                      </ion-select>
-                    </ion-item>
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                  <ion-col>
-                    <ion-item>
-                      <ion-label >Birth Date </ion-label>
-                      <ion-input color="primary" type="date" [(ngModel)]="birthDateInput" name="birthDate"> </ion-input>
-                    </ion-item>
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
-            </form>
-          </ion-content>
-        </ng-template>
-      </ion-modal>
+    <ion-modal
+      #modal2
+      trigger="open-modal2"
+      [presentingElement]="presentingElement"
+    >
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Change Information</ion-title>
+            <ion-buttons slot="start">
+              <ion-button (click)="modal2.dismiss()">Close</ion-button>
+            </ion-buttons>
+            <ion-buttons slot="end">
+              <ion-button (click)="updateUser()">Save</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content>
+          <form (ngSubmit)="updateUser()" #form="ngForm">
+            <ion-grid class="ion-margin-top">
+              <ion-row>
+                <ion-col size="12">
+                  <ion-item>
+                    <ion-label>Name</ion-label>
+                    <ion-input
+                      color="primary"
+                      placeholder="{{name}}"
+                      [(ngModel)]="nameInput"
+                      name="name"
+                    ></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-label>Surname</ion-label>
+                    <ion-input
+                      color="primary"
+                      placeholder="{{surname}}"
+                      [(ngModel)]="surnameInput"
+                      name="surname"
+                    ></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-label>Email</ion-label>
+                    <ion-input
+                      color="primary"
+                      placeholder="{{email}}"
+                      [(ngModel)]="newEmail"
+                      name="email"
+                    ></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-label class="mylabel">Location:</ion-label>
+                    <ion-select
+                      placeholder="{{locationName}}"
+                      [(ngModel)]="locationInput"
+                      name="locationName"
+                    >
+                      <ion-select-option
+                        *ngFor="let location of locations"
+                        [value]="location.description"
+                      >
+                        {{location.description}}
+                      </ion-select-option>
+                    </ion-select>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-label>Birth Date </ion-label>
+                    <ion-input
+                      color="primary"
+                      type="date"
+                      [(ngModel)]="birthDateInput"
+                      name="birthDate"
+                    >
+                    </ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </form>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+
+    <ion-modal
+      #modal3
+      trigger="open-modal3"
+      [presentingElement]="presentingElement"
+    >
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Change Username</ion-title>
+            <ion-buttons slot="start">
+              <ion-button (click)="modal3.dismiss()">Close</ion-button>
+            </ion-buttons>
+            <ion-buttons slot="end">
+              <ion-button (click)="updateUser()">Save</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content>
+          <form (ngSubmit)="updateUser()" #form="ngForm">
+            <ion-grid class="ion-margin-top">
+              <ion-row>
+                <ion-col size="12">
+                  <ion-item>
+                    <ion-label>Username</ion-label>
+                    <ion-input
+                      color="primary"
+                      placeholder="{{username}}"
+                      [(ngModel)]="nameInput"
+                      name="username"
+                    ></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </form>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
   </ion-content>
 </div>

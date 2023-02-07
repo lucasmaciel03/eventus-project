@@ -24,6 +24,8 @@
   "eventfilter": "Filtrar Evento",
   "date": "Data:",
   "settings": "Definições",
-  "changepassemail": "Alterar Password/Email",
+  "changeusername": "Alterar Nome de Utilizador",
+  "changepassword": "Alterar Palavra-Passe",
+  "deleteaccount": "Apagar Conta",
   "editprofile": "Editar Perfil"
 }
