@@ -12,7 +12,7 @@
         >
       </ion-item>
       <ion-item>
-        <ion-button id="open-modal" fill="clear"
+        <ion-button id="open-modal4" fill="clear"
           >{{"changepassword" | translate}}</ion-button
         >
       </ion-item>
@@ -110,12 +110,16 @@
       <ng-template>
         <ion-header>
           <ion-toolbar>
-            <ion-title>Change Information</ion-title>
+            <ion-title>{{"changeInformation" | translate}}</ion-title>
             <ion-buttons slot="start">
-              <ion-button (click)="modal2.dismiss()">Close</ion-button>
+              <ion-button (click)="modal2.dismiss()"
+                >{{"close" | translate}}</ion-button
+              >
             </ion-buttons>
             <ion-buttons slot="end">
-              <ion-button (click)="updateUser()">Save</ion-button>
+              <ion-button (click)="updateUser()"
+                >{{"save" | translate}}</ion-button
+              >
             </ion-buttons>
           </ion-toolbar>
         </ion-header>
@@ -125,7 +129,7 @@
               <ion-row>
                 <ion-col size="12">
                   <ion-item>
-                    <ion-label>Name</ion-label>
+                    <ion-label>{{"name" | translate}}</ion-label>
                     <ion-input
                       color="primary"
                       placeholder="{{name}}"
@@ -138,7 +142,7 @@
               <ion-row>
                 <ion-col>
                   <ion-item>
-                    <ion-label>Surname</ion-label>
+                    <ion-label>{{"surname" | translate}}</ion-label>
                     <ion-input
                       color="primary"
                       placeholder="{{surname}}"
@@ -164,7 +168,9 @@
               <ion-row>
                 <ion-col>
                   <ion-item>
-                    <ion-label class="mylabel">Location:</ion-label>
+                    <ion-label class="mylabel"
+                      >{{"location" | translate}}</ion-label
+                    >
                     <ion-select
                       placeholder="{{locationName}}"
                       [(ngModel)]="locationInput"
@@ -183,7 +189,7 @@
               <ion-row>
                 <ion-col>
                   <ion-item>
-                    <ion-label>Birth Date </ion-label>
+                    <ion-label>{{"birthDate" | translate}}</ion-label>
                     <ion-input
                       color="primary"
                       type="date"
@@ -208,12 +214,16 @@
       <ng-template>
         <ion-header>
           <ion-toolbar>
-            <ion-title>Change Username</ion-title>
+            <ion-title>{{"changeusername" | translate}}</ion-title>
             <ion-buttons slot="start">
-              <ion-button (click)="modal3.dismiss()">Close</ion-button>
+              <ion-button (click)="modal3.dismiss()"
+                >{{"close" | translate}}</ion-button
+              >
             </ion-buttons>
             <ion-buttons slot="end">
-              <ion-button (click)="updateUser()">Save</ion-button>
+              <ion-button (click)="updateUser()"
+                >{{"save" | translate}}</ion-button
+              >
             </ion-buttons>
           </ion-toolbar>
         </ion-header>
@@ -223,12 +233,68 @@
               <ion-row>
                 <ion-col size="12">
                   <ion-item>
-                    <ion-label>Username</ion-label>
+                    <ion-label>{{"username" | translate}}</ion-label>
                     <ion-input
                       color="primary"
                       placeholder="{{username}}"
                       [(ngModel)]="nameInput"
                       name="username"
+                    ></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </form>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+
+    <ion-modal
+      #modal4
+      trigger="open-modal4"
+      [presentingElement]="presentingElement"
+    >
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>{{"changepassword" | translate}}</ion-title>
+            <ion-buttons slot="start">
+              <ion-button (click)="modal4.dismiss()"
+                >{{"close" | translate}}</ion-button
+              >
+            </ion-buttons>
+            <ion-buttons slot="end">
+              <ion-button (click)="updateUser()"
+                >{{"save" | translate}}</ion-button
+              >
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content>
+          <form (ngSubmit)="updateUser()" #form="ngForm">
+            <ion-grid class="ion-margin-top">
+              <ion-row>
+                <ion-col size="12">
+                  <ion-item>
+                    <ion-label>{{"password" | translate}}</ion-label>
+                    <ion-input
+                      color="primary"
+                      placeholder="Current Password"
+                      [(ngModel)]="nameInput"
+                      name="password"
+                    ></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12">
+                  <ion-item>
+                    <ion-label>{{"newpassword" | translate}}</ion-label>
+                    <ion-input
+                      color="primary"
+                      placeholder="New Password"
+                      [(ngModel)]="nameInput"
+                      name="password"
                     ></ion-input>
                   </ion-item>
                 </ion-col>

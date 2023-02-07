@@ -3,9 +3,11 @@
   "portuguese": "Portuguese",
   "back": "Back",
   "close": "Close",
+  "save": "Save",
   "createEvent": "Create Event",
   "description": "Description:",
   "name": "Name:",
+  "surname": "Surname:",
   "category": "Category:",
   "location": "Location:",
   "startAt": "Start at:",
@@ -23,9 +25,14 @@
   "profile": "Profile",
   "eventfilter": "Event Filter",
   "date": "Date:",
+  "birthDate": "Birth Date:",
   "settings": "Settings",
   "changeusername": "Change Username",
   "changepassword": "Change Password",
   "deleteaccount": "Delete Account",
-  "editprofile": "Edit Profile"
+  "editprofile": "Edit Profile",
+  "changeInformation": "Change Information",
+  "username": "Username:",
+  "password": "Password:",
+  "newpassword": "New Password:"
 }
