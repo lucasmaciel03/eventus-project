@@ -2,6 +2,7 @@ import Router from "express";
 import { userRoutes } from "./user.js";
 import { locationRoutes } from "./location.js";
 import { categoryRoutes } from "./category.js";
+import { eventRoutes } from "./event.js";
 
 const routes = Router();
 
@@ -15,6 +16,8 @@ routes.use("/user", userRoutes);
 routes.use("/location", locationRoutes);
 
 routes.use("/category", categoryRoutes);
+
+routes.use("/event", eventRoutes);
 
 
 export { routes };
