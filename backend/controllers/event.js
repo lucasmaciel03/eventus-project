@@ -81,6 +81,69 @@ export const getEventsByUserId = async (req, res) => {
     }
 }
 
+// GET - By category id, if no category id is sent, return all the events, if the category id is sent, return all the events that belong to that category, replace the location id and category id with the location name and category name, and return the events if not found any event, return a message to the user
+export const getEventsByCategoryId = async (req, res) => {
+    try {
+        const categoryId = req.params.id
+        if (!categoryId) {
+            const events = await EventModel.findAll()
+            const eventsWithLocationAndCategory = await Promise.all(events.map(async event => {
+                const location = await LocationModel.findOne({ where: { id: event.locationId } });
+                const category = await CategoryModel.findOne({ where: { id: event.categoryId } });
+                return {
+                    ...event.dataValues,
+                    locationName: location.description,
+                    categoryName: category.description,
+                };
+            }));
+            return res.status(200).json({ message: 'Events found', eventsWithLocationAndCategory })
+        }
+        const events = await EventModel.findAll({ where: { categoryId: categoryId } })
+        if (!events) {
+            return res.status(400).json({ message: 'Events not found' })
+        }
+        const eventsWithLocationAndCategory = await Promise.all(events.map(async event => {
+            const location = await LocationModel.findOne({ where: { id: event.locationId } });
+            const category = await CategoryModel.findOne({ where: { id: event.categoryId } });
+            return {
+                ...event.dataValues,
+                locationName: location.description,
+                categoryName: category.description,
+            };
+        }));
+        return res.status(200).json({ message: 'Events found', eventsWithLocationAndCategory })
+    } catch (error) {
+        return res.status(500).json({ message: 'Something went wrong', error })
+    }
+}
+
+// GET - All the events, replace the location id and category id with the location name and category name, and return the events and the user who created the event just sent name, surname, username, profilePicture check the user id in the event host table 
+export const getAllEvents = async (req, res) => {
+    try {
+        const events = await EventModel.findAll()
+        const eventsWithLocationAndCategory = await Promise.all(events.map(async event => {
+            const location = await LocationModel.findOne({ where: { id: event.locationId } });
+            const category = await CategoryModel.findOne({ where: { id: event.categoryId } });
+            const eventHost = await EventHostModel.findOne({ where: { eventId: event.id } })
+            const user = await UserModel.findOne({ where: { id: eventHost.userId } })
+            return {
+                ...event.dataValues,
+                locationName: location.description,
+                categoryName: category.description,
+                user: {
+                    name: user.name,
+                    surname: user.surname,
+                    username: user.username,
+                    profilePicture: user.profilePicture
+                }
+            };
+        }));
+        return res.status(200).json( eventsWithLocationAndCategory )
+    } catch (error) {
+        return res.status(500).json({ message: 'Something went wrong', error })
+    }
+}
+
 //  Image Upload
 
 // Set up storage engine for multer
