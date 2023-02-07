@@ -34,5 +34,7 @@
   "changeInformation": "Alterar Informação",
   "username": "Nome de Utilizador:",
   "password": "Palavra-Passe:",
-  "newpassword": "Nova Palavra-Passe:"
+  "newpassword": "Nova Palavra-Passe:",
+  "favorites": "Favoritos",
+  "eventsFav": "Eventos de que gostou!"
 }

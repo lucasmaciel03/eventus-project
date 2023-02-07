@@ -34,5 +34,7 @@
   "changeInformation": "Change Information",
   "username": "Username:",
   "password": "Password:",
-  "newpassword": "New Password:"
+  "newpassword": "New Password:",
+  "favorites": "Favorites",
+  "eventsFav": "Events you liked!"
 }
