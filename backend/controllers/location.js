@@ -11,14 +11,20 @@ export const addlocation = async (req, res) => {
         // Iterate over the cities and save only the name in the location table
         for (let i = 0; i < response.data.length; i++) {
             const city = response.data[i];
-            // Check if the city already exists
-            const cityExists = await LocationModel.findOne({ description: city });
 
-            if (!cityExists) {
+            // Check if the city already exists in the database, if exist dont save it but keep iterating over the cities to save the ones that dont exist in the database yet 
+            const location = await LocationModel.findOne({
+                where: {
+                    description: city 
+                } 
+            });
+
+            if (!location) {
                 await LocationModel.create({
                     description: city
                 });
             }
+            
         }
 
         res.status(200).send({ message: 'Cidades salvas com sucesso' });
@@ -51,6 +57,20 @@ export const getLocationByDescription = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).send(error);
+    }
+}
+
+// DELETE - Delete all locations and reset ids to 1
+export const deleteLocations = async (req, res) => {
+    try {
+        await LocationModel.destroy({
+            where: {},
+            truncate: true
+        });
+        res.status(200).send({ message: 'Cidades eliminadas com sucesso' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({ message: 'Erro ao eliminar as cidades' });
     }
 }
 
