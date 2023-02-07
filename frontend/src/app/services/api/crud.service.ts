@@ -47,14 +47,12 @@ export interface Event {
     adress:string;
     startDate:Date;
     endDate:Date;
-    image:string;
+    image: string;
     categoryName:string;
     name:string;
     surname:string;
     username:string;
     profilePicture:string;
-
-                 
 }
 
 export interface RootObject {}
@@ -68,25 +66,20 @@ export class CrudService {
 
   constructor(private http: HttpClient) { }
 
+  // POST
+
   createAccount(controller: string, model: any) {
     return this.http.post(`${this.url}/api/user/${controller}`, model);
   }
 
+  createEvent(controller: string, id:number, model: any) {
+    return this.http.post(`${this.url}/api/event/${controller}/${id}`, model);
+  }
+
+  // GET
   getUser(controller: string, id: number) : Observable <User> {
     return this.http.get<User>(`${this.url}/api/user/${controller}/${id}`);
   }
-
-  updatePicture(controller: string, id: number, model: FormData) {
-    //const formData = new FormData();
-    //formData.append('file', file);
-    //formData.append('data', JSON.stringify(model));
-    return this.http.put(`${this.url}/api/user/${controller}/${id}`, model)
-  }
-
-  updateUser(controller: string, id: number, model: any) {
-    return this.http.put(`${this.url}/api/user/${controller}/${id}`, model, { responseType: 'text' })
-  }
-
   getLocations(controller: string) : Observable <Location[]> {
     return this.http.get<Location[]>(`${this.url}/api/location/${controller}`);
   }
@@ -98,4 +91,21 @@ export class CrudService {
   getEvents(controller: string) : Observable <Event[]> {
     return this.http.get<Event[]>(`${this.url}/api/event/${controller}`);
   }
+
+
+  // PUT
+  updatePicture(controller: string, id: number, model: FormData) {
+    //const formData = new FormData();
+    //formData.append('file', file);
+    //formData.append('data', JSON.stringify(model));
+    return this.http.put(`${this.url}/api/user/${controller}/${id}`, model)
+  }
+
+  updateUser(controller: string, id: number, model: any) {
+    return this.http.put(`${this.url}/api/user/${controller}/${id}`, model, { responseType: 'text' })
+  }
+
+  // DELETE
+
+
 }

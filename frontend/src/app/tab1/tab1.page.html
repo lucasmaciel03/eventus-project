@@ -2,14 +2,13 @@
 
 <ion-content>
   <app-categories></app-categories>
-
   <app-cards></app-cards>
-
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button color="dark" (click)="setOpen(true)">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+
   <ion-modal [isOpen]="isModalOpen">
     <form>
       <ng-template>
@@ -17,92 +16,79 @@
           <ion-toolbar>
             <ion-title>{{"createEvent"|translate}}</ion-title>
             <ion-buttons slot="end">
-              <ion-button (click)="setOpen(false)"
-                >{{"close"|translate}}</ion-button
-              >
+              <ion-button (click)="setOpen(false)">{{"close"|translate}}</ion-button>
             </ion-buttons>
           </ion-toolbar>
         </ion-header>
         <ion-content class="ion-padding">
           <ion-list>
             <ion-item>
-              <ion-label class="mylabel" position="stacked"
-                >{{"name"|translate}}</ion-label
-              >
-              <ion-input placeholder="Name here ..."></ion-input>
+              <ion-label class="mylabel" position="stacked">{{"name"|translate}}</ion-label>
+              <ion-input placeholder="Name here ..." [(ngModel)]="titleInput" name = "title">
+
+              </ion-input>
             </ion-item>
             <ion-item>
-              <ion-label class="mylabel" position="stacked"
-                >{{"description"|translate}}</ion-label
-              >
-              <ion-input placeholder="Description here ..."></ion-input>
+              <ion-label class="mylabel" position="stacked">{{"description"|translate}}</ion-label>
+              <ion-input placeholder="Description here ..." [(ngModel)]="descriptionInput" name ="description"></ion-input>
             </ion-item>
             <ion-item>
-              <ion-label class="mylabel" position="stacked"
-                >{{"category"|translate}}</ion-label
-              >
-              <ion-select placeholder="Choose Category">
-                <ion-select-option value="apples"
-                  >Gastronómico</ion-select-option
-                >
-                <ion-select-option value="oranges">Religioso</ion-select-option>
-                <ion-select-option value="bananas">Caridade</ion-select-option>
+              <ion-label class="mylabel" position="stacked">Localização</ion-label>
+              <ion-input placeholder="Localização here ..." [(ngModel)]="adressInput" name ="adress"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label class="mylabel" position="stacked">{{"category"|translate}}</ion-label>
+              <ion-select placeholder="Choose Category" [(ngModel)]="categoryInput" name="category">
+                <ion-select-option *ngFor="let category of categories" [value]="category.description">
+                {{category.description}}
+              </ion-select-option>
               </ion-select>
             </ion-item>
             <ion-item>
-              <ion-label class="mylabel" position="stacked"
-                >{{"location"|translate}}</ion-label
-              >
-              <ion-select placeholder="Choose Location">
-                <ion-select-option value="apples">Porto</ion-select-option>
-                <ion-select-option value="oranges"
-                  >Póvoa de Varzim</ion-select-option
-                >
-                <ion-select-option value="bananas"
-                  >Aguçadoura</ion-select-option
-                >
+              <ion-label class="mylabel" position="stacked">{{"location"|translate}}</ion-label>
+              <ion-select placeholder="Choose Location" [(ngModel)]="locationInput" name="location">
+                <ion-select-option *ngFor="let location of locations" [value]="location.description">
+                {{location.description}}
+              </ion-select-option>
               </ion-select>
             </ion-item>
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label>{{"startAt" | translate}}</ion-label>
+                  <ion-input
+                    color="primary"
+                    type="date"
+                    placeholder="Start Date"
+                    [(ngModel)]="startDateInput"
+                    name="startDate"
+                  >
+                  </ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label>{{"endAt" | translate}}</ion-label>
+                  <ion-input
+                    color="primary"
+                    type="date"
+                    placeholder="Start Date"
+                    [(ngModel)]="endDateInput"
+                    name="endDate"
+                  >
+                  </ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
             <ion-item>
-              <ion-label class="mylabel" position="stacked"
-                >{{"startAt"|translate}}</ion-label
-              >
-              <ion-datetime-button datetime="datetime"></ion-datetime-button>
-              <ion-modal [keepContentsMounted]="true">
-                <ng-template>
-                  <ion-datetime
-                    locale="en-EN"
-                    color="dark"
-                    id="datetime"
-                  ></ion-datetime>
-                </ng-template>
-              </ion-modal>
-            </ion-item>
-            <ion-item>
-              <ion-label class="mylabel" position="stacked"
-                >{{"endAt"|translate}}</ion-label
-              >
-              <ion-datetime-button datetime="datetime"></ion-datetime-button>
-              <ion-modal [keepContentsMounted]="true">
-                <ng-template>
-                  <ion-datetime
-                    locale="en-EN"
-                    color="dark"
-                    id="datetime"
-                  ></ion-datetime>
-                </ng-template>
-              </ion-modal>
-            </ion-item>
-            <ion-item>
-              <ion-label class="mylabel" position="stacked"
-                >{{"image"|translate}}</ion-label
-              >
-              <ion-input type="file"></ion-input>
+              <ion-label class="mylabel" position="stacked">{{"image"|translate}}</ion-label>
+              <ion-input [(ngModel)]="imageInput" name="image" type="file" value="filename">
+              </ion-input>
             </ion-item>
           </ion-list>
-          <ion-button style="margin-top: 50px" expand="block" strong="bold"
-            >{{"create"|translate}}</ion-button
-          >
+          <ion-button style="margin-top: 50px" expand="block" strong="bold" (click)="createEvent()">{{"create"|translate}}</ion-button>
         </ion-content>
       </ng-template>
     </form>
