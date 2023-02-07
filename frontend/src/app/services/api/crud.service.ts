@@ -27,6 +27,36 @@ export interface Category {
   description: string;
 }
 
+// "id": 1,
+// "title": "Elas à quarta",
+// "description": "Top",
+// "locationId": 206,
+// "adress": "Rua Doutro Alfredo",
+// "startDate": "2023-05-17T00:00:00.000Z",
+// "endDate": "2023-05-17T00:00:00.000Z",
+// "image": "default.png",
+// "categoryId": 2,
+// "locationName": "Porto",
+// "categoryName": "Music"
+
+export interface Event {
+    id:number;
+    title:string;
+    description:string;
+    locationName:string;
+    adress:string;
+    startDate:Date;
+    endDate:Date;
+    image:string;
+    categoryName:string;
+    name:string;
+    surname:string;
+    username:string;
+    profilePicture:string;
+
+                 
+}
+
 export interface RootObject {}
 
 @Injectable({
@@ -63,5 +93,9 @@ export class CrudService {
 
   getCategories(controller: string) : Observable <Category[]> {
     return this.http.get<Category[]>(`${this.url}/api/category/${controller}`);
+  }
+
+  getEvents(controller: string) : Observable <Event[]> {
+    return this.http.get<Event[]>(`${this.url}/api/event/${controller}`);
   }
 }

@@ -4,6 +4,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { ToastController, NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
+import { CrudService } from 'src/app/services/api/crud.service';
+import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-cards',
@@ -18,24 +20,21 @@ export class CardsComponent implements OnInit {
     private navController: NavController,
     private router: Router,
     private translateService: TranslateService,
-    private LocalizationService: LocalizationService
+    private LocalizationService: LocalizationService,
+    private crudService: CrudService
   ) {}
+  user: any;
+  events: any[] = [];
+  monthNames = ['JAN', 'FEV', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+  
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getEvents();
+  }
 
   async presentToast() {
     this.favorite = !this.favorite;
-    let message = this.favorite
-      ? 'Adicionado aos favoritos'
-      : 'Removido dos favoritos';
-    let toast = await this.toastCtrl.create({
-      message: message,
-      duration: 1500,
-      position: 'top',
-      color: 'primary',
-    });
 
-    toast.present();
   }
 
   async goForward() {
@@ -58,5 +57,40 @@ export class CardsComponent implements OnInit {
       duration: 4000,
     });
     await toast.present();
+  }
+
+  getToken = async () => {
+    const token = await Preferences.get({ key: 'token' });
+
+    if (token.value !== null) {
+      const user = jwt_decode(token.value);
+      this.user = user;
+    }
+  };
+
+  checkToken = async () => {
+    const hasToken = await Preferences.get({ key: 'token' });
+    if (hasToken.value === null) {
+      this.router.navigateByUrl('/login', { replaceUrl: true });
+    } else {
+      this.router.navigateByUrl('tabs/tab4', { replaceUrl: true });
+    }
+  };
+
+  getEvents() {
+    this.crudService.getEvents('getAllEvents').subscribe((data) => {
+      this.events = data;
+      console.log(data)
+        this.events.forEach((event) => {
+          event.image = `http://localhost:4243/uploads/events/${event.image}`;
+        });
+    });
+  }
+
+  getFormattedDate(date: string) {
+    let dateObj = new Date(date);
+    let day = dateObj.getDate();
+    let monthIndex = dateObj.getMonth();
+    return `${day} ${this.monthNames[monthIndex]}`;
   }
 }
