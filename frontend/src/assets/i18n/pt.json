@@ -36,5 +36,10 @@
   "password": "Palavra-Passe:",
   "newpassword": "Nova Palavra-Passe:",
   "favorites": "Favoritos",
-  "eventsFav": "Eventos de que gostou!"
+  "eventsFav": "Eventos de que gostou!",
+  "history": "Histórico",
+  "slideformoreoptns": "Deslize para mais opções!",
+  "eventpage": "Página do Evento",
+  "edit": "Editar",
+  "delete": "Apagar"
 }

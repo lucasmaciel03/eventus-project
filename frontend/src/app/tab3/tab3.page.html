@@ -1,17 +1,9 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Tab 3
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
+<app-toolbar></app-toolbar>
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <h2 class="ion-text-center"><b>{{"history" | translate}}</b></h2>
+  <ion-label class="moreoptns">{{"slideformoreoptns"|translate}}</ion-label>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <app-cardhistory></app-cardhistory>
+  <app-cardhistory></app-cardhistory>
+  <app-cardhistory></app-cardhistory>
 </ion-content>

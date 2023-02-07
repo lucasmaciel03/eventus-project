@@ -36,5 +36,10 @@
   "password": "Password:",
   "newpassword": "New Password:",
   "favorites": "Favorites",
-  "eventsFav": "Events you liked!"
+  "eventsFav": "Events you liked!",
+  "history": "History",
+  "slideformoreoptns": "Slide for more options!",
+  "eventpage": "Event Page",
+  "edit": "Edit",
+  "delete": "Delete"
 }
