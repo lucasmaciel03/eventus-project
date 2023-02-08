@@ -1,14 +1,15 @@
-<ion-card color="medium">
+<ion-card color="medium" *ngFor="let event of events">
   <ion-item-sliding>
-    <ion-item class="ion-no-padding" *ngFor="let event of events">
+    <ion-item class="ion-no-padding" >
       <ion-grid>
         <ion-row>
           <ion-col size="6">
             <img
               alt="Silhouette of mountains"
               src={{event.image}}
-              height="120px"
+              height="143px"
               style="border-radius: 4px"
+              object-fit="cover"
             />
           </ion-col>
           <ion-col size="6">
@@ -16,8 +17,9 @@
               >{{event.title}}</b
             >
             <ion-label class="ion-margin-bottom" style="margin-top: 10px">
-              <p style="font-size: 0.85rem">{{getFormattedDate(event.startDate)}} | {{getFormattedDate(event.endDate)}}</p>
-              <p style="font-size: 0.85rem">{{event.locationName}}</p>
+              <p style="font-size: 0.85rem"><ion-icon class="calendarsize" name="calendar-outline"></ion-icon> &nbsp;{{getFormattedDate(event.startDate)}} | {{getFormattedDate(event.endDate)}}</p>
+              <p style="font-size: 0.85rem"><ion-icon class="calendarsize" name="stopwatch-outline"></ion-icon>&nbsp; 10:00 h</p>
+              <p style="font-size: 0.85rem"> <ion-icon class="calendarsize" name="location-outline"></ion-icon>  &nbsp;{{event.locationName}}</p>
             </ion-label>
             <ion-button fill="outline" expand="block" style="margin-top: 30px"
               >{{ "eventpage" | translate
