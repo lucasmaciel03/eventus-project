@@ -18,6 +18,6 @@ eventRoutes.get("/getEventsByCategoryId/:id", getEventsByCategoryId)
 
 eventRoutes.get("/getAllEvents", getAllEvents)
 
-eventRoutes.post("/addLike/:id", addLike)
+eventRoutes.post("/addLike/:id/:id", addLike)
 
 export { eventRoutes }

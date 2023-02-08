@@ -148,7 +148,7 @@ export const getAllEvents = async (req, res) => {
 export const addLike = async (req, res) => {
     try {
         const userId = req.params.id
-        const eventId = req.body.eventId
+        const eventId = req.params.id
         const eventData = await EventModel.findOne({ where: { id: eventId } })
         if (!eventData) {
             return res.status(400).json({ message: 'Event not found' })
