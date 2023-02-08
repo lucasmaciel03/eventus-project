@@ -15,7 +15,8 @@ import {
     updateEmail,
     updateUser,
     updateUsername,
-    getLikedEvents
+    getLikedEvents,
+    getEventsByUserId
 } from "../controllers/user.js"
 
 const userRoutes = Router();
@@ -49,5 +50,7 @@ userRoutes.put("/updateUser/:id", updateUser)
 userRoutes.put("/updateUsername/:id", updateUsername)
 
 userRoutes.get("/getLikedEvents/:id", getLikedEvents)
+
+userRoutes.get("/getEventsByUserId/:id", getEventsByUserId)
 
 export { userRoutes }
