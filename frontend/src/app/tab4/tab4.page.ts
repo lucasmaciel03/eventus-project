@@ -294,6 +294,10 @@ export class Tab4Page implements OnInit {
               color: 'success',
             });
             toast.present();
+            this.nameInput = '';
+            // close modal after update username
+            this.modalCtrl.dismiss();
+
           }
           if (changedSurname) {
             const toast = await this.toastController.create({
@@ -302,6 +306,8 @@ export class Tab4Page implements OnInit {
               color: 'success',
             });
             toast.present();
+            this.surnameInput = '';
+            this.modalCtrl.dismiss();
           }
           if (changedEmail) {
             const toast = await this.toastController.create({
@@ -310,6 +316,8 @@ export class Tab4Page implements OnInit {
               color: 'success',
             });
             toast.present();
+            this.newEmail = '';
+            this.modalCtrl.dismiss();
           }
           if (changedLocation) {
             const toast = await this.toastController.create({
@@ -318,6 +326,8 @@ export class Tab4Page implements OnInit {
               color: 'success',
             });
             toast.present();
+            this.locationInput = '';
+            this.modalCtrl.dismiss();
           }
           if (changedBirthDate) {
             const toast = await this.toastController.create({
@@ -326,6 +336,8 @@ export class Tab4Page implements OnInit {
               color: 'success',
             });
             toast.present();
+            this.birthDateInput = '';
+            this.modalCtrl.dismiss();
           }
         },
         async (err) => {
