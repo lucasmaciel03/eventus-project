@@ -25,7 +25,7 @@
           }}<ion-icon slot="end" name="arrow-forward-outline"></ion-icon></ion-button>
       </ion-col>
       <ion-col size="6" class="ion-text-end">
-        <ion-button fill="clear" color="dark" (click)="presentToast()">
+        <ion-button fill="clear" color="dark" (click)="presentToast(event)">
           <ion-icon class="heartfavoritesize" [ngClass]="{ favorite: favorite }"
             [name]="favorite ? 'heart' : 'heart-outline'"></ion-icon>
         </ion-button>
