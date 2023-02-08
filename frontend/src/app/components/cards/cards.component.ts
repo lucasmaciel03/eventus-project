@@ -37,7 +37,13 @@ export class CardsComponent implements OnInit {
 
   async presentToast() {
     this.favorite = !this.favorite;
-
+  //   this.crudService.addlike('addLike', this.event, { eventId: this.eventId })
+  //   .subscribe(data => {
+  //     if (data.message === 'Like added') {
+  //       this.isLiked = true;
+  //     } else if (data.message === 'Like removed') {
+  //       this.isLiked = false;
+  // }});
   }
 
   async goForward(event:any) {
