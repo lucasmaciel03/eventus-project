@@ -4,7 +4,7 @@ const dbInstance = new Sequelize({
     host: "localhost",
     port: 8886,
     username: "root",
-    password: "",
+    password: "root",
     database: "db_eventus",
     dialect: "mysql",
     

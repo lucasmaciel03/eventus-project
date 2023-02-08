@@ -9,6 +9,8 @@ import jwt_decode from 'jwt-decode';
 import { Camera, CameraResultType } from '@capacitor/camera';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActionSheetController } from '@ionic/angular';
+import { MenuController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab4',
@@ -38,6 +40,7 @@ export class Tab4Page implements OnInit {
   birthDateInput: any;
   locations: any[] = [];
   eventsLiked: any[] = [];
+  usernameInput: any;
 
   presentingElement: HTMLElement | undefined = undefined;
   constructor(
@@ -47,7 +50,9 @@ export class Tab4Page implements OnInit {
     private translateService: TranslateService,
     private toastController: ToastController,
     private LocalizationService: LocalizationService,
-    private actionSheetCtrl: ActionSheetController
+    private actionSheetCtrl: ActionSheetController,
+    private menuCtrl: MenuController,
+    private modalCtrl: ModalController
   ) {}
 
   async ngOnInit() {
@@ -356,5 +361,46 @@ export class Tab4Page implements OnInit {
     return role === 'confirm';
   };
 
+  async closeAndDoSomething() {
+    await this.menuCtrl.close();
+    // Do something after closing the menu
+  }  
+
+  // Update username
+  async updateUsername() {
+    if (this.usernameInput !== this.user.username) {
+      const newUpdate = {
+        username: this.usernameInput,
+      };
+      this.crudService
+        .updateUser('updateUsername', this.user._id, newUpdate)
+        .subscribe(
+          async (res) => {
+            this.getUser();
+            const toast = await this.toastController.create({
+              message: 'O nome de utilizador foi alterado',
+              duration: 2000,
+              color: 'success',
+            });
+            toast.present();
+            this.usernameInput = '';
+            // close modal after update username
+            this.modalCtrl.dismiss();
+          },
+          async (err: HttpErrorResponse) => {
+            let message = "Erro ao atualizar username!";
+          if(err.error && err.error.message) {
+            message = err.error.message;
+          }
+          const toast = await this.toastController.create({
+            message: message,
+            duration: 2000,
+            color: "danger"
+          });
+          toast.present();
+      }
+        );
+    }
+  }
 
 }

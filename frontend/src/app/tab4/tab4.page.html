@@ -7,8 +7,7 @@
   <ion-content class="ion-padding">
     <ion-item-group>
       <ion-item>
-        <ion-button id="open-modal3" fill="clear"
-          >{{"changeusername" | translate}}</ion-button
+        <ion-button id="open-modal3" fill="clear" (click)="closeAndDoSomething()">{{"changeusername" | translate}}</ion-button
         >
       </ion-item>
       <ion-item>
@@ -31,6 +30,7 @@
     </ion-item-group>
   </ion-content>
 </ion-menu>
+
 <div class="ion-page" id="main-content">
   <ion-header>
     <ion-toolbar>
@@ -247,14 +247,14 @@
               >
             </ion-buttons>
             <ion-buttons slot="end">
-              <ion-button (click)="updateUser()"
+              <ion-button (click)="updateUsername()" 
                 >{{"save" | translate}}</ion-button
               >
             </ion-buttons>
           </ion-toolbar>
         </ion-header>
         <ion-content>
-          <form (ngSubmit)="updateUser()" #form="ngForm">
+          <form >
             <ion-grid class="ion-margin-top">
               <ion-row>
                 <ion-col size="12">
@@ -263,7 +263,7 @@
                     <ion-input
                       color="primary"
                       placeholder="{{username}}"
-                      [(ngModel)]="nameInput"
+                      [(ngModel)]="usernameInput"
                       name="username"
                     ></ion-input>
                   </ion-item>

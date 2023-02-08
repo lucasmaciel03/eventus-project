@@ -112,6 +112,10 @@ export class CrudService {
     return this.http.put(`${this.url}/api/user/${controller}/${id}`, model)
   }
 
+  updateUsername(controller: string, id: number, model: any) {
+    return this.http.put(`${this.url}/api/user/${controller}/${id}`, model, { responseType: 'text' })
+  }
+
   updateUser(controller: string, id: number, model: any) {
     return this.http.put(`${this.url}/api/user/${controller}/${id}`, model, { responseType: 'text' })
   }

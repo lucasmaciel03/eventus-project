@@ -366,13 +366,11 @@ export const getLikedEvents = async (req, res) => {
       });
   
       const likedEvents = eventLikes.map(({ event }) => {
-        const { id, name, title, description, startDate, endDate,locationId, location, categoryId, category, image } = event;
+        const { id, name, title, description, locationId, location, categoryId, category, image } = event;
         return {
           id,
           name,
           title,
-          startDate,
-          endDate,
           description,
           locationName: location.description,
           categoryName: category.description,
@@ -380,14 +378,14 @@ export const getLikedEvents = async (req, res) => {
         };
       });
 
-      console.log('*******************' + startDate)
   
       res.status(200).send(likedEvents);
     } catch (error) {
-      console.error(error);
+      console.error('****************************'+error);
       res.status(500).send({ message: "Error while retrieving liked events" });
     }
 };
+
 export const getEventsByUserId = async (req, res) => {
     try {
         const userId = req.params.id;
@@ -420,8 +418,41 @@ export const getEventsByUserId = async (req, res) => {
       }
 };
 
-// GET - Get all events who user created by user id and return all info about the event and replace the location id with the location name and category id with the category name and return all info about the event
-
+// DELETE - Delete user by id, before delete user, user need insert correctly the username and password to confirm the delete action, if user is deleted, return a message to confirm the delete action else return a message to inform that the user was not deleted, verify if user have profile picture, if have, delete the profile picture from the server and from folder uploads/users 
+export const deleteUser = async (req, res) => {
+    try {
+        const { id } = req.params
+        const { username, password } = req.body
+        const userExist = await UserModel.findOne({ where: { id: id } })
+        if (userExist) {
+            if (username === userExist.username) {
+                const passwordMatch = await bcrypt.compare(password, userExist.password)
+                if (passwordMatch) {
+                    const user = await UserModel.findOne({ where: { id: id } })
+                    if (user.image) {
+                        fs.unlink(`uploads/users/${user.profilePicture}`, (err) => {
+                            if (err) {
+                                console.error('******************************'+err)
+                                return
+                            }
+                        })
+                    }
+                    await UserModel.destroy({ where: { id: id } })
+                    res.status(200).send({ message: 'Usuário deletado com sucesso' })
+                } else {
+                    res.status(200).send({ message: 'Senha incorreta' })
+                }
+            } else {
+                res.status(200).send({ message: 'Username incorreto' })
+            }
+        } else {
+            res.status(404).send({ message: 'Usuário não encontrado' })
+        }
+    } catch (error) {
+        console.log('******************************'+error)
+        res.status(500).send({ message: 'Erro ao deletar usuário' })
+    }
+}
 
 //  Image Upload
 
