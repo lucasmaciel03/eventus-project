@@ -3,6 +3,7 @@ import { LocationModel } from '../models/location.js';
 import { CategoryModel } from '../models/category.js';
 import { UserModel } from '../models/user.js';
 import { EventHostModel } from '../models/event_host.js';
+import { EventLikesModel } from '../models/event_likes.js';
 import multer from 'multer'
 import path from 'path'
 import fs from 'fs'
@@ -142,6 +143,31 @@ export const getAllEvents = async (req, res) => {
         return res.status(500).json({ message: 'Something went wrong', error })
     }
 }
+
+// POST - Add a new like for the event by id, if the user already liked the event remove the like, if the user did not like the event, add a new like, if the event does not exist, return a message to the user, if the event exists, return the event with the number of likes add the user id and the event id to the event like table 
+export const addLike = async (req, res) => {
+    try {
+        const userId = req.params.id
+        const eventId = req.body.eventId
+        const eventData = await EventModel.findOne({ where: { id: eventId } })
+        if (!eventData) {
+            return res.status(400).json({ message: 'Event not found' })
+        }
+        const eventLike = await EventLikesModel.findOne({ where: { userId: userId, eventId: eventId } })
+        if (eventLike) {
+            await EventLikesModel.destroy({ where: { userId: userId, eventId: eventId } })
+            const updatedEventData = await EventModel.findOne({ where: { id: eventId } })
+            return res.status(200).json({ message: 'Like removed', event: updatedEventData })
+        }
+        await EventLikesModel.create({ userId: userId, eventId: eventId })
+        const updatedEventData = await EventModel.findOne({ where: { id: eventId } })
+        return res.status(200).json({ message: 'Like added', event: updatedEventData })
+    } catch (error) {
+        console.log('------------------------------------------' + error)
+        return res.status(500).json({ message: 'Something went wrong', error })
+    }
+}
+
 
 //  Image Upload
 
