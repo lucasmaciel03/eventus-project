@@ -1,15 +1,18 @@
+import { Event } from './../services/api/crud.service';
 import { LocalizationService } from './../services/localization/localization.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastController, NavController } from '@ionic/angular';
 import { Preferences } from '@capacitor/preferences';
 import { TranslateService } from '@ngx-translate/core';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-eventpage',
   templateUrl: './eventpage.page.html',
   styleUrls: ['./eventpage.page.scss'],
 })
 export class EventpagePage implements OnInit {
+  event: any;
   favorite: boolean = false;
   constructor(
     private toastCtrl: ToastController,
@@ -17,10 +20,23 @@ export class EventpagePage implements OnInit {
     private router: Router,
     private toastController: ToastController,
     private translateService: TranslateService,
-    private LocalizationService: LocalizationService
-  ) {}
+    private LocalizationService: LocalizationService,
+    private route: ActivatedRoute,
 
-  ngOnInit() {}
+  ) {}
+  monthNames = ['JAN', 'FEV', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+//get event 
+
+
+ngOnInit() {
+  
+    this.route.queryParams.subscribe(params => {
+      this.event = JSON.parse(params['event']);
+    });
+    console.log(this.event)
+  }
+
+
   async presentToast() {
     this.favorite = !this.favorite;
     let message = this.favorite
@@ -57,4 +73,13 @@ export class EventpagePage implements OnInit {
     });
     await toast.present();
   }
+
+  getFormattedDate(date: string) {
+    let dateObj = new Date(date);
+    let day = dateObj.getDate();
+    let monthIndex = dateObj.getMonth();
+    return `${day} ${this.monthNames[monthIndex]}`;
+  }
+  
 }
+

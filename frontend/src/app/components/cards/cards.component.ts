@@ -6,6 +6,8 @@ import { ToastController, NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { CrudService } from 'src/app/services/api/crud.service';
 import jwt_decode from 'jwt-decode';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-cards',
@@ -21,7 +23,8 @@ export class CardsComponent implements OnInit {
     private router: Router,
     private translateService: TranslateService,
     private LocalizationService: LocalizationService,
-    private crudService: CrudService
+    private crudService: CrudService,
+    private route: ActivatedRoute
   ) {}
   user: any;
   events: any[] = [];
@@ -37,11 +40,10 @@ export class CardsComponent implements OnInit {
 
   }
 
-  async goForward() {
+  async goForward(event:any) {
     this.navController.setDirection('forward');
-    await this.router.navigate(['/eventpage'], {
-      replaceUrl: true,
-    });
+    this.router.navigate(['/eventpage'], { queryParams: { event: JSON.stringify(event) } });
+    console.log(event)
   }
 
   async changeLanguage(language: string) {

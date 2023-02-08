@@ -1,4 +1,4 @@
-<ion-card *ngFor="let event of events" class="event-card">
+<ion-card *ngFor="let event of events" class="event-card" >
   <img alt="Silhouette of mountains" src={{event.image}} />
   <ion-card-header>
     <ion-card-title>{{event.title}}</ion-card-title>
@@ -21,7 +21,7 @@
     </ion-row>
     <ion-row size="12">
       <ion-col size="6">
-        <ion-button color="primary" fill="outline" expand="block" (click)="goForward()">{{ "moreinfo" | translate
+        <ion-button color="primary" fill="outline" expand="block" (click)="goForward(event)">{{ "moreinfo" | translate
           }}<ion-icon slot="end" name="arrow-forward-outline"></ion-icon></ion-button>
       </ion-col>
       <ion-col size="6" class="ion-text-end">
