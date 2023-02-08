@@ -149,7 +149,7 @@ export const addLike = async (req, res) => {
     try {
         const userId = req.params.id
         console.log('*****************************' + userId)
-        const eventId = req.params.id
+        const eventId = req.params.eventId
         console.log('*****************************' + eventId)
         const eventData = await EventModel.findOne({ where: { id: eventId } })
         if (!eventData) {
@@ -170,7 +170,62 @@ export const addLike = async (req, res) => {
     }
 }
 
-
+// GET - Get al events by user id and category id, if category id equals 1 send all events, if not send all events by category id, verify if user liked the event and send like true or false, if in the event like table the user id and event id match, send like true, if not send like false, replace the location id and category id with the location name and category name, and return the events and the user who created the event just sent name, surname, username, profilePicture check the user id in the event host table 
+export const getEventsByUserIdAndCategoryId = async (req, res) => {
+    try {
+        const userId = req.params.id
+        const categoryId = req.params.categoryId
+        console.log('*****************************' + userId + '*****************************' + categoryId)
+        if (categoryId === '1') {
+            const events = await EventModel.findAll()
+            const eventsWithLocationAndCategory = await Promise.all(events.map(async event => {
+                const location = await LocationModel.findOne({ where: { id: event.locationId } });
+                const category = await CategoryModel.findOne({ where: { id: event.categoryId } });
+                const eventHost = await EventHostModel.findOne({ where: { eventId: event.id } })
+                const user = await UserModel.findOne({ where: { id: eventHost.userId } })
+                const eventLike = await EventLikesModel.findOne({ where: { userId: userId, eventId: event.id } })
+                return {
+                    ...event.dataValues,
+                    locationName: location.description,
+                    categoryName: category.description,
+                    user: {
+                        name: user.name,
+                        surname: user.surname,
+                        username: user.username,
+                        profilePicture: user.profilePicture
+                    },
+                    like: eventLike ? true : false
+                };
+            }));
+            return res.status(200).json({ message: 'Events found', eventsWithLocationAndCategory })
+        }
+        const events = await EventModel.findAll({ where: { categoryId: categoryId } })
+        const eventsWithLocationAndCategory = await Promise.all(events.map(async event => {
+            const location = await LocationModel.findOne({ where: { id: event.locationId } });
+            const category = await CategoryModel.findOne({ where: { id: event.categoryId } });
+            const eventHost = await EventHostModel.findOne({ where: { eventId: event.id } })
+            const user = await UserModel.findOne({ where: { id: eventHost.userId } })
+            const eventLike = await EventLikesModel.findOne({ where: { userId: userId, eventId: event.id } })
+            console.log('*****************************' + userId + event.id)
+            return {
+                ...event.dataValues,
+                locationName: location.description,
+                categoryName: category.description,
+                user: {
+                    name: user.name,
+                    surname: user.surname,
+                    username: user.username,
+                    profilePicture: user.profilePicture
+                },
+                like : eventLike ? true : false
+            };
+        }));
+        return res.status(200).json({ message: 'Events found', eventsWithLocationAndCategory })
+    } catch (error) {
+        console.log('************************' + error)
+        return res.status(500).json({ message: 'Something went wrong', error })
+    }
+}
 //  Image Upload
 
 // Set up storage engine for multer

@@ -5,7 +5,8 @@ import {
     getEventsByCategoryId,
     getAllEvents,
     upload,
-    addLike
+    addLike,
+    getEventsByUserIdAndCategoryId
 } from "../controllers/event.js"
 
 const eventRoutes = Router()
@@ -18,6 +19,8 @@ eventRoutes.get("/getEventsByCategoryId/:id", getEventsByCategoryId)
 
 eventRoutes.get("/getAllEvents", getAllEvents)
 
-eventRoutes.post("/addLike/:id/:id", addLike)
+eventRoutes.post("/addLike/:id/:eventId", addLike)
+
+eventRoutes.get("/getEventsByUserIdAndCategoryId/:id/:categoryId", getEventsByUserIdAndCategoryId)
 
 export { eventRoutes }
