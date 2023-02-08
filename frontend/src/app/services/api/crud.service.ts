@@ -96,6 +96,10 @@ export class CrudService {
     return this.http.get<Event[]>(`${this.url}/api/user/${controller}/${id}`);
   }
 
+  getEventsByUserId(controller: string, id: number) : Observable <Event[]> {
+    return this.http.get<Event[]>(`${this.url}/api/event/${controller}/${id}`);
+  }
+
   // PUT
   updatePicture(controller: string, id: number, model: FormData) {
     //const formData = new FormData();
