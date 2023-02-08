@@ -31,19 +31,24 @@ export class CardsComponent implements OnInit {
   monthNames = ['JAN', 'FEV', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
   
 
-  ngOnInit() {
+  async ngOnInit() {
     this.getEvents();
+    await this.getToken();
   }
 
-  async presentToast() {
+  async presentToast(event:any) {
     this.favorite = !this.favorite;
-  //   this.crudService.addlike('addLike', this.event, { eventId: this.eventId })
-  //   .subscribe(data => {
-  //     if (data.message === 'Like added') {
-  //       this.isLiked = true;
-  //     } else if (data.message === 'Like removed') {
-  //       this.isLiked = false;
-  // }});
+    try {
+      const response = await this.crudService.addLike('addLike', this.user._id, event.id, event);
+      const result = await response.toPromise();
+  
+      console.log(result);
+      /* display a success toast */
+    } catch (error) {
+      console.error(error);
+      /* display an error toast */
+      console.log(event.id)
+    }
   }
 
   async goForward(event:any) {
@@ -81,7 +86,7 @@ export class CardsComponent implements OnInit {
     if (hasToken.value === null) {
       this.router.navigateByUrl('/login', { replaceUrl: true });
     } else {
-      this.router.navigateByUrl('tabs/tab4', { replaceUrl: true });
+      this.router.navigateByUrl('tabs/tab1', { replaceUrl: true });
     }
   };
 

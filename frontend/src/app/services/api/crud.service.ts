@@ -76,8 +76,8 @@ export class CrudService {
     return this.http.post(`${this.url}/api/event/${controller}/${id}`, model);
   }
 
-  addlike(controller: string, id:number, model: any) {
-    return this.http.post(`${this.url}/api/event/${controller}/${id}`, model);
+  addLike(controller: string, id:number, eventId:number, model: any) {
+    return this.http.post(`${this.url}/api/event/${controller}/${id}/${eventId}`, model);
   }
 
   // GET
