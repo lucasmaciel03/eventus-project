@@ -37,6 +37,7 @@ export class Tab4Page implements OnInit {
   locationInput: any;
   birthDateInput: any;
   locations: any[] = [];
+  eventsLiked: any[] = [];
 
   presentingElement: HTMLElement | undefined = undefined;
   constructor(
@@ -49,10 +50,11 @@ export class Tab4Page implements OnInit {
     private actionSheetCtrl: ActionSheetController
   ) {}
 
-  ngOnInit() {
-    this.getToken();
+  async ngOnInit() {
+    await this.getToken();
     this.checkToken();
     this.getLocations();
+    this.getLikedEvents();
 
     this.presentingElement = document.getElementById('main-content')!;
   }
@@ -118,6 +120,20 @@ export class Tab4Page implements OnInit {
     this.crudService.getLocations('getLocations').subscribe((data) => {
       this.locations = data;
     });
+  };
+
+  getLikedEvents = async () => {
+    console.log('*****************' + 'ENTROU' + this.user._id)
+    if (this.user) {
+    this.crudService.getLikedEvents('getLikedEvents', this.user._id).subscribe(
+    (data) => {
+    console.log('****************' + data);
+    this.eventsLiked = data;
+    this.eventsLiked.forEach(event => {
+      event.image = `http://localhost:4243/uploads/events/${event.image}`;
+    });
+    });
+    }
   };
 
   async createFoto(image: any) {
@@ -339,4 +355,6 @@ export class Tab4Page implements OnInit {
 
     return role === 'confirm';
   };
+
+
 }
