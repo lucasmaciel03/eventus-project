@@ -366,24 +366,62 @@ export const getLikedEvents = async (req, res) => {
       });
   
       const likedEvents = eventLikes.map(({ event }) => {
-        const { id, name, title, description, locationId, location, categoryId, category, image } = event;
+        const { id, name, title, description, startDate, endDate,locationId, location, categoryId, category, image } = event;
         return {
           id,
           name,
           title,
+          startDate,
+          endDate,
           description,
           locationName: location.description,
           categoryName: category.description,
           image
         };
       });
+
+      console.log('*******************' + startDate)
   
       res.status(200).send(likedEvents);
     } catch (error) {
       console.error(error);
       res.status(500).send({ message: "Error while retrieving liked events" });
     }
-  };
+};
+export const getEventsByUserId = async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const eventHost = await EventHostModel.findAll({
+          where: { userId: userId },
+          include: [
+            { model: EventModel, include: [LocationModel, CategoryModel] },
+          ],
+        });
+    
+        const hostEvents = eventHost.map(({ event }) => {
+          const { id, name, title, description, startDate, endDate, locationId, location, categoryId, category, image } = event;
+          return {
+            id,
+            name,
+            title,
+            startDate,
+            endDate,
+            description,
+            locationName: location.description,
+            categoryName: category.description,
+            image
+          };
+        });
+    
+        res.status(200).send(hostEvents);
+      } catch (error) {
+        console.error(error);
+        res.status(500).send({ message: "Error while retrieving liked events" });
+      }
+};
+
+// GET - Get all events who user created by user id and return all info about the event and replace the location id with the location name and category id with the category name and return all info about the event
+
 
 //  Image Upload
 
