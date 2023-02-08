@@ -76,6 +76,10 @@ export class CrudService {
     return this.http.post(`${this.url}/api/event/${controller}/${id}`, model);
   }
 
+  addlike(controller: string, id:number, model: any) {
+    return this.http.post(`${this.url}/api/event/${controller}/${id}`, model);
+  }
+
   // GET
   getUser(controller: string, id: number) : Observable <User> {
     return this.http.get<User>(`${this.url}/api/user/${controller}/${id}`);
