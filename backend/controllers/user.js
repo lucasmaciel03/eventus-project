@@ -1,5 +1,9 @@
 import { UserModel } from '../models/user.js'
 import { LocationModel } from '../models/location.js'
+import { EventHostModel } from '../models/event_host.js'
+import { EventModel } from '../models/event.js'
+import { EventLikesModel } from '../models/event_likes.js'
+import { CategoryModel } from '../models/category.js'
 import pkg from 'validator'
 import multer from 'multer'
 import path from 'path'
@@ -176,24 +180,7 @@ export const updateProfilePictureToDefault = async (req, res) => {
     }
 }
 
-// DELETE - Delete user by id, if user has a profile picture name different from default.png, delete the profile picture from uploads folder
-export const deleteUser = async (req, res) => {
-    try {
-        const { id } = req.params
-        const userExist = await UserModel.findOne({ where: { id: id } })
-        if (userExist) {
-            if (userExist.profilePicture !== 'default.png') {
-                fs.unlinkSync(`uploads/${userExist.profilePicture}`)
-            }
-            await UserModel.destroy({ where: { id: id } })
-            res.status(200).send({ message: 'User deleted successfully' })
-        } else {
-            res.status(404).send({ message: 'User not found' })
-        }
-    } catch (error) {
-        res.status(500).send({ message: 'Error deleting user', error: error.message });
-    }
-}
+// DELETE - Delete user by id, if user has a profile picture name different from default.png, delete the profile picture from uploads folder, if user has events, delete all events of use
 
 // PUT - Update name of user by id
 export const updateName = async (req, res) => {
@@ -272,6 +259,7 @@ export const updateEmail = async (req, res) => {
     }
 }
 
+// PUT - Update User
 export const updateUser = async (req, res) => {
     try {
         const { id } = req.params;
@@ -339,9 +327,63 @@ export const updateUser = async (req, res) => {
     }
 };
 
+// PUT - Update username by id, verify if username already exists, if not, update username and return user with updated username and location name if user has a location id
+export const updateUsername = async (req, res) => {
+    try {
+        const { id } = req.params
+        const { username } = req.body
+        const userExist = await UserModel.findOne({ where: { id: id } })
+        if (userExist) {
+            if (username === '') {
+                res.status(200).send({ ...userExist.dataValues, locationName: userExist.locationId ? await LocationModel.findOne({ where: { id: userExist.locationId } }) : null })
+            } else {
+                const usernameExist = await UserModel.findOne({ where: { username: username } })
+                if (usernameExist) {
+                    res.status(200).send({ message: 'Username já existe' })
+                } else {
+                    const updatedUser = await UserModel.update({ username: username }, { where: { id: id } })
+                    const user = await UserModel.findOne({ where: { id: id } })
+                    res.status(200).send({ ...user.dataValues, locationName: user.locationId ? await LocationModel.findOne({ where: { id: user.locationId } }) : null })
+                }
+            }
+        } else {
+            res.status(404).send({ message: 'Usuário não encontrado' })
+        }
+    } catch (error) {
+        res.status(500).send({ message: 'Erro ao atualizar username' })
+    }
+}
 
-
-
+// GET - Get all events user liked by user id and return all info about the event and replace the location id with the location name and category id with the category name and return all info about the event 
+export const getLikedEvents = async (req, res) => {
+    try {
+      const userId = req.params.id;
+      const eventLikes = await EventLikesModel.findAll({
+        where: { userId: userId },
+        include: [
+          { model: EventModel, include: [LocationModel, CategoryModel] },
+        ],
+      });
+  
+      const likedEvents = eventLikes.map(({ event }) => {
+        const { id, name, title, description, locationId, location, categoryId, category, image } = event;
+        return {
+          id,
+          name,
+          title,
+          description,
+          locationName: location.description,
+          categoryName: category.description,
+          image
+        };
+      });
+  
+      res.status(200).send(likedEvents);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ message: "Error while retrieving liked events" });
+    }
+  };
 
 //  Image Upload
 
