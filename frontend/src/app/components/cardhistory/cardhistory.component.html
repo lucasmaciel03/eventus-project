@@ -1,23 +1,23 @@
 <ion-card color="medium">
   <ion-item-sliding>
-    <ion-item class="ion-no-padding">
+    <ion-item class="ion-no-padding" *ngFor="let event of events">
       <ion-grid>
         <ion-row>
           <ion-col size="6">
             <img
               alt="Silhouette of mountains"
-              src="https://ionicframework.com/docs/img/demos/card-media.png"
+              src={{event.image}}
               height="120px"
               style="border-radius: 4px"
             />
           </ion-col>
           <ion-col size="6">
             <b style="font-size: 1.1rem; color: var(--ion-color-dark)"
-              >Paimó beach bar</b
+              >{{event.title}}</b
             >
             <ion-label class="ion-margin-bottom" style="margin-top: 10px">
-              <p style="font-size: 0.85rem">21-02-2023</p>
-              <p style="font-size: 0.85rem">Aguçadoura</p>
+              <p style="font-size: 0.85rem">{{getFormattedDate(event.startDate)}} | {{getFormattedDate(event.endDate)}}</p>
+              <p style="font-size: 0.85rem">{{event.locationName}}</p>
             </ion-label>
             <ion-button fill="outline" expand="block" style="margin-top: 30px"
               >{{ "eventpage" | translate
