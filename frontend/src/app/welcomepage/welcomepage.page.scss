@@ -1,5 +1,7 @@
 ion-content {
   --background: url(../../assets/images/ionicwallpaper2.png) no-repeat center center fixed;
+  object-fit: cover;
+  width: 100%;
 }
 
 
