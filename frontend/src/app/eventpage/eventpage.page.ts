@@ -6,6 +6,12 @@ import { ToastController, NavController } from '@ionic/angular';
 import { Preferences } from '@capacitor/preferences';
 import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
+import jwt_decode from 'jwt-decode';
+import { CrudService } from 'src/app/services/api/crud.service';
+import { CommentWithUser } from '../services/api/crud.service';
+import { CommentsResponse } from '../services/api/crud.service';
+
+
 @Component({
   selector: 'app-eventpage',
   templateUrl: './eventpage.page.html',
@@ -22,18 +28,24 @@ export class EventpagePage implements OnInit {
     private translateService: TranslateService,
     private LocalizationService: LocalizationService,
     private route: ActivatedRoute,
+    private crudService: CrudService
 
   ) {}
   monthNames = ['JAN', 'FEV', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-//get event 
+  user : any;
+  profilePicture : any;
+  commentInput : any;
+  comments: CommentWithUser[] = [];
 
-
-ngOnInit() {
-  
+  async ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.event = JSON.parse(params['event']);
+      console.log('++++++++++++++++++'+this.event.id)
     });
+    await this.getToken();
     console.log(this.event)
+    this.getUser();
+    this.getEventComments();
   }
 
 
@@ -80,6 +92,66 @@ ngOnInit() {
     let monthIndex = dateObj.getMonth();
     return `${day} ${this.monthNames[monthIndex]}`;
   }
+
+  getToken = async () => {
+    const token = await Preferences.get({ key: 'token' });
+
+    if (token.value !== null) {
+      const user = jwt_decode(token.value);
+      this.user = user;
+      console.log('******************************' + this.user._id);
+    }
+  };
+
+  checkToken = async () => {
+    const hasToken = await Preferences.get({ key: 'token' });
+    if (hasToken.value === null) {
+      this.router.navigateByUrl('/login', { replaceUrl: true });
+    } else {
+      this.router.navigateByUrl('tabs/tab1', { replaceUrl: true });
+    }
+  };
+  
+  getUser = async () => {
+    this.crudService.getUser('getUserById', this.user._id).subscribe((data) => {
+      this.profilePicture = `http://localhost:4243/uploads/users/${data.profilePicture}`;
+    });
+  };
+
+  createEventComment = async () => {
+    const comment = {
+      comment: this.commentInput,
+      user: this.user._id,
+      event: this.event.id,
+    };
+    this.crudService.createEventComment('createEventComment', this.user._id, this.event.id, comment).subscribe(
+      (data) => {
+        console.log(data);
+        this.commentInput = '';
+        // RELOAD COMMENTS
+        this.getEventComments();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  getEventComments = async () => {
+    this.crudService.getEventComments('getEventComments', this.event.id).subscribe(
+      (data: CommentsResponse) => {
+        this.comments = [];
+        this.comments.push(...data.commentsWithUser);
+        console.log('*********************************'+this.comments);
+        this.comments.forEach((comment) => {
+          comment.user.profilePicture = `http://localhost:4243/uploads/users/${comment.user.profilePicture}`;
+        }
+        );
+      }
+    );
+  }
+  
+  
   
 }
 

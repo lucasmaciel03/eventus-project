@@ -27,18 +27,6 @@ export interface Category {
   description: string;
 }
 
-// "id": 1,
-// "title": "Elas à quarta",
-// "description": "Top",
-// "locationId": 206,
-// "adress": "Rua Doutro Alfredo",
-// "startDate": "2023-05-17T00:00:00.000Z",
-// "endDate": "2023-05-17T00:00:00.000Z",
-// "image": "default.png",
-// "categoryId": 2,
-// "locationName": "Porto",
-// "categoryName": "Music"
-
 export interface Event {
     id:number;
     title:string;
@@ -53,6 +41,50 @@ export interface Event {
     surname:string;
     username:string;
     profilePicture:string;
+    comment: string;
+}
+
+export interface CommentWithUser {
+  id: number;
+  userId: number;
+  eventId: number;
+  comment: string;
+  user: {
+    name: string;
+    surname: string;
+    username: string;
+    profilePicture: string;
+  };
+}
+
+
+export interface EventOrder {
+  id: number;
+  title: string;
+  description: string;
+  locationId: number;
+  adress: string;
+  startDate: string;
+  endDate: string;
+  image: string;
+  categoryId: number;
+  locationName: string;
+  categoryName: string;
+  user: {
+    name: string;
+    surname: string;
+    username: string;
+    profilePicture: string;
+  };
+  likes: number;
+}
+
+export interface EventResponse {
+  eventsLikes: EventOrder[]
+}
+
+export interface CommentsResponse {
+  commentsWithUser: CommentWithUser[];
 }
 
 export interface RootObject {}
@@ -80,6 +112,10 @@ export class CrudService {
     return this.http.post(`${this.url}/api/event/${controller}/${id}/${eventId}`, model);
   }
 
+  createEventComment(controller: string, id:number, eventId:number, model: any) {
+    return this.http.post(`${this.url}/api/event/${controller}/${id}/${eventId}`, model);
+  }
+
   // GET
   getUser(controller: string, id: number) : Observable <User> {
     return this.http.get<User>(`${this.url}/api/user/${controller}/${id}`);
@@ -104,6 +140,18 @@ export class CrudService {
     return this.http.get<Event[]>(`${this.url}/api/event/${controller}/${id}`);
   }
 
+  getEventsOrderByLikes (controller: string) : Observable <EventResponse> {
+    return this.http.get<EventResponse>(`${this.url}/api/event/${controller}`);
+  }
+
+  getEventsByUserIdAndCategoryId (controller: string, id: number, categoryId: number) : Observable <Event[]> {
+    return this.http.get<Event[]>(`${this.url}/api/event/${controller}/${id}/${categoryId}`);
+  }
+
+  getEventComments(controller: string, id: number) : Observable<CommentsResponse> {
+    return this.http.get<CommentsResponse>(`${this.url}/api/event/${controller}/${id}`);
+  }
+
   // PUT
   updatePicture(controller: string, id: number, model: FormData) {
     //const formData = new FormData();
@@ -117,6 +165,10 @@ export class CrudService {
   }
 
   updateUser(controller: string, id: number, model: any) {
+    return this.http.put(`${this.url}/api/user/${controller}/${id}`, model, { responseType: 'text' })
+  }
+
+  updatePassword (controller: string, id: number, model: any){
     return this.http.put(`${this.url}/api/user/${controller}/${id}`, model, { responseType: 'text' })
   }
 

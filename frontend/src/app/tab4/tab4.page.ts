@@ -41,6 +41,7 @@ export class Tab4Page implements OnInit {
   locations: any[] = [];
   eventsLiked: any[] = [];
   usernameInput: any;
+  passwordInput: any;
 
   presentingElement: HTMLElement | undefined = undefined;
   constructor(
@@ -420,5 +421,45 @@ export class Tab4Page implements OnInit {
         );
     }
   }
+
+  async updatePassword() {
+    if (this.passwordInput !== '' && this.newPassword !== '') {
+      const newUpdate = {
+        currentPassword: this.passwordInput,
+        newPassword: this.newPassword,
+      };
+      this.crudService
+        .updateUser('updatePassword', this.user._id, newUpdate)
+        .subscribe(
+          async (res) => {
+            this.getUser();
+            const toast = await this.toastController.create({
+              message: 'A password foi alterada',
+              duration: 2000,
+              color: 'success',
+            });
+            toast.present();
+            this.passwordInput = '';
+            this.newPassword = '';
+            // close modal after update username
+            this.modalCtrl.dismiss();
+          },
+          async (err: HttpErrorResponse) => {
+            let message = "Erro ao atualizar password!";
+            if (err.error && err.error.message) {
+              message = err.error.message;
+            }
+            const toast = await this.toastController.create({
+              message: message,
+              duration: 2000,
+              color: "danger"
+            });
+            toast.present();
+          }
+        );
+    }
+  }  
+
+
 
 }

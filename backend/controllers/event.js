@@ -4,6 +4,7 @@ import { CategoryModel } from '../models/category.js';
 import { UserModel } from '../models/user.js';
 import { EventHostModel } from '../models/event_host.js';
 import { EventLikesModel } from '../models/event_likes.js';
+import { EventCommentsModel } from '../models/event_comments.js';
 import multer from 'multer'
 import path from 'path'
 import fs from 'fs'
@@ -170,13 +171,12 @@ export const addLike = async (req, res) => {
     }
 }
 
-// GET - Get al events by user id and category id, if category id equals 1 send all events, if not send all events by category id, verify if user liked the event and send like true or false, if in the event like table the user id and event id match, send like true, if not send like false, replace the location id and category id with the location name and category name, and return the events and the user who created the event just sent name, surname, username, profilePicture check the user id in the event host table 
+// GET - Get al events by user id and category id, if category id equals 1 send all events, if not send all events by category id, verify if user liked the event and send like true or false, if in the event like table the user id and event id match, send like true, if not send like false, replace the location id and category id with the location name and category name, and return the events and the user who created the event just sent name, surname, username, profilePicture check the user id in the event host table return the comments for the event, and the user who created the comment, just sent name, profilePicture, username, and the comment
 export const getEventsByUserIdAndCategoryId = async (req, res) => {
     try {
         const userId = req.params.id
         const categoryId = req.params.categoryId
-        console.log('*****************************' + userId + '*****************************' + categoryId)
-        if (categoryId === '1') {
+        if (categoryId == 1) {
             const events = await EventModel.findAll()
             const eventsWithLocationAndCategory = await Promise.all(events.map(async event => {
                 const location = await LocationModel.findOne({ where: { id: event.locationId } });
@@ -184,6 +184,19 @@ export const getEventsByUserIdAndCategoryId = async (req, res) => {
                 const eventHost = await EventHostModel.findOne({ where: { eventId: event.id } })
                 const user = await UserModel.findOne({ where: { id: eventHost.userId } })
                 const eventLike = await EventLikesModel.findOne({ where: { userId: userId, eventId: event.id } })
+                const comments = await EventCommentsModel.findAll({ where: { eventId: event.id } })
+                const commentsWithUser = await Promise.all(comments.map(async comment => {
+                    const user = await UserModel.findOne({ where: { id: comment.userId } })
+                    return {
+                        ...comment.dataValues,
+                        user: {
+                            name: user.name,
+                            surname: user.surname,
+                            username: user.username,
+                            profilePicture: user.profilePicture
+                        }
+                    }
+                }))
                 return {
                     ...event.dataValues,
                     locationName: location.description,
@@ -194,10 +207,11 @@ export const getEventsByUserIdAndCategoryId = async (req, res) => {
                         username: user.username,
                         profilePicture: user.profilePicture
                     },
-                    like: eventLike ? true : false
+                    like: eventLike ? true : false,
+                    comments: commentsWithUser
                 };
             }));
-            return res.status(200).json({ message: 'Events found', eventsWithLocationAndCategory })
+            return res.status(200).json( eventsWithLocationAndCategory )
         }
         const events = await EventModel.findAll({ where: { categoryId: categoryId } })
         const eventsWithLocationAndCategory = await Promise.all(events.map(async event => {
@@ -206,7 +220,19 @@ export const getEventsByUserIdAndCategoryId = async (req, res) => {
             const eventHost = await EventHostModel.findOne({ where: { eventId: event.id } })
             const user = await UserModel.findOne({ where: { id: eventHost.userId } })
             const eventLike = await EventLikesModel.findOne({ where: { userId: userId, eventId: event.id } })
-            console.log('*****************************' + userId + event.id)
+            const comments = await EventCommentsModel.findAll({ where: { eventId: event.id } })
+            const commentsWithUser = await Promise.all(comments.map(async comment => {
+                const user = await UserModel.findOne({ where: { id: comment.userId } })
+                return {
+                    ...comment.dataValues,
+                    user: {
+                        name: user.name,
+                        surname: user.surname,
+                        username: user.username,
+                        profilePicture: user.profilePicture
+                    }
+                }
+            }))
             return {
                 ...event.dataValues,
                 locationName: location.description,
@@ -217,15 +243,98 @@ export const getEventsByUserIdAndCategoryId = async (req, res) => {
                     username: user.username,
                     profilePicture: user.profilePicture
                 },
-                like : eventLike ? true : false
+                like: eventLike ? true : false,
+                comments: commentsWithUser
             };
         }));
-        return res.status(200).json({ message: 'Events found', eventsWithLocationAndCategory })
+        return res.status(200).json( eventsWithLocationAndCategory )
     } catch (error) {
-        console.log('************************' + error)
+        console.log('------------------------------------------' + error)
         return res.status(500).json({ message: 'Something went wrong', error })
     }
 }
+
+// GET - Get all events and order by number of likes, and replace the location id and category id with the location name and category name, and return the events, for that need verify in the event like table how many likes the event has, and return the number of likes and order by number of likes, get max of 12 events dont return this into another array return all info in the same array
+export const getEventsOrderByLikes = async (req, res) => {
+    try {
+        const events = await EventModel.findAll()
+        const eventsWithLocationAndCategory = await Promise.all(events.map(async event => {
+            const location = await LocationModel.findOne({ where: { id: event.locationId } });
+            const category = await CategoryModel.findOne({ where: { id: event.categoryId } });
+            const eventHost = await EventHostModel.findOne({ where: { eventId: event.id } })
+            const user = await UserModel.findOne({ where: { id: eventHost.userId } })
+            const eventLikes = await EventLikesModel.findAll({ where: { eventId: event.id } })
+            return {
+                ...event.dataValues,
+                locationName: location.description,
+                categoryName: category.description,
+                user: {
+                    name: user.name,
+                    surname: user.surname,
+                    username: user.username,
+                    profilePicture: user.profilePicture
+                },
+                likes: eventLikes.length
+            };
+        }));
+        const eventsWithLocationAndCategoryAndLikes = eventsWithLocationAndCategory.sort((a, b) => b.likes - a.likes)
+        const eventsLikes = eventsWithLocationAndCategoryAndLikes.slice(0, 12)
+        return res.status(200).json({ eventsLikes })
+    } catch (error) {
+        return res.status(500).json({ message: 'Something went wrong', error })
+    }
+}
+
+// POST - Create new comment in the event comment table by user id and event id, in the event comment table save the user id, event id, comment, dont accept empty comments and dont accept comments with more than 180 characters and dont accept comments with special characters and dont accept comments with html tags
+export const createEventComment = async (req, res) => {
+    try {
+        const userId = req.params.id
+        const eventId = req.params.eventId
+        const { comment } = req.body
+        if (comment === '') {
+            return res.status(400).json({ message: 'Comment is required' })
+        }
+        if (comment.length > 180) {
+            return res.status(400).json({ message: 'Comment is too long' })
+        }
+        if (comment.match(/<[^>]*>?/gm)) {
+            return res.status(400).json({ message: 'Comment is not valid' })
+        }
+        const eventComment = await EventCommentsModel.create({ userId, eventId, comment })
+        return res.status(200).json({ message: 'Comment created', eventComment })
+    } catch (error) {
+        return res.status(500).json({ message: 'Something went wrong', error })
+    }
+}
+
+// GET all comments by event id and user id, return all comments from event comment table, and return the name and surname and profilePicture of the user that made the comment, give all this info in the same array
+export const getEventComments = async (req, res) => {
+    try {
+        const eventId = req.params.eventId
+        const userId = req.params.id
+        const comments = await EventCommentsModel.findAll({ where: { eventId } })
+        const commentsWithUser = await Promise.all(comments.map(async comment => {
+            const user = await UserModel.findOne({ where: { id: comment.userId } })
+            return {
+                ...comment.dataValues,
+                user: {
+                    name: user.name,
+                    surname: user.surname,
+                    username: user.username,
+                    profilePicture: user.profilePicture
+                }
+            }
+        }))
+        return res.status(200).json({ commentsWithUser })
+    } catch (error) {
+        return res.status(500).json({ message: 'Something went wrong', error })
+    }
+}
+
+
+
+                                    
+
 //  Image Upload
 
 // Set up storage engine for multer

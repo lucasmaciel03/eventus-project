@@ -3,6 +3,10 @@ import { ToastController } from '@ionic/angular';
 import { LocalizationService } from './../services/localization/localization.service';
 import { Preferences } from '@capacitor/preferences';
 import { Component, OnInit } from '@angular/core';
+import { CrudService } from 'src/app/services/api/crud.service';
+import { EventResponse } from 'src/app/services/api/crud.service';
+import { EventOrder } from 'src/app/services/api/crud.service';
+
 
 @Component({
   selector: 'app-tab2',
@@ -25,18 +29,27 @@ export class Tab2Page implements OnInit {
     { name: 'Desporto', icon: 'football', selected: false },
   ];
 
+  
+
   constructor(
     private translateService: TranslateService,
     private toastController: ToastController,
-    private LocalizationService: LocalizationService
+    private LocalizationService: LocalizationService,
+    private crudService: CrudService,
+    
   ) {}
+
+  events: EventOrder[] = [];
+
 
   checkboxClicked(category: any) {
     category.selected = !category.selected;
     console.log('ola');
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getEventsOrderByLikes();
+  }
 
   async changeLanguage(language: string) {
     await Preferences.set({ key: 'user-lang', value: language });
@@ -50,5 +63,20 @@ export class Tab2Page implements OnInit {
       duration: 4000,
     });
     await toast.present();
+  }
+
+
+  getEventsOrderByLikes = async () => {
+    this.crudService.getEventsOrderByLikes('getEventsOrderByLikes', ).subscribe(
+      (data: EventResponse) => {
+        this.events = [];
+        this.events.push(...data.eventsLikes);
+        console.log('*********************************'+this.events);
+        this.events.forEach((event) => {
+          event.image = `http://localhost:4243/uploads/events/${event.image}`;
+        }
+        );
+      }
+    );
   }
 }

@@ -28,16 +28,19 @@ export class CardsComponent implements OnInit {
   ) {}
   user: any;
   events: any[] = [];
+  eventsComments: any[] = [];
   monthNames = ['JAN', 'FEV', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-  
+  // Create variable caegoryId for default value 1
+  categoryId: number = 1;
 
   async ngOnInit() {
-    this.getEvents();
     await this.getToken();
+    this.getEventsByUserIdAndCategoryId()
   }
 
   async presentToast(event:any) {
     this.favorite = !this.favorite;
+
     try {
       const response = await this.crudService.addLike('addLike', this.user._id, event.id, event);
       const result = await response.toPromise();
@@ -54,6 +57,7 @@ export class CardsComponent implements OnInit {
   async goForward(event:any) {
     this.navController.setDirection('forward');
     this.router.navigate(['/eventpage'], { queryParams: { event: JSON.stringify(event) } });
+    console.log('***************************' + event)
     console.log(event)
   }
 
@@ -78,6 +82,7 @@ export class CardsComponent implements OnInit {
     if (token.value !== null) {
       const user = jwt_decode(token.value);
       this.user = user;
+      console.log('******************************' + this.user._id);
     }
   };
 
@@ -100,7 +105,26 @@ export class CardsComponent implements OnInit {
     });
   }
 
+  getEventsByUserIdAndCategoryId(){
+    this.crudService.getEventsByUserIdAndCategoryId('getEventsByUserIdAndCategoryId', this.user._id, this.categoryId).subscribe((data) => {
+      this.events = data;
+      console.log(data)
+        this.events.forEach((event) => {
+          event.image = `http://localhost:4243/uploads/events/${event.image}`;
+          if(event.like == true){
+            this.favorite = true;
+          } else {
+            this.favorite = false;
+          }
+          event.profilePicture = `http://localhost:4243/uploads/users/${event.profilePicture}`;
+        });
+    }
+    
+    );
+  }
+
   getFormattedDate(date: string) {
+
     let dateObj = new Date(date);
     let day = dateObj.getDate();
     let monthIndex = dateObj.getMonth();

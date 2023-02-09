@@ -16,7 +16,8 @@ import {
     updateUser,
     updateUsername,
     getLikedEvents,
-    getEventsByUserId
+    getEventsByUserId,
+    updatePassword,
 } from "../controllers/user.js"
 
 const userRoutes = Router();
@@ -37,6 +38,8 @@ userRoutes.put("/updateProfilePicture/:id", upload, updateProfilePicture)
 
 userRoutes.put("/updateProfilePictureToDefault/:id", updateProfilePictureToDefault)
 
+userRoutes.put("/updatePassword/:id", updatePassword)
+
 // userRoutes.delete("/deleteUser/:id", deleteUser)
 
 userRoutes.put("/updateName/:id", updateName)
@@ -52,5 +55,6 @@ userRoutes.put("/updateUsername/:id", updateUsername)
 userRoutes.get("/getLikedEvents/:id", getLikedEvents)
 
 userRoutes.get("/getEventsByUserId/:id", getEventsByUserId)
+
 
 export { userRoutes }
