@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
 import { CrudService } from 'src/app/services/api/crud.service';
 import { EventResponse } from 'src/app/services/api/crud.service';
 import { EventOrder } from 'src/app/services/api/crud.service';
+import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 
 @Component({
@@ -36,6 +38,8 @@ export class Tab2Page implements OnInit {
     private toastController: ToastController,
     private LocalizationService: LocalizationService,
     private crudService: CrudService,
+    private router: Router,
+    private navController: NavController
     
   ) {}
 
@@ -49,6 +53,12 @@ export class Tab2Page implements OnInit {
 
   ngOnInit() {
     this.getEventsOrderByLikes();
+  }
+
+  async goForward(event:any) {
+    this.navController.setDirection('forward');
+    this.router.navigate(['/eventpage'], { queryParams: { event: JSON.stringify(event) } });
+    console.log(event)
   }
 
   async changeLanguage(language: string) {
