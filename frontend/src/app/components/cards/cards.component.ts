@@ -7,6 +7,11 @@ import { Component, OnInit } from '@angular/core';
 import { CrudService } from 'src/app/services/api/crud.service';
 import jwt_decode from 'jwt-decode';
 import { ActivatedRoute } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { CategoryIdService } from '../../../shared.module';
+
+
 
 
 @Component({
@@ -15,6 +20,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./cards.component.scss'],
 })
 export class CardsComponent implements OnInit {
+
   favorite: boolean = false;
   constructor(
     private toastCtrl: ToastController,
@@ -24,18 +30,26 @@ export class CardsComponent implements OnInit {
     private translateService: TranslateService,
     private LocalizationService: LocalizationService,
     private crudService: CrudService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private categoryIdService: CategoryIdService
+
   ) {}
   user: any;
   events: any[] = [];
   eventsComments: any[] = [];
   monthNames = ['JAN', 'FEV', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+
   // Create variable caegoryId for default value 1
   categoryId: number = 1;
 
   async ngOnInit() {
-    await this.getToken();
+    this.getEvents()
+
+    this.categoryIdService.categoryId$.subscribe(id => {
+    this.categoryId = id;
     this.getEventsByUserIdAndCategoryId()
+    });
+    await this.getToken();
   }
 
   async presentToast(event:any) {
@@ -106,6 +120,8 @@ export class CardsComponent implements OnInit {
   }
 
   getEventsByUserIdAndCategoryId(){
+
+
     this.crudService.getEventsByUserIdAndCategoryId('getEventsByUserIdAndCategoryId', this.user._id, this.categoryId).subscribe((data) => {
       this.events = data;
       console.log(data)
@@ -113,7 +129,8 @@ export class CardsComponent implements OnInit {
           event.image = `http://localhost:4243/uploads/events/${event.image}`;
           if(event.like == true){
             this.favorite = true;
-          } else {
+          }
+          else{
             this.favorite = false;
           }
           event.profilePicture = `http://localhost:4243/uploads/users/${event.profilePicture}`;

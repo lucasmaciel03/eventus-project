@@ -76,3 +76,19 @@ export const upload = multer({
     }
 }).single('image')
 
+// get category id, and send to frontend
+export const getCategory = async (req, res) => {
+    try {
+        const { id } = req.params
+        const category = await CategoryModel.findOne({ where: { id: id } })
+        if (category) {
+            res.status(200).send(category)
+        } else {
+            res.status(404).send({ message: 'Category not found' })
+        }
+    } catch (error) {
+        res.status(500).send({ message: 'Error getting category', error: error.message });
+    }
+}
+
+

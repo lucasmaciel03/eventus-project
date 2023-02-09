@@ -2,13 +2,14 @@
   <ion-row class="ion-text-center category">
     <ion-col>
       <ion-slides [options]="opts">
-        <ion-slide *ngFor="let category of categories" class="category" > 
-          <ion-avatar class="round">
+        <ion-slide *ngFor="let category of categories" class="category" (click)="getId(category.id)" > 
+          <ion-avatar class="round"  >
             <img
               src= {{category.image}}
             />
           </ion-avatar>
           <ion-text class="category-name">{{ category.description }}</ion-text>
+
         </ion-slide>
       </ion-slides>
     </ion-col>
