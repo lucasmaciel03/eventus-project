@@ -30,3 +30,4 @@ export class Tab3Page {
     await toast.present();
   }
 }
+

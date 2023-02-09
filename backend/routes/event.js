@@ -9,7 +9,8 @@ import {
     getEventsByUserIdAndCategoryId,
     getEventsOrderByLikes,
     createEventComment,
-    getEventComments
+    getEventComments,
+    deleteEvent
 } from "../controllers/event.js"
 
 const eventRoutes = Router()
@@ -31,5 +32,7 @@ eventRoutes.get("/getEventsOrderByLikes", getEventsOrderByLikes)
 eventRoutes.post("/createEventComment/:id/:eventId", createEventComment)
 
 eventRoutes.get("/getEventComments/:eventId", getEventComments)
+
+eventRoutes.delete("/deleteEvent/:id", deleteEvent)
 
 export { eventRoutes }

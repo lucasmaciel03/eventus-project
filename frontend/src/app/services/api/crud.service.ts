@@ -98,7 +98,6 @@ export class CrudService {
 
   constructor(private http: HttpClient) { }
 
-  // POST
 
   createAccount(controller: string, model: any) {
     return this.http.post(`${this.url}/api/user/${controller}`, model);
@@ -172,7 +171,15 @@ export class CrudService {
     return this.http.put(`${this.url}/api/user/${controller}/${id}`, model, { responseType: 'text' })
   }
 
-  // DELETE
+  //delete user by deleteUser controller
+  deleteUser(controller: string, id: number, body: any) {
+    return this.http.delete(`${this.url}/api/user/${controller}/${id}`, { params: body });
+  }
+
+  //delete event by deleteEvent controller
+  deleteEvent(controller: string, id: number) {
+    return this.http.delete(`${this.url}/api/event/${controller}/${id}`);
+  }
 
 
 }

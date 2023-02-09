@@ -11,7 +11,7 @@
 <ion-content [fullscreen]="true">
   <ion-grid>
     <ion-row>
-      <ion-col size="4" *ngFor="let event of events">
+      <ion-col size="4" *ngFor="let event of events" (click)="goForward(event)">
         <ion-thumbnail>
           <img src= {{event.image}} 
           style="
