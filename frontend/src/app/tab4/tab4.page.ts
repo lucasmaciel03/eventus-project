@@ -42,6 +42,7 @@ export class Tab4Page implements OnInit {
   eventsLiked: any[] = [];
   usernameInput: any;
   passwordInput: any;
+  emailInput: any;
 
   presentingElement: HTMLElement | undefined = undefined;
   constructor(
@@ -64,6 +65,31 @@ export class Tab4Page implements OnInit {
 
     this.presentingElement = document.getElementById('main-content')!;
   }
+  getToken = async () => {
+    const token = await Preferences.get({ key: 'token' });
+
+    if (token.value !== null) {
+      const user = jwt_decode(token.value);
+      this.user = user;
+      this.getUser();
+    }
+  };
+
+  async deleteUser() {
+    try {
+
+
+      const email = this.emailInput;
+      const password = this.passwordInput;
+      const result = await this.crudService.deleteUser("deleteUser", this.user._id, { email, password }).toPromise();
+      this.logout();
+      console.log(result);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+
 
   async goForward(event:any) {
     this.navController.setDirection('forward');
@@ -92,16 +118,6 @@ export class Tab4Page implements OnInit {
     if (token) {
       Preferences.remove({ key: 'token' });
       window.location.reload();
-    }
-  };
-
-  getToken = async () => {
-    const token = await Preferences.get({ key: 'token' });
-
-    if (token.value !== null) {
-      const user = jwt_decode(token.value);
-      this.user = user;
-      this.getUser();
     }
   };
 
@@ -377,7 +393,9 @@ export class Tab4Page implements OnInit {
 
     const { role } = await actionSheet.onWillDismiss();
 
-    return role === 'confirm';
+    if (role === 'confirm') {
+      this.deleteUser();
+    }
   };
 
   async closeAndDoSomething() {

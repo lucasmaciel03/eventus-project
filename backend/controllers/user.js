@@ -3,6 +3,7 @@ import { LocationModel } from '../models/location.js'
 import { EventHostModel } from '../models/event_host.js'
 import { EventModel } from '../models/event.js'
 import { EventLikesModel } from '../models/event_likes.js'
+import { EventCommentsModel } from '../models/event_comments.js'
 import { CategoryModel } from '../models/category.js'
 import pkg from 'validator'
 import multer from 'multer'
@@ -418,41 +419,55 @@ export const getEventsByUserId = async (req, res) => {
       }
 };
 
-// DELETE - Delete user by id, before delete user, user need insert correctly the username and password to confirm the delete action, if user is deleted, return a message to confirm the delete action else return a message to inform that the user was not deleted, verify if user have profile picture, if have, delete the profile picture from the server and from folder uploads/users 
+// DELETE - Delete user by id, to delete user, user need to insert correctly his email and password, if user is deleted, return a message to confirm the delete action else return a message to inform that the user was not deleted, if user is deleted, delete all events created by user and delete all events liked by user, if user has a profile, delete the image from the folder, if user has comments, delete all comments created by user
 export const deleteUser = async (req, res) => {
     try {
         const { id } = req.params
-        const { username, password } = req.body
+        console.log(id)
+        const { email, password } = req.body
         const userExist = await UserModel.findOne({ where: { id: id } })
         if (userExist) {
-            if (username === userExist.username) {
-                const passwordMatch = await bcrypt.compare(password, userExist.password)
-                if (passwordMatch) {
-                    const user = await UserModel.findOne({ where: { id: id } })
-                    if (user.image) {
-                        fs.unlink(`uploads/users/${user.profilePicture}`, (err) => {
-                            if (err) {
-                                console.error('******************************'+err)
-                                return
-                            }
-                        })
-                    }
-                    await UserModel.destroy({ where: { id: id } })
-                    res.status(200).send({ message: 'Usuário deletado com sucesso' })
-                } else {
-                    res.status(200).send({ message: 'Senha incorreta' })
+            const emailMatch = email === userExist.email
+            const passwordMatch = await bcrypt.compare(password, userExist.password)
+            if (emailMatch && passwordMatch) {
+                //delete all coments in the event
+                
+                await EventCommentsModel.destroy({ where: { userId: id } })
+                await EventHostModel.destroy({ where: { userId: id } })
+                await EventLikesModel.destroy({ where: { userId: id } })
+                await UserModel.destroy({ where: { id: id } })
+                if (userExist.profile) {
+                    const path = `./public/images/${userExist.profile}`
+                    fs.unlink(path, (err) => {
+                        if (err) {
+                            console.error(err)
+                            return
+                        }
+                    })
                 }
+                await CommentModel.destroy({ where: { userId: id } })
+                
+                res.status(200).send({ message: 'Usuário deletado com sucesso' })
             } else {
-                res.status(200).send({ message: 'Username incorreto' })
+                res.status(200).send({ message: 'Email ou senha incorretos' })
             }
         } else {
             res.status(404).send({ message: 'Usuário não encontrado' })
         }
     } catch (error) {
-        console.log('******************************'+error)
+        console.log('++++++++++++++++++++++++++++++'+error)
         res.status(500).send({ message: 'Erro ao deletar usuário' })
+        
     }
 }
+            
+
+
+
+
+                            
+                        
+
 
 // PUT - Update password by user id, before update password, user need insert correctly the current password, if password is updated, return a message to confirm the update action else return a message to inform that the password was not updated   
 export const updatePassword = async (req, res) => {

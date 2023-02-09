@@ -9,7 +9,7 @@ import {
     updateLocation,
     updateProfilePicture,
     updateProfilePictureToDefault,
-    // deleteUser,
+    deleteUser,
     updateName,
     updateSurname,
     updateEmail,
@@ -40,7 +40,7 @@ userRoutes.put("/updateProfilePictureToDefault/:id", updateProfilePictureToDefau
 
 userRoutes.put("/updatePassword/:id", updatePassword)
 
-// userRoutes.delete("/deleteUser/:id", deleteUser)
+userRoutes.delete("/deleteUser/:id", deleteUser)
 
 userRoutes.put("/updateName/:id", updateName)
 
