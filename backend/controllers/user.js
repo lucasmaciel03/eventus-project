@@ -418,41 +418,7 @@ export const getEventsByUserId = async (req, res) => {
       }
 };
 
-// DELETE - Delete user by id, before delete user, user need insert correctly the username and password to confirm the delete action, if user is deleted, return a message to confirm the delete action else return a message to inform that the user was not deleted, verify if user have profile picture, if have, delete the profile picture from the server and from folder uploads/users 
-export const deleteUser = async (req, res) => {
-    try {
-        const { id } = req.params
-        const { username, password } = req.body
-        const userExist = await UserModel.findOne({ where: { id: id } })
-        if (userExist) {
-            if (username === userExist.username) {
-                const passwordMatch = await bcrypt.compare(password, userExist.password)
-                if (passwordMatch) {
-                    const user = await UserModel.findOne({ where: { id: id } })
-                    if (user.image) {
-                        fs.unlink(`uploads/users/${user.profilePicture}`, (err) => {
-                            if (err) {
-                                console.error('******************************'+err)
-                                return
-                            }
-                        })
-                    }
-                    await UserModel.destroy({ where: { id: id } })
-                    res.status(200).send({ message: 'Usuário deletado com sucesso' })
-                } else {
-                    res.status(200).send({ message: 'Senha incorreta' })
-                }
-            } else {
-                res.status(200).send({ message: 'Username incorreto' })
-            }
-        } else {
-            res.status(404).send({ message: 'Usuário não encontrado' })
-        }
-    } catch (error) {
-        console.log('******************************'+error)
-        res.status(500).send({ message: 'Erro ao deletar usuário' })
-    }
-}
+// DELETE - Delete user by id, before delete user, user need insert correctly the username and password to confirm the delete action, if is all ok, before delete user, verify if user has events created in table event_host, if has, delete all events created by user, if user has events liked, delete all likes from events, 
 
 // PUT - Update password by user id, before update password, user need insert correctly the current password, if password is updated, return a message to confirm the update action else return a message to inform that the password was not updated   
 export const updatePassword = async (req, res) => {
