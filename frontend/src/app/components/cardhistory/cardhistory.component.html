@@ -36,7 +36,7 @@
       <ion-item-option color="warning"  id="open-modal">{{
         "edit" | translate
       }}</ion-item-option>
-      <ion-item-option color="danger">{{
+      <ion-item-option color="danger" (click)="canDelete(event.id)">{{
         "delete" | translate
       }}</ion-item-option>
     </ion-item-options>

@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 import { CrudService } from 'src/app/services/api/crud.service';
 import jwt_decode from 'jwt-decode';
 import { ActivatedRoute } from '@angular/router';
+import { ActionSheetController } from '@ionic/angular'; 
+
 
 @Component({
   selector: 'app-cardhistory',
@@ -23,7 +25,9 @@ export class CardhistoryComponent implements OnInit {
     private translateService: TranslateService,
     private LocalizationService: LocalizationService,
     private crudService: CrudService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private actionSheetCtrl: ActionSheetController,
+
   ) {
   }
   user: any;
@@ -80,4 +84,40 @@ export class CardhistoryComponent implements OnInit {
     let monthIndex = dateObj.getMonth();
     return `${day} ${this.monthNames[monthIndex]}`;
   }
+
+  canDelete = async (id:any) => {
+    const actionSheet = await this.actionSheetCtrl.create({
+      header: 'Are you sure?',
+      buttons: [
+        {
+          text: 'Yes',
+          role: 'confirm',
+        },
+        {
+          text: 'No',
+          role: 'cancel',
+        },
+      ],
+    });
+  
+    actionSheet.present();
+  
+    const { role } = await actionSheet.onWillDismiss();
+  
+    if (role === 'confirm') {
+      this.deleteEvent(id);
+   
+    }
+  };
+  //delete event
+  deleteEvent = async (id:any) => {
+   this.crudService.deleteEvent('deleteEvent',id).subscribe();
+   setTimeout(() => {
+    this.getEventsByUserId();
+   }, 1000);
+ 
+    
+  }
 }
+
+

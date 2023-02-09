@@ -363,3 +363,27 @@ export const upload = multer({
         cb('Give proper files formate to upload')
     }
 }).single('image')
+
+
+// delete event by id, delete the event from the event table, delete the event from the event host table, delete the event from the event likes table, delete the event from the event comment table, if event has image delete the image from the uploads/events folder
+export const deleteEvent = async (req, res) => {
+    try {
+        const id = req.params.id
+        const event = await EventModel.findOne({ where: { id: id } })
+        if (event.image) {
+            fs.unlink(`uploads/events/${event.image}`, (err) => {
+                if (err) {
+                    console.log(err)
+                }
+            })
+        }
+        
+        await EventHostModel.destroy({ where: { id: id } })
+        await EventLikesModel.destroy({ where: { id: id } })
+        await EventCommentsModel.destroy({ where: { id: id } })
+        await EventModel.destroy({ where: { id: id } })
+        return res.status(200).json({ message: 'Event deleted' })
+    } catch (error) {
+        return res.status(500).json({ message: 'Something went wrong', error })
+    }
+}
