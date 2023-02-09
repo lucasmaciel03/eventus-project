@@ -290,14 +290,14 @@
               >
             </ion-buttons>
             <ion-buttons slot="end">
-              <ion-button (click)="updateUser()"
+              <ion-button (click)="updatePassword()"
                 >{{"save" | translate}}</ion-button
               >
             </ion-buttons>
           </ion-toolbar>
         </ion-header>
         <ion-content>
-          <form (ngSubmit)="updateUser()" #form="ngForm">
+          <form (ngSubmit)="updatePassword()" #form="ngForm">
             <ion-grid class="ion-margin-top">
               <ion-row>
                 <ion-col size="12">
@@ -306,8 +306,8 @@
                     <ion-input
                       color="primary"
                       placeholder="Current Password"
-                      [(ngModel)]="nameInput"
-                      name="password"
+                      [(ngModel)]="passwordInput"
+                      name="currentPassword"
                     ></ion-input>
                   </ion-item>
                 </ion-col>
@@ -319,8 +319,8 @@
                     <ion-input
                       color="primary"
                       placeholder="New Password"
-                      [(ngModel)]="nameInput"
-                      name="password"
+                      [(ngModel)]="newPassword"
+                      name="newPassword"
                     ></ion-input>
                   </ion-item>
                 </ion-col>
@@ -335,7 +335,6 @@
       #modal5
       trigger="open-modal5"
       [presentingElement]="presentingElement"
-      [canDismiss]="canDelete"
     >
       <ng-template>
         <ion-header>
@@ -347,7 +346,7 @@
               >
             </ion-buttons>
             <ion-buttons slot="end">
-              <ion-button (click)="modal5.dismiss()" color="danger"
+              <ion-button (click)="canDelete()" color="danger"
                 >Delete</ion-button
               >
             </ion-buttons>
