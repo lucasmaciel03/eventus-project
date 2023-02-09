@@ -36,6 +36,12 @@ export class CardhistoryComponent implements OnInit {
     this.getEventsByUserId();
   }
 
+  async goForward(event:any) {
+    this.navController.setDirection('forward');
+    this.router.navigate(['/eventpage'], { queryParams: { event: JSON.stringify(event) } });
+    console.log(event)
+  }
+
   getToken = async () => {
     const token = await Preferences.get({ key: 'token' });
 
@@ -74,5 +80,4 @@ export class CardhistoryComponent implements OnInit {
     let monthIndex = dateObj.getMonth();
     return `${day} ${this.monthNames[monthIndex]}`;
   }
-
 }

@@ -64,6 +64,12 @@ export class Tab4Page implements OnInit {
     this.presentingElement = document.getElementById('main-content')!;
   }
 
+  async goForward(event:any) {
+    this.navController.setDirection('forward');
+    this.router.navigate(['/eventpage'], { queryParams: { event: JSON.stringify(event) } });
+    console.log(event)
+  }
+
   ionViewWillEnter() {
     this.username = this.user.username;
     this.name = this.user.name;

@@ -102,14 +102,14 @@
       </ion-grid>
     </ion-card>
 
-    <ion-card style="margin-top: 1rem">
+    <ion-card style="margin-top: 1rem" >
       <ion-card-header>
         <ion-card-title>{{"favorites" | translate}}</ion-card-title>
         <ion-card-subtitle>{{"eventsFav" | translate}}</ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
         <ion-list>
-          <ion-item *ngFor="let event of eventsLiked">
+          <ion-item *ngFor="let event of eventsLiked" (click)="goForward(event)">
             <ion-thumbnail slot="start">
               <img
                 alt="Silhouette of mountains"

@@ -106,9 +106,9 @@ export class Tab1Page {
     let formData = new FormData();
     // I need save the file.filename for the this.imageInput variable but I don't know how to do it
     let file = this.imageInput;
-    console.log('------------------' + file)
+    console.log(this.imageInput)
     if (file) {
-      formData.append('image', file);
+      formData.append('image',this.imageInput);
       formData.append('title', this.titleInput);
       formData.append('description', this.descriptionInput);
       formData.append('locationName', this.locationInput);

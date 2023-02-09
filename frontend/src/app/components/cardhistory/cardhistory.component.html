@@ -22,7 +22,7 @@
               <p style="font-size: 0.85rem"> <ion-icon class="calendarsize" name="location-outline"></ion-icon>  &nbsp;{{event.locationName}}</p>
             </ion-label>
             <ion-button fill="outline" expand="block" style="margin-top: 30px"
-              >{{ "eventpage" | translate
+              (click)="goForward(event)">{{ "eventpage" | translate
               }}<ion-icon
                 style="font-size: 15px"
                 name="arrow-forward-outline"
@@ -33,7 +33,7 @@
       </ion-grid>
     </ion-item>
     <ion-item-options>
-      <ion-item-option color="warning">{{
+      <ion-item-option color="warning"  id="open-modal">{{
         "edit" | translate
       }}</ion-item-option>
       <ion-item-option color="danger">{{
@@ -41,4 +41,124 @@
       }}</ion-item-option>
     </ion-item-options>
   </ion-item-sliding>
+
+
 </ion-card>
+
+<ion-modal
+#modal
+trigger="open-modal"
+>
+<ng-template>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>{{"changeInformation" | translate}}</ion-title>
+      <ion-buttons slot="start">
+        <ion-button (click)="modal.dismiss()"
+          >{{"close" | translate}}</ion-button
+        >
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <ion-button (click)="modal.dismiss()"
+          >{{"save" | translate}}</ion-button
+        >
+      </ion-buttons>
+
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <form  #form="ngForm">
+      <ion-grid class="ion-margin-top">
+        <ion-row>
+          <ion-col size="12">
+            <ion-item>
+              <ion-label>{{"Titulo" | translate}}</ion-label>
+              <ion-input
+                color="primary"
+
+                name="name"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label>{{"Descrição" | translate}}</ion-label>
+              <ion-input
+                color="primary"
+
+                name="surname"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label>Email:</ion-label>
+              <ion-input
+                color="primary"
+
+                name="email"
+              ></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label class="mylabel"
+                >{{"Morada" | translate}}</ion-label
+              >
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label>{{"Data de Inicio" | translate}}</ion-label>
+              <ion-input
+                color="primary"
+                type="date"
+   
+                name="birthDate"
+              >
+              </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label>{{"Data de Encerramento" | translate}}</ion-label>
+              <ion-input
+                color="primary"
+                type="date"
+   
+                name="birthDate"
+              >
+              </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label>{{"Imagem" | translate}}</ion-label>
+              <ion-input
+                color="primary"
+                type="file"
+   
+                name="birthDate"
+              >
+              </ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </form>
+  </ion-content>
+</ng-template>
+</ion-modal>
+
