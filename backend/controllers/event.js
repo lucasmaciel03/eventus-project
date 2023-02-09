@@ -317,23 +317,24 @@ export const getEventComments = async (req, res) => {
             const user = await UserModel.findOne({ where: { id: comment.userId } })
             return {
                 ...comment.dataValues,
+                totalComments: comments.length,
                 user: {
                     name: user.name,
                     surname: user.surname,
                     username: user.username,
                     profilePicture: user.profilePicture
                 }
+            
             }
         }))
+        const totalComments = commentsWithUser.length
+        commentsWithUser.totalComments = totalComments
+        console.log('++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++' + commentsWithUser )
         return res.status(200).json({ commentsWithUser })
     } catch (error) {
         return res.status(500).json({ message: 'Something went wrong', error })
     }
-}
-
-
-
-                                    
+}                                   
 
 //  Image Upload
 
