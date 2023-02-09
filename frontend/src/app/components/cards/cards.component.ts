@@ -53,12 +53,11 @@ export class CardsComponent implements OnInit {
   }
 
   async presentToast(event:any) {
-    this.favorite = !this.favorite;
 
     try {
       const response = await this.crudService.addLike('addLike', this.user._id, event.id, event);
       const result = await response.toPromise();
-  
+      this.favorite = !this.favorite;
       console.log(result);
       /* display a success toast */
     } catch (error) {
