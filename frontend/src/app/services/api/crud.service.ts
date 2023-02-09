@@ -173,8 +173,8 @@ export class CrudService {
   }
 
   //delete user by deleteUser controller
-  deleteUser(controller: string, id: number, body: any) {
-    return this.http.delete(`${this.url}/api/user/${controller}/${id}`, { params: body });
+  deleteUser(controller: string, id: number, model: any) {
+    return this.http.put(`${this.url}/api/user/${controller}/${id}`, model, { responseType: 'text' })
   }
 
   //delete event by deleteEvent controller

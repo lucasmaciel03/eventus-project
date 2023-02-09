@@ -422,7 +422,7 @@ export const getEventsByUserId = async (req, res) => {
 // DELETE - Delete user by id, to delete user, user need to insert correctly his email and password, if user is deleted, return a message to confirm the delete action else return a message to inform that the user was not deleted, if user is deleted, delete all events created by user and delete all events liked by user, if user has a profile, delete the image from the folder, if user has comments, delete all comments created by user
 export const deleteUser = async (req, res) => {
     try {
-        const { id } = req.params
+        const { id } = req.params.id
         console.log(id)
         const { email, password } = req.body
         const userExist = await UserModel.findOne({ where: { id: id } })
@@ -445,7 +445,7 @@ export const deleteUser = async (req, res) => {
                         }
                     })
                 }
-                await CommentModel.destroy({ where: { userId: id } })
+                await EventCommentsModel.destroy({ where: { userId: id } })
                 
                 res.status(200).send({ message: 'Usuário deletado com sucesso' })
             } else {

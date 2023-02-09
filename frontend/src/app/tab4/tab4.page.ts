@@ -77,15 +77,17 @@ export class Tab4Page implements OnInit {
 
   async deleteUser() {
     try {
-
-
-      const email = this.emailInput;
-      const password = this.passwordInput;
-      const result = await this.crudService.deleteUser("deleteUser", this.user._id, { email, password }).toPromise();
+      const infos = {
+        email: this.emailInput,
+        password: this.passwordInput,
+      }
+      const result = await this.crudService.deleteUser("deleteUser", this.user._id, infos).toPromise();
       this.logout();
       console.log(result);
+      alert('User deleted successfully');
     } catch (error) {
       console.error(error);
+      alert('Error deleting user');
     }
   }
 
