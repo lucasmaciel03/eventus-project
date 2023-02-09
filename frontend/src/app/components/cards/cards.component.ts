@@ -53,12 +53,11 @@ export class CardsComponent implements OnInit {
   }
 
   async presentToast(event:any) {
-    this.favorite = !this.favorite;
 
     try {
       const response = await this.crudService.addLike('addLike', this.user._id, event.id, event);
       const result = await response.toPromise();
-  
+      this.favorite = !this.favorite;
       console.log(result);
       /* display a success toast */
     } catch (error) {
@@ -127,12 +126,6 @@ export class CardsComponent implements OnInit {
       console.log(data)
         this.events.forEach((event) => {
           event.image = `http://localhost:4243/uploads/events/${event.image}`;
-          if(event.like == true){
-            this.favorite = true;
-          }
-          else{
-            this.favorite = false;
-          }
           event.profilePicture = `http://localhost:4243/uploads/users/${event.profilePicture}`;
         });
     }

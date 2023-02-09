@@ -36,6 +36,7 @@ export class EventpagePage implements OnInit {
   profilePicture : any;
   commentInput : any;
   comments: CommentWithUser[] = [];
+  totalComments: number = 0;
 
   async ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -143,6 +144,8 @@ export class EventpagePage implements OnInit {
         this.comments = [];
         this.comments.push(...data.commentsWithUser);
         console.log('*********************************'+this.comments);
+        this.totalComments = this.comments.length;
+        console.log('+++++++++++++++++++++++++++++++++++++++'+this.totalComments)
         this.comments.forEach((comment) => {
           comment.user.profilePicture = `http://localhost:4243/uploads/users/${comment.user.profilePicture}`;
         }

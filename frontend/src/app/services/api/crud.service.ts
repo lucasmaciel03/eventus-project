@@ -49,6 +49,7 @@ export interface CommentWithUser {
   userId: number;
   eventId: number;
   comment: string;
+  totalComments: number;
   user: {
     name: string;
     surname: string;
