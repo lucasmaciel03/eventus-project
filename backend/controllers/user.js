@@ -454,6 +454,37 @@ export const deleteUser = async (req, res) => {
     }
 }
 
+// PUT - Update password by user id, before update password, user need insert correctly the current password, if password is updated, return a message to confirm the update action else return a message to inform that the password was not updated   
+export const updatePassword = async (req, res) => {
+    try {
+        const { id } = req.params
+        const { currentPassword, newPassword } = req.body
+        console.log('******************************' + currentPassword + ' ' + newPassword)
+        // if nothing is inserted in the password field, return a message to inform that the password was not updated
+        if (!currentPassword || !newPassword) {
+            res.status(400).send({ message: 'Senha não pode ser vazia' })
+        }
+        const userExist = await UserModel.findOne({ where: { id: id } })
+        if (userExist) {
+            const passwordMatch = await bcrypt.compare(currentPassword, userExist.password)
+            if (passwordMatch) {
+                const salt = await bcrypt.genSalt(10)
+                const hashPassword = await bcrypt.hash(newPassword, salt)
+                await UserModel.update({ password: hashPassword }, { where: { id: id } })
+                res.status(200).send({ message: 'Senha atualizada com sucesso' })
+            } else {
+                res.status(400).send({ message: 'Senha atual incorreta' })
+            }
+        } else {
+            res.status(404).send({ message: 'Usuário não encontrado' })
+        }
+    } catch (error) {
+        console.log('******************************'+error)
+        res.status(500).send({ message: 'Erro ao atualizar senha' })
+    }
+}
+
+
 //  Image Upload
 
 // Set up storage engine for multer
