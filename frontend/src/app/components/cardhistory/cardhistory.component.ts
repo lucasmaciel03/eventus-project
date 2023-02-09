@@ -8,6 +8,7 @@ import { CrudService } from 'src/app/services/api/crud.service';
 import jwt_decode from 'jwt-decode';
 import { ActivatedRoute } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular'; 
+import { ModalController } from '@ionic/angular';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class CardhistoryComponent implements OnInit {
     private crudService: CrudService,
     private route: ActivatedRoute,
     private actionSheetCtrl: ActionSheetController,
-
+    public modalController: ModalController
   ) {
   }
   user: any;
@@ -115,9 +116,17 @@ export class CardhistoryComponent implements OnInit {
    setTimeout(() => {
     this.getEventsByUserId();
    }, 1000);
- 
-    
   }
+
+  // event for open the modal 
+  async openModal() {
+    const modal = await this.modalController.create({
+      component: 'my-modal',
+      cssClass: 'my-custom-class'
+    });
+    return await modal.present();
+  }
+
 }
 
 

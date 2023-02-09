@@ -127,12 +127,6 @@ export class CardsComponent implements OnInit {
       console.log(data)
         this.events.forEach((event) => {
           event.image = `http://localhost:4243/uploads/events/${event.image}`;
-          if(event.like == true){
-            this.favorite = true;
-          }
-          else{
-            this.favorite = false;
-          }
           event.profilePicture = `http://localhost:4243/uploads/users/${event.profilePicture}`;
         });
     }
